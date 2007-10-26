@@ -1,0 +1,13 @@
+
+This is README file for transproc python script and other related scripts.
+The purpose of this script is to connect to IMAP email account, download
+email new messages and process them. Processing is done by dedicated scripts,
+where each script handles one transcript format. It is possible to specify
+mapping between the transcript processor and email attribute FROM. Based
+on FROM header, the email is distributed to appropriate processor.
+
+There is a configuration file for transproc, see example transproc.conf
+in repository. The configuration file is searched in /etc/fred directory
+by default. It is possible to specify its location on command line. It is
+expected to be the first and only argument.
+

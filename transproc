@@ -25,6 +25,7 @@ class Processor(object):
 		self.name     = name
 		self.fromhead = None
 		self.script   = None
+		self.part     = 3
 
 
 def makeNonBlocking(fd):
@@ -144,6 +145,10 @@ def main():
 		nshost = config.get('general', 'nshost')
 	fm_cmd = config.get('general', 'fm_cmd')
 	procdir = config.get('general', 'procdir')
+	if not config.has_option('general', 'backend'):
+		error('Backend in configuration file must be set')
+		sys.exit(2)
+	backend = config.get('general', 'backend')
 	# iterate over other sections in config
 	processors = []
 	for section in config.sections():
@@ -161,6 +166,8 @@ def main():
 		if not os.path.isfile(proc.script):
 			error('processor script "%s" does not exist' % proc.script)
 			sys.exit(2)
+		if config.has_option(section, 'part'):
+			proc.part = config.getint(section, 'part')
 		processors.append(proc)
 	# end of configuration
 	# action begins now
@@ -185,13 +192,33 @@ def main():
 		debug('%d new messages from %s' % (len(messages), proc.name))
 		# process new messages by processor
 		for msgid in messages:
+			# separate attachment in which we are interested
+			fp = FeedParser()
+			fp.feed(messages[msgid])
+			mail = fp.close()
+			if proc.part > 1 and not mail.is_multipart():
+				debug('%s: skipping message %d, it is not multipart' %
+						(proc.name, msgid))
+				continue
+			# walk goes like this: whole message -> 1th part -> 2nd part
+			i = 1
+			for part in mail.walk():
+				if i == proc.part: break
+				i += 1
+			if i != proc.part:
+				debug('%s: skipping message %d, does not contain %d. part' %
+						(proc.name, msgid, proc.part))
+				sys.exit(2)
+			filename = part.get_filename()
+			mimetype = part.get_content_type()
+			octets = part.get_payload(decode = True)
 			debug('%s: processing message %s' % (proc.name, msgid))
 			# run the processor:
 			#    stdin:  raw email
 			#    stdout: result of processing (XML)
 			#    stderr: errors
 			try:
-				(status, output, err) = runCommand(proc.script, messages[msgid])
+				(status, outxml, err) = runCommand(proc.script, octets)
 			except Exception, e:
 				error('%s: execution of processor failed: %s' % (proc.name, e))
 				# restore the UNSEEN flag - something in script failed
@@ -217,9 +244,32 @@ def main():
 				error_seen = True
 				continue
 			debug('%s: message %s processed by processor' % (proc.name, msgid))
-			# process output XML
-			# ...
-			print output
+			# save the email via filemanager client
+			cmd = '%s --label="%s" --mime="%s" --type=4 --nameservice="%s"'\
+					% (fm_cmd, filename, mimetype, nshost)
+			(status, output, err) = runCommand(cmd, octets)
+			if status != 0:
+				error('Error when executing command: %s\n%s' % (cmd, err))
+				error_seen = True
+				continue
+			else:
+				debug(cmd)
+				debug('Filemanager\'s output:')
+				debug(output)
+			# process output XML and update database
+			print '(status, output, err) = runCommand(backend, outxml)'
+			print outxml
+			if status != 0:
+				error('Error when executing command: %s\n%s' % (backend, err))
+				# restore the UNSEEN flag - something in script failed
+				# we will reprocess the email nexttime
+				server.store(msgid, '-FLAGS', '\\Seen')
+				error_seen = True
+				continue
+			else:
+				debug(backend)
+				debug('Backend\'s output:')
+				debug(output)
 	server.close()
 	server.logout()
 	debug('Logged out')

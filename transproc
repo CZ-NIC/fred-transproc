@@ -250,6 +250,9 @@ def main():
 			(status, output, err) = runCommand(cmd, octets)
 			if status != 0:
 				error('Error when executing command: %s\n%s' % (cmd, err))
+				# restore the UNSEEN flag - something in script failed
+				# we will reprocess the email nexttime
+				server.store(msgid, '-FLAGS', '\\Seen')
 				error_seen = True
 				continue
 			else:

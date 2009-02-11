@@ -29,6 +29,7 @@ template_item = '''      <item>
         <var_symbol>%s</var_symbol>
         <spec_symbol>%s</spec_symbol>
         <price>%s</price>
+        <code>%s</code>
         <memo>%s</memo>
         <date>%s</date>
       </item>
@@ -90,7 +91,7 @@ if __name__ == '__main__':
 			item_const_symbol = lines[2][44:55].strip()
 			print template_item % (item_account_number, item_account_bank_code,
 					item_const_symbol, item_var_symbol, item_spec_symbol,
-					item_price, item_memo, var_date)
+					item_price, 2, item_memo, var_date)
 
 	print template_tail
 	sys.exit(0)

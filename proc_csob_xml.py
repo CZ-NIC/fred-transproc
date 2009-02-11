@@ -72,7 +72,7 @@ if __name__ == '__main__':
         const_symbol = item.findtext("S86_KONSTSYM", "")
         var_symbol = item.findtext("S86_VARSYMOUR", "")
         spec_symbol = item.findtext("S86_SPECSYMOUR", "")
-        price = item.findtext("S61_CASTKA").replace("+", "")
+        price = item.findtext("S61_CASTKA").replace("+", "").replace(",", ".")
         memo = item.findtext("PART_ACC_ID")
         date = date_to_iso(item.findtext("DPROCD"))
         code = item.findtext("S61_CD_INDIK")

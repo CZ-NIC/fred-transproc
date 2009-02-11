@@ -1,3 +1,7 @@
+2009-02-11 Ales Dolezal
+	
+	* Parser for CSOB xml files.
+
 2007-11-07 Jan Kryl (version 1.0.0)
 
 	* Old get_transcripts.py script imported and renamed to transproc.

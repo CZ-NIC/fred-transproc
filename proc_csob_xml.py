@@ -24,6 +24,7 @@ template_tail = '''    </items>
 </statements>'''
 
 template_item = '''      <item>
+        <ident>%s</ident>
         <account_number>%s</account_number>
         <account_bank_code>%s</account_bank_code>
         <const_symbol>%s</const_symbol>
@@ -67,6 +68,7 @@ if __name__ == '__main__':
 
     finsta05 = finsta03.findall("FINSTA05")
     for item in finsta05:
+        ident = item.findtext("S28_POR_CISLO")
         account_number = item.findtext("PART_ACCNO", "")
         account_bank_code = item.findtext("PART_BANK_ID", "")
         const_symbol = item.findtext("S86_KONSTSYM", "")
@@ -85,8 +87,8 @@ if __name__ == '__main__':
         elif code == "CR":
             code = 4
 
-        print template_item % (account_number, account_bank_code, const_symbol,
-                var_symbol, spec_symbol, price, code, memo, date)
+        print template_item % (ident, account_number, account_bank_code,
+                const_symbol, var_symbol, spec_symbol, price, code, memo, date)
 
     print template_tail
 

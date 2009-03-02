@@ -42,7 +42,7 @@ if __name__ == '__main__':
         spec_symbol = ""
         price = row[4].strip().replace(',', '.').replace(' ', '')
         code = row[13].strip()
-        memo = row[12].strip()
+        memo = row[12].strip()[:64]
         date = datetime.strptime(row[5].strip(), "%d.%m.%Y %H:%M:%S")
         name = row[14].strip()
         print template_item % (ident, account_number, bank_code,  const_symbol,

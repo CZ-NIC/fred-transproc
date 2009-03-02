@@ -49,7 +49,7 @@ if __name__ == '__main__':
         name = item.findtext("PART_ACC_ID")
         date = datetime.strptime(item.findtext("DPROCD"), "%d.%m.%Y").date().isoformat()
         code = item.findtext("S61_CD_INDIK")
-        memo = item.findtext("PART_ID1_1")
+        memo = item.findtext("PART_ID1_1")[:64]
         if code == "D":
             code = "1"
         elif code == "C":

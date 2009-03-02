@@ -2,35 +2,9 @@
 #
 
 import sys
-
-template_head = '''<statements>
-  <statement>
-    <account_number>%s</account_number>
-    <number>%s</number>
-    <date>%s</date>
-    <balance>%s</balance>
-    <old_date>%s</old_date>
-    <oldBalance>%s</oldBalance>
-    <credit>%s</credit>
-    <debet>%s</debet>
-    <items>'''
-
-template_tail = '''    </items>
-  </statement>
-</statements>'''
-
-template_item = '''      <item>
-        <ident>%s</ident>
-        <account_number>%s</account_number>
-        <account_bank_code>%s</account_bank_code>
-        <const_symbol>%s</const_symbol>
-        <var_symbol>%s</var_symbol>
-        <spec_symbol>%s</spec_symbol>
-        <price>%s</price>
-        <code>%s</code>
-        <memo>%s</memo>
-        <date>%s</date>
-      </item>'''
+from template import template_head
+from template import template_tail
+from template import template_item
 
 def error(msg):
     sys.stderr.write('Invalid format: ' + msg + '\n')
@@ -82,17 +56,21 @@ if __name__ == '__main__':
                 error('Bad number of lines of transaction item')
             item_spec_symbol = lines[0][44:55].strip()
             item_number = lines[0][:5].strip()
+            item_memo = lines[0][11:33].strip()
             item_price = lines[0][55:76].strip().replace(' ','')
             item_time= lines[1][5:11].strip()
-            item_memo = lines[1][11:33].strip()
+            item_name = lines[1][11:33].strip()
+            item_currency = lines[1][34:36].strip()
             item_var_symbol = lines[1][44:55].strip()
+            item_code = "2"
             (item_account_number, item_account_bank_code) =\
                     lines[2][11:33].strip().split('/')
             item_const_symbol = lines[2][44:55].strip()
             print template_item % (item_number + '-' + var_number, 
                     item_account_number, item_account_bank_code,
                     item_const_symbol, item_var_symbol, item_spec_symbol,
-                    item_price, 2, item_memo, var_date + ' ' + item_time)
+                    item_price, item_code, item_memo, var_date + ' ' + item_time,
+                    item_name)
 
     print template_tail
     sys.exit(0)

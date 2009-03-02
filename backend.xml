@@ -15,6 +15,7 @@ transcript processors. Here are two items, in general there can be 0 .. n items.
     <items>
 
       <item>
+        <ident>%s</ident>
         <account_number>%s</account_number>
         <account_bank_code>%s</account_bank_code>
         <const_symbol>%s</const_symbol>
@@ -24,6 +25,7 @@ transcript processors. Here are two items, in general there can be 0 .. n items.
         <code>%s</code>
         <memo>%s</memo>
         <date>%s</date>
+        <name>%s</name>
       </item>
 
       <item>
@@ -37,6 +39,7 @@ transcript processors. Here are two items, in general there can be 0 .. n items.
         <code>%s</code>
         <memo>%s</memo>
         <date>%s</date>
+        <name>%s</name>
       </item>
 
     </items>

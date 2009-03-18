@@ -69,8 +69,8 @@ if __name__ == '__main__':
             print template_item % (item_number + '-' + var_number, 
                     item_account_number, item_account_bank_code,
                     item_const_symbol, item_var_symbol, item_spec_symbol,
-                    item_price, item_code, item_memo, var_date + ' ' + item_time,
-                    item_name)
+                    item_price, item_code, item_memo, var_date,
+                    var_date + ' ' + item_time, item_name)
 
     print template_tail
     sys.exit(0)

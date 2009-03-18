@@ -50,6 +50,7 @@ if __name__ == '__main__':
         date = datetime.strptime(item.findtext("DPROCD"), "%d.%m.%Y").date().isoformat()
         code = item.findtext("S61_CD_INDIK")
         memo = item.findtext("PART_ID1_1")[:64]
+        crtime = ''
         if code == "D":
             code = "1"
         elif code == "C":
@@ -61,7 +62,7 @@ if __name__ == '__main__':
 
         print template_item % (ident, account_number, account_bank_code,
                 const_symbol, var_symbol, spec_symbol, price, code, memo, date, 
-                name)
+                crtime, name)
 
     print template_tail
 

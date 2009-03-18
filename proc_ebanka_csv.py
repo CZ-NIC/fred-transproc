@@ -4,7 +4,8 @@
 import sys
 import csv
 from datetime import datetime
-import codecs
+# from datetime import date
+# import datetime
 
 from template import template_head
 from template import template_tail
@@ -43,9 +44,11 @@ if __name__ == '__main__':
         price = row[4].strip().replace(',', '.').replace(' ', '')
         code = row[13].strip()
         memo = row[12].strip()[:64]
-        date = datetime.strptime(row[5].strip(), "%d.%m.%Y %H:%M:%S")
+        date = datetime.strptime(row[0].strip(), "%d.%m.%Y")
+        crtime = datetime.strptime(row[5].strip(), "%d.%m.%Y %H:%M:%S")
         name = row[14].strip()
         print template_item % (ident, account_number, bank_code,  const_symbol,
-                var_symbol, spec_symbol, price, code, memo, date.isoformat(" "), name)
+                var_symbol, spec_symbol, price, code, memo, date.date().isoformat(),
+                crtime.isoformat(" "), name)
     print template_tail
 

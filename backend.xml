@@ -25,6 +25,7 @@ transcript processors. Here are two items, in general there can be 0 .. n items.
         <code>%s</code>
         <memo>%s</memo>
         <date>%s</date>
+        <crtime>%s</crtime>
         <name>%s</name>
       </item>
 
@@ -39,6 +40,7 @@ transcript processors. Here are two items, in general there can be 0 .. n items.
         <code>%s</code>
         <memo>%s</memo>
         <date>%s</date>
+        <crtime>%s</crtime>
         <name>%s</name>
       </item>
 

@@ -25,7 +25,7 @@ if __name__ == '__main__':
         error('Transcript has %d sections and should have 3' % len(sections))
     # header 1
     lines = [ line.strip() for line in sections[0].split('\n') ]
-    if lines[0] != 'eBanka':
+    if lines[0] != 'Raiffeisenbank a.s.':
         error('Transcript does not start with "eBanka" word')
     var_number = getfield(lines[1], 4)
     tmp_date = getfield(lines[2], 2).split('.')

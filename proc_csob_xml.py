@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # vim: set ts=4 sw=4:
 
-# according to http://www.csob.cz/bankcz/cz/Produktovy-katalog/Elektronicke-bankovnictvi/CSOB-BusinessBanking-24/Prirucky-a-navody-CSOB-BusinessBanking-24.htm
+# according to http://www.csob.cz/cz/Produktovy-katalog/Elektronicke-bankovnictvi/CSOB-BusinessBanking-24/Stranky/Prirucky-a-navody-CSOB-BusinessBanking-24.aspx
 
 import sys
 import xml.etree.ElementTree

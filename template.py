@@ -22,6 +22,7 @@ template_item = '''      <item>
         <var_symbol>%s</var_symbol>
         <spec_symbol>%s</spec_symbol>
         <price>%s</price>
+        <type>%s</type>
         <code>%s</code>
         <memo>%s</memo>
         <date>%s</date>

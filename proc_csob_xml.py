@@ -15,7 +15,7 @@ if __name__ == '__main__':
     top = xml.etree.ElementTree.ElementTree()
     top.parse(sys.stdin)
     finsta03 = top.find("FINSTA03")
-    account_number = finsta03.findtext("S25_CISLO_UCTU")
+    account_number_our = finsta03.findtext("S25_CISLO_UCTU")
     number = finsta03.findtext("S28_CISLO_VYPISU")
 
     old_date = datetime.strptime(finsta03.findtext("S60_DATUM"), "%d.%m.%Y").date().isoformat()
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     credit = credit
     debet = debet
 
-    print template_head % (account_number, number, date, balance, old_date,
+    print template_head % (account_number_our, number, date, balance, old_date,
             old_balance, credit, debet)
 
     finsta05 = finsta03.findall("FINSTA05")
@@ -51,6 +51,8 @@ if __name__ == '__main__':
         code = item.findtext("S61_CD_INDIK")
         memo = item.findtext("PART_ID1_1")[:64]
         crtime = ''
+
+        # code can be D - deposit, C - credit, DR - storno deposit and CR - storno credit
         if code == "D":
             code = "1"
         elif code == "C":
@@ -60,9 +62,28 @@ if __name__ == '__main__':
         elif code == "CR":
             code = "4"
 
+        # type can be:
+        #  * 1 - transfer from/to registrar
+        #  * 2 - transfer from/to bank
+        #  * 3 - transfer between our own bank accounts
+        #  * 4 - transfer related to academia
+        #  * 5 - other transfer
+        if name.startswith('CZ.NIC') and code == '1':
+            # deposit transfer and bank account name starts with ``CZ.NIC''
+            type = '3'
+        elif account_number_our == '188208275/0300':
+            # transfer is to our registrar account
+            type = '1'
+        elif account_number_our == '36153615/0300':
+            # transfer is to our academia account
+            type = '4'
+        else:
+            # otherwise it is some unknown transfer
+            type = '5'
+
         print template_item % (ident, account_number, account_bank_code,
-                const_symbol, var_symbol, spec_symbol, price, code, memo, date, 
-                crtime, name)
+                const_symbol, var_symbol, spec_symbol, price, type, code, memo,
+                date, crtime, name)
 
     print template_tail
 

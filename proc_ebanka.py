@@ -22,11 +22,13 @@ if __name__ == '__main__':
     input = input.replace('\r', '').strip() # delete \r characters
     sections = [ section.strip() for section in input.split('\n\n') if section ]
     if len(sections) != 3:
-        error('Transcript has %d sections and should have 3' % len(sections))
+        if len(sections) >= 4 and not sections[3].startswith('Detaily ZPS'):
+            error('Transcript has %d sections and should have 3' % len(sections))
+
     # header 1
     lines = [ line.strip() for line in sections[0].split('\n') ]
     if lines[0] != 'Raiffeisenbank a.s.':
-        error('Transcript does not start with "eBanka" word')
+        error('Transcript does not start with "Raiffeisenbank a.s." word')
     var_number = getfield(lines[1], 4)
     tmp_date = getfield(lines[2], 2).split('.')
     var_date = tmp_date[2] + '-' + tmp_date[1] + '-' + tmp_date[0]
@@ -51,25 +53,53 @@ if __name__ == '__main__':
     if len(subsections) > 2:
         transfers = [ transfer for transfer in subsections[4].split('-' * 86) if transfer ]
         for transfer in transfers:
-            lines = [ line for line in transfer.split('\n') if line ][:3]
-            if len(lines) != 3:
+            lines = [ line for line in transfer.split('\n') if line ]#[:3]
+            if not (len(lines) == 3 or len(lines) == 4 or len(lines) == 5):
                 error('Bad number of lines of transaction item')
             item_spec_symbol = lines[0][44:55].strip()
             item_number = lines[0][:5].strip()
-            item_memo = lines[0][11:33].strip()
             item_price = lines[0][55:76].strip().replace(' ','')
+            if item_price == '':
+                item_price = lines[0][79:86].strip().replace(' ', '')
             item_time= lines[1][5:11].strip()
             item_name = lines[1][11:33].strip()
             item_currency = lines[1][34:36].strip()
             item_var_symbol = lines[1][44:55].strip()
-            item_code = "2"
-            (item_account_number, item_account_bank_code) =\
-                    lines[2][11:33].strip().split('/')
             item_const_symbol = lines[2][44:55].strip()
-            print template_item % (item_number + '-' + var_number, 
+            if item_price.startswith('-'):
+                item_code = '1'
+            else:
+                item_code = '2'
+
+            # payments between us and bank (and vice versa) has constant symbol 598 or 898
+            if item_const_symbol == '598' or item_const_symbol == '898':
+                item_type = '2'
+            else:
+                # other transfers are from registrars
+                item_type = '1'
+
+            if lines[2].find('/') != -1:
+                (item_account_number, item_account_bank_code) = \
+                        lines[2][11:33].strip().split('/')
+            else:
+                item_account_number, item_account_bank_code = \
+                        var_account_id.split('/')
+
+            if len(lines) == 4:
+                item_memo = lines[3].strip()
+            elif len(lines) == 5:
+                # this is for foreign currency transfers
+                item_memo = lines[3].strip() + lines[4].strip()
+            else:
+                item_memo = lines[0][11:33].strip()
+
+            # there is a limit in the database (varchar(64))
+            item_memo = item_memo[:63]
+
+            print template_item % (var_number + '-' + item_number, 
                     item_account_number, item_account_bank_code,
                     item_const_symbol, item_var_symbol, item_spec_symbol,
-                    item_price, item_code, item_memo, var_date,
+                    item_price, item_type, item_code, item_memo, var_date,
                     var_date + ' ' + item_time, item_name)
 
     print template_tail

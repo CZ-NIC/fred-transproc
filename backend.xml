@@ -22,6 +22,7 @@ transcript processors. Here are two items, in general there can be 0 .. n items.
         <var_symbol>%s</var_symbol>
         <spec_symbol>%s</spec_symbol>
         <price>%s</price>
+        <type>%s</type>
         <code>%s</code>
         <memo>%s</memo>
         <date>%s</date>
@@ -37,6 +38,7 @@ transcript processors. Here are two items, in general there can be 0 .. n items.
         <var_symbol>%s</var_symbol>
         <spec_symbol>%s</spec_symbol>
         <price>%s</price>
+        <type>%s</type>
         <code>%s</code>
         <memo>%s</memo>
         <date>%s</date>

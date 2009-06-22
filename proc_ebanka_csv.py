@@ -4,8 +4,6 @@
 import sys
 import csv
 from datetime import datetime
-# from datetime import date
-# import datetime
 
 from template import template_head
 from template import template_tail
@@ -42,13 +40,20 @@ if __name__ == '__main__':
         var_symbol = row[10].strip()
         spec_symbol = ""
         price = row[4].strip().replace(',', '.').replace(' ', '')
+        currency = row[3]
+        if currency != 'CZK':
+            # transfers which are not in CZK are processed throught
+            # raiffeisen TXT reports
+            continue
         code = row[13].strip()
+        # all transfers in CSV file are from registrars
+        type = '1'
         memo = row[12].strip()[:64]
         date = datetime.strptime(row[0].strip(), "%d.%m.%Y")
         crtime = datetime.strptime(row[5].strip(), "%d.%m.%Y %H:%M:%S")
         name = row[14].strip()
         print template_item % (ident, account_number, bank_code,  const_symbol,
-                var_symbol, spec_symbol, price, code, memo, date.date().isoformat(),
-                crtime.isoformat(" "), name)
+                var_symbol, spec_symbol, price, type, code, memo,
+                date.date().isoformat(), crtime.isoformat(" "), name)
     print template_tail
 

@@ -27,11 +27,20 @@ if __name__ == '__main__':
 
     # header 1
     lines = [ line.strip() for line in sections[0].split('\n') ]
-    if lines[0] != 'Raiffeisenbank a.s.':
+    if not lines[0] in ('Raiffeisenbank a.s.', 'eBanka'):
         error('Transcript does not start with "Raiffeisenbank a.s." word')
     var_number = getfield(lines[1], 4)
-    tmp_date = getfield(lines[2], 2).split('.')
-    var_date = tmp_date[2] + '-' + tmp_date[1] + '-' + tmp_date[0]
+    if lines[2].find('/') != -1:
+        dates = getfield(lines[2], 3).split('/')
+        tmp_date_old = dates[0].split('.')
+        tmp_date_new = dates[1].split('.')
+        var_date_new = tmp_date_new[2] + '-' + tmp_date_new[1] + '-' + tmp_date_new[0]
+        var_date_old = tmp_date_old[2] + '-' + tmp_date_old[1] + '-' + tmp_date_old[0]
+    else:
+        tmp_date = getfield(lines[2], 2).split('.')
+        var_date_new = tmp_date[2] + '-' + tmp_date[1] + '-' + tmp_date[0]
+        var_date_old  = var_date_new
+    year = var_date_new.split('-')[0][2:]
     # header 2
     lines = [ line.strip() for line in sections[1].split('\n') ]
     var_account_id = getfield(lines[1], 3)
@@ -47,8 +56,8 @@ if __name__ == '__main__':
     var_debet      = getfield(lines[2], 3, '  ').replace(' ', '')
     var_balance    = getfield(lines[4], 2, '  ').replace(' ', '')
     # print what we have so far
-    print template_head % (var_account_id, var_number, var_date, var_balance,
-            var_date, var_oldBalance, var_credit, var_debet)
+    print template_head % (var_account_id, var_number, var_date_new, var_balance,
+            var_date_old, var_oldBalance, var_credit, var_debet)
     # body
     if len(subsections) > 2:
         transfers = [ transfer for transfer in subsections[4].split('-' * 86) if transfer ]
@@ -61,6 +70,8 @@ if __name__ == '__main__':
             item_price = lines[0][55:76].strip().replace(' ','')
             if item_price == '':
                 item_price = lines[0][79:86].strip().replace(' ', '')
+            item_date_tmp = lines[0][5:11].strip().strip('.').split('.')
+            item_date = '20' + year + '-' + item_date_tmp[1] + '-' + item_date_tmp[0]
             item_time= lines[1][5:11].strip()
             item_name = lines[1][11:33].strip()
             item_currency = lines[1][34:36].strip()
@@ -95,12 +106,14 @@ if __name__ == '__main__':
 
             # there is a limit in the database (varchar(64))
             item_memo = item_memo[:63]
+            item_ident = year + '-' + var_number + '-' + item_number + '-' + var_account_id
+            item_ident = item_ident[:19]
 
-            print template_item % (var_number + '-' + item_number, 
+            print template_item % (item_ident,
                     item_account_number, item_account_bank_code,
                     item_const_symbol, item_var_symbol, item_spec_symbol,
-                    item_price, item_type, item_code, item_memo, var_date,
-                    var_date + ' ' + item_time, item_name)
+                    item_price, item_type, item_code, item_memo, var_date_new,
+                    item_date + ' ' + item_time, item_name)
 
     print template_tail
     sys.exit(0)

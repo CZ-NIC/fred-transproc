@@ -112,7 +112,7 @@ if __name__ == '__main__':
             print template_item % (item_ident,
                     item_account_number, item_account_bank_code,
                     item_const_symbol, item_var_symbol, item_spec_symbol,
-                    item_price, item_type, item_code, item_memo, var_date_new,
+                    item_price, item_type, item_code, item_memo, item_date,
                     item_date + ' ' + item_time, item_name)
 
     print template_tail

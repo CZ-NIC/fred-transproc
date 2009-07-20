@@ -23,6 +23,7 @@ if __name__ == '__main__':
     old_balance_sign = finsta03.findtext("S60_CD_INDIK").replace("C", "").replace("D", "-")
 
     date = datetime.strptime(finsta03.findtext("S62_DATUM"), "%d.%m.%Y").date().isoformat()
+    year = date[2:4]
     balance = finsta03.findtext("S62_CASTKA").replace(",", ".")
     balance_sign = finsta03.findtext("S62_CD_INDIK").replace("C", "").replace("D", "-")
 
@@ -39,7 +40,7 @@ if __name__ == '__main__':
 
     finsta05 = finsta03.findall("FINSTA05")
     for item in finsta05:
-        ident = item.findtext("S28_POR_CISLO")
+        ident = year + '-' + item.findtext("S28_POR_CISLO")
         account_number = item.findtext("PART_ACCNO", "")
         account_bank_code = item.findtext("PART_BANK_ID", "")
         const_symbol = item.findtext("S86_KONSTSYM", "")

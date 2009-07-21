@@ -1,6 +1,22 @@
 #! /usr/bin/env python
 # vim: set ts=4 sw=4:
 
+# vyznamy jednotlivych sloupcu v csv souboru:
+# 0, 1 - datumy
+# 2, 4 - penezni castky
+# 3    - mena
+# 5    - timestamp (datum je shodne s datumem ze sloupce 0
+# 6    - cislo uctu z nejz prisla platba
+# 7    - kod banky z nejz prisla platba
+# 8    - cislo uctu na nejz prisla platba
+# 9    - kod bankdy na nejz prisla platba
+# 10   - variabilni symbol
+# 11   - konstantni symbol
+# 12   - poznamka
+# 13   - kod platby (1-zaporna, 2-kladna, 3-zruseni zaporny, 4-zruseni kladny)
+# 14   - jmeno uctu protistrany
+# 15   - identifikacni cislo
+
 import sys
 import csv
 from datetime import datetime

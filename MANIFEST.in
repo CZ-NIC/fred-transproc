@@ -1,0 +1,7 @@
+include backend.xml
+include example_csob.xml
+include example_ebanka.csv
+include example_raiffeisenbank.txt
+include ChangeLog
+include README
+

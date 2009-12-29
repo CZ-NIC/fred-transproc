@@ -7,6 +7,7 @@ import os, os.path, time, popen2, select, ConfigParser, fcntl
 from email.FeedParser import FeedParser
 
 verbose = False
+configfile = "/usr/etc/fred/transproc.conf"
 
 def usage():
 	print '%s [-c config] [-H imaphost] [-p imappassword] [-u imapuser] [-v]' % sys.argv[0]

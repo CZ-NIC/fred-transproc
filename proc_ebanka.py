@@ -2,9 +2,9 @@
 #
 
 import sys
-from template import template_head
-from template import template_tail
-from template import template_item
+from fred_transproc.template import template_head
+from fred_transproc.template import template_tail
+from fred_transproc.template import template_item
 
 def error(msg):
     sys.stderr.write('Invalid format: ' + msg + '\n')

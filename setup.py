@@ -45,12 +45,41 @@ if setup is None:
         raise SystemExit, 'You required fred-distutils package or define path '\
         'with option --fred-distutils-dir=PATH'
 
+from freddist.command.install import install
+from freddist import file_util
 
 PACKAGE_VERSION = '1.0.0'
 PROJECT_NAME = 'fred-transproc'
 PACKAGE_NAME = 'fred_transproc'
 
-
+class TransprocInstall(install):
+    user_options = []
+    user_options.extend(install.user_options)
+    user_options.extend([
+        ('backendcmd=', None, 'Command for backend CLI admin tool.'),
+        ('procdir=', None, 'Directory containing scripts for parsing bank statements.'),
+    ])
+    def initialize_options(self):
+        install.initialize_options(self)
+        self.backendcmd = ''
+        self.procdir = ''
+        
+    def update_config(self, src, dest):
+        'Update config path variable.'
+        # filepath always with root (if is defined)
+        body = open(src).read()
+        if self.backendcmd:
+            body = re.sub("backendcmd\s*=\s*(.*)", 
+                          "backendcmd=%s" % self.backendcmd, body)
+        if self.procdir:
+            procdir = self.procdir
+        else:
+            procdir = self.getDir('BINDIR')
+        body = re.sub("procdir\s*=\s*(.*)", 
+                      "procdir=%s" % procdir, body)
+        open(dest, 'w').write(body)
+    
+        
 def main():
     "Run freddist setup"
     setup(
@@ -66,14 +95,22 @@ def main():
         long_description = 'Component of FRED (Fast Registry for Enum and '
                            'Domains)',
     
-        scripts = ['transproc'], 
+        #scripts = ['transproc'], 
         packages = [PACKAGE_NAME], 
-        package_dir = {PACKAGE_NAME: '.'}, 
+        
         data_files = (
             ('APPCONFDIR', ['transproc.conf']), 
-            ('DOCDIR', ['backend.xml', 'example_csob.xml', 'example_ebanka.csv',
-                         'example_raiffeisenbank.txt', 'ChangeLog', 'README']),
-        )
+            ('DOCDIR', ['backend.xml', 'ChangeLog', 'README']),
+            ('BINDIR', ['transproc', 'proc_csob_xml.py', 'proc_ebanka_csv.py', 'proc_ebanka.py']),
+        ),
+        
+        modify_files = {
+            'install_data': (('install.update_config', ['transproc.conf']), ),
+        },
+        
+        cmdclass = {
+            'install': TransprocInstall, 
+        },
     )
 
 if __name__ == '__main__':

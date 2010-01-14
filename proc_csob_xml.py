@@ -7,9 +7,9 @@ import sys
 import xml.etree.ElementTree
 from datetime import datetime
 
-from template import template_head
-from template import template_tail
-from template import template_item
+from fred_transproc.template import template_head
+from fred_transproc.template import template_tail
+from fred_transproc.template import template_item
 
 if __name__ == '__main__':
     top = xml.etree.ElementTree.ElementTree()
@@ -35,8 +35,8 @@ if __name__ == '__main__':
     credit = credit
     debet = debet
 
-    print template_head % (account_number_our, number, date, balance, old_date,
-            old_balance, credit, debet)
+    print unicode(template_head % (account_number_our, number, date, balance, old_date,
+            old_balance, credit, debet)).encode('utf8')
 
     finsta05 = finsta03.findall("FINSTA05")
     for item in finsta05:
@@ -81,11 +81,11 @@ if __name__ == '__main__':
         else:
             # otherwise it is some unknown transfer
             type = '5'
-
-        print template_item % (ident, account_number, account_bank_code,
+        
+        print unicode(template_item % (ident, account_number, account_bank_code,
                 const_symbol, var_symbol, spec_symbol, price, type, code, memo,
-                date, crtime, name)
+                date, crtime, name)).encode('utf8')
 
-    print template_tail
+    print unicode(template_tail).encode('utf8')
 
 

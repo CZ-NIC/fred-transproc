@@ -2,285 +2,439 @@
 #
 # vim: set ts=4 sw=4:
 
-import sys, getopt, imaplib, commands, tempfile
+import sys, getopt, imaplib, tempfile, signal
+import urllib2
+import traceback
 import os, os.path, time, popen2, select, ConfigParser, fcntl
 from email.FeedParser import FeedParser
 
-verbose = False
+verbose = True
+config = None
 configfile = "/usr/etc/fred/transproc.conf"
 
 def usage():
-	print '%s [-c config] [-H imaphost] [-p imappassword] [-u imapuser] [-v]' % sys.argv[0]
+    print '%s [-c config] [-H imaphost] [-p imappassword] [-u imapuser] [-v]' % sys.argv[0]
 
 def debug(msg):
-	global verbose
-	if verbose:
-		sys.stderr.write(msg + '\n')
+    global verbose
+    if verbose:
+        sys.stderr.write(msg + '\n')
 
 def error(msg):
-	sys.stderr.write(msg + '\n')
+    sys.stderr.write(msg + '\n')
 
 class Processor(object):
-	'''Class representing a processor of transcript.'''
-	def __init__(self, name):
-		self.name     = name
-		self.fromhead = None
-		self.script   = None
-		self.part     = 3
+    '''Class representing a processor of transcript.'''
+    def __init__(self, name):
+        self.name = name
+        self.type = None
+        self.data_type = None
+        self.input_encoding = 'utf8'
+        self.fromhead = None
+        self.script = None
+        self.error_seen = False
+        
+    def init_source(self):
+        pass
+        
+    def finalize_source(self):
+        pass
+    
+    def get_statements(self):
+        pass
+        
+    def process_statement_file(self, statement_file):
+        self.error_seen = False
 
+        #debug('[%s]: processing message %s' % (self.name, msgid))
+        # run the processor:
+        #    stdin:  raw email
+        #    stdout: result of processing (XML)
+        #    stderr: errors
+        try:
+            (status, outxml, err) = runCommand(self.script, statement_file['octets'])
+        except Exception, e:
+            error('[%s]: execution of processor failed: %s' % (self.name, e))
+            error(traceback.format_exc())
+            self.error_on_processing(statement_file)
+            self.error_seen = True
+            return
+        if status == 2:
+            # don't restore the UNSEEN flag - we want to avoid repetitive
+            # processing nexttime
+            error('[%s]: message %d rejected: %s' % (self.name, statement_file['msgid'], err))
+        elif status != 0:
+            if status != 1:
+                error('[%s]: unknown return code (%d): %s' %
+                        (self.name, status, err))
+            else:
+                error('[%s]: processing of data failed: %s' %
+                        (self.name, err))
+            # restore the UNSEEN flag - something in script failed
+            # we will reprocess the email nexttime
+            self.error_on_processing(statement_file)
+            self.error_seen = True
+        else:
+            debug('[%s]: message processed by processor' % (self.name))
+            statement_file['outxml'] = outxml
+    
+    def save_statement_file(self, statement_file):
+        # save the email via filemanager client
+        cmd = '%s --label="%s" --mime="%s" --type=4 --nameservice="%s"'\
+                % (config.get('general', 'fm_cmd'), statement_file['filename'], 
+                   statement_file['mimetype'], config.get('general', 'nshost'))
+        (status, output, err) = runCommand(cmd, statement_file['octets'])
+        if status != 0:
+            error('[%s]: Error when executing command: %s\n%s' % (self.name, cmd, err))
+            # restore the UNSEEN flag - something in script failed
+            # we will reprocess the email nexttime
+            self.error_on_processing(statement_file)
+            self.error_seen = True
+        else:
+            pass
+#            debug('[%s]:' % self.name + cmd)
+#            debug('[%s]: Filemanager\'s output:' % self.name)
+#            debug(output)
+    
+    def upload_xml(self, statement_file):
+        # update database
+        outxml = statement_file.get('outxml')
+        if outxml is None:
+            error('[%s]: Statement file have no outxml, you must first procoss it!' % self.name)
+            return
+        
+        cmd = '%s --bank_import_xml' % (config.get('general', 'backendcmd'))
+        if self.input_encoding != 'utf8':
+            outxml = outxml.decode(self.input_encoding).encode('utf8')
+        (status, output, err) = runCommand(cmd, outxml, read_iterations=30) # this needs higher read_iterations as it does a lot of ouput to stdout
+        if status != 0:
+            error('[%s]: Error when executing command: %s\n%s' % (self.name, cmd, err))
+            # restore the UNSEEN flag - something in script failed
+            # we will reprocess the email nexttime
+            self.error_on_processing(statement_file)
+            self.error_seen = True
+        else:
+            #debug('[%s]: Backend\'s output:' % self.name)
+            #debug(output)
+            if err:
+                error('[%s]: Error from backend:\n' % self.name)
+                error(err)
+            else:
+                debug('[%s]: Output XML sent to backend by processor' % (self.name))
+        
+        
+    def error_on_processing(self, statement_file):
+        pass        
+            
+class IMAPProcessor(Processor):
+    def __init__(self, name):
+        super(IMAPProcessor, self).__init__(name)
+        self.type = 'imap'
+        self.imaphost = None
+        self.imapuser = None
+        self.imappass = None
+        self.part = 3
+        
+        self.subject_filter = ''
+        
+        self.server = None
+        
+    def init_source(self):
+        self.server = imaplib.IMAP4(self.imaphost)
+        debug('[%s]: Connected to IMAP %s' % (self.name, self.imaphost))
+        self.server.login(self.imapuser, self.imappass)
+        debug('[%s]: IMAP logged in as %s' % (self.name, self.imapuser))
+        self.server.select()
+        
+    def finalize_source(self):
+        self.server.close()
+        self.server.logout()
+        debug('[%s]: IMAP logged out' % self.name)
+    
+    def get_statements(self):
+        # get unseen messages from a bank
+        filters = ['(UNSEEN)', '(FROM %s)' % self.fromhead]
+        if self.subject_filter:
+            filters.append('(SUBJECT "%s")' % self.subject_filter)
+        query = '(%s)' % ' '.join(filters)        
+        
+        
+        r, data = self.server.search(None, query)
+        msgids = data[0].split(' ')
+        if not msgids[0]:
+            debug('[%s]: No new messages in mailbox' % self.name)
+            return []
+        # fetch new messages
+        messages = {}
+        for msgid in msgids:
+            (r, data) = self.server.fetch(msgid, '(RFC822)')
+            messages[msgid] = data[0][1]
+        debug('[%s]: %d new messages' % (self.name, len(messages)))
+        # process new messages by processor
+        statement_files = []
+        for msgid in messages:
+            # separate attachment in which we are interested
+            fp = FeedParser()
+            fp.feed(messages[msgid])
+            mail = fp.close()
+            if self.part > 1 and not mail.is_multipart():
+                debug('[%s]: skipping message %d, it is not multipart' %
+                        (self.name, msgid))
+                continue
+            # walk goes like this: whole message -> 1th part -> 2nd part
+            i = 1
+            for part in mail.walk():
+                if i == self.part: break
+                i += 1
+            if i != self.part:
+                debug('[%s]: skipping message %d, does not contain %d. part' %
+                        (self.name, msgid, self.part))
+                continue
+            statement_file = {}
+            statement_file['msgid'] = msgid
+            statement_file['filename'] = part.get_filename()
+            statement_file['mimetype'] = part.get_content_type()
+            statement_file['octets'] = part.get_payload(decode = True)
+            statement_files.append(statement_file)
+        return statement_files
+    
+    def error_on_processing(self, statement_file):
+        super(IMAPProcessor, self).error_on_processing(statement_file)
+        # restore the UNSEEN flag - something in script failed
+        # we will reprocess the email nexttime
+        self.server.store(statement_file['msgid'], '-FLAGS', '\\Seen')
+
+
+class HTTPProcessor(Processor):
+    def __init__(self, name):
+        super(HTTPProcessor, self).__init__(name)
+        self.type = 'http'
+        self.input_file = None
+        self.url = None
+        
+    def init_source(self):
+        debug('[%s]: Openning HTTP source' % self.name)
+        opener = urllib2.build_opener()
+        page = opener.open(self.url)
+        if page.code == 200:
+            self.input_file = page.read()
+            debug('[%s]: HTTP source sucessfully obtained' % self.name)
+        else:
+            self.error_seen = True
+            error('[%s]: HTTP source returned code %s' % (self.name, page.code))
+            
+        
+    def get_statements(self):
+        statement_file = {}
+        statement_file['mimetype'] = 'text/csv'
+        statement_file['octets'] = self.input_file
+        return [statement_file]
 
 def makeNonBlocking(fd):
-	"""
-	Set non-blocking attribute on file.
-	"""
-	fl = fcntl.fcntl(fd, fcntl.F_GETFL)
-	try:
-		fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NDELAY)
-	except AttributeError:
-		fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.FNDELAY)
+    """
+    Set non-blocking attribute on file.
+    """
+    fl = fcntl.fcntl(fd, fcntl.F_GETFL)
+    try:
+        fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NDELAY)
+    except AttributeError:
+        fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.FNDELAY)
 
-def runCommand(cmd, stdin):
-	"""
-	Run command in non-blocking manner.
-	"""
-	# run the command
-	child = popen2.Popen3(cmd, True)
-	if (stdin):
-		child.tochild.write(stdin)
-	child.tochild.close()
-	outfile = child.fromchild 
-	outfd = outfile.fileno()
-	errfile = child.childerr
-	errfd = errfile.fileno()
-	makeNonBlocking(outfd)
-	makeNonBlocking(errfd)
-	outdata = errdata = ''
-	outeof = erreof = 0
-	for round in range(8):
-		# wait for input at most 1 second
-		ready = select.select([outfd,errfd], [], [], 1.0)
-		if outfd in ready[0]:
-			outchunk = outfile.read()
-			if outchunk == '':
-				outeof = 1
-			else:
-				outdata += outchunk
-		if errfd in ready[0]:
-			errchunk = errfile.read()
-			if errchunk == '':
-				erreof = 1
-			else:
-				errdata += errchunk
-		if outeof and erreof: break
-		time.sleep(0.3) # give a little time for buffers to fill
+def runCommand(cmd, stdin, read_iterations=8):
+    """
+    Run command in non-blocking manner.
+    read_iterations parametr is rather number of iteration in read stdout+err cycle.
+    """
+    # run the command
+    child = popen2.Popen3(cmd, True)
+    try:
+        if (stdin):
+            child.tochild.write(stdin)
+        child.tochild.close()
+    except IOError, e:
+        error('Writing/closing stdin of child process coused IOERRor number %d' % e.errno)
+        # try to read stdin & stderr
+        debug('stdout of child:')
+        debug(child.fromchild.read())
+        debug('stderr of child:')
+        debug(child.childerr.read())
+        raise
+        
+        
+    outfile = child.fromchild
+    outfd = outfile.fileno()
+    errfile = child.childerr
+    errfd = errfile.fileno()
+    makeNonBlocking(outfd)
+    makeNonBlocking(errfd)
+    outdata = errdata = ''
+    outeof = erreof = 0
+    for round in range(int(read_iterations)):
+        # wait for input at most 1 second
+        ready = select.select([outfd,errfd], [], [], 1.0)
+        if outfd in ready[0]:
+            outchunk = outfile.read()
+            if outchunk == '':
+                outeof = 1
+            else:
+                outdata += outchunk
+        if errfd in ready[0]:
+            errchunk = errfile.read()
+            if errchunk == '':
+                erreof = 1
+            else:
+                errdata += errchunk
+        if outeof and erreof: break
+        time.sleep(0.3) # give a little time for buffers to fill
+    
+    child.fromchild.close()
+    child.childerr.close()
 
-	child.fromchild.close()
-	child.childerr.close()
+    status = os.waitpid(child.pid, os.WNOHANG)
 
-	status = os.waitpid(child.pid, os.WNOHANG)
+    if status[0] == 0:
+        time.sleep(1)
+        error("Child doesn't want to exit, TERM signal sent.")
+        os.kill(child.pid, signal.SIGTERM)
+        time.sleep(1.2) # time to exit
+        status = os.waitpid(child.pid, os.WNOHANG)
 
-	if status[0] == 0:
-		time.sleep(1)
-		error("Child doesn't want to exit, TERM signal sent.")
-		os.kill(child.pid, signal.SIGTERM)
-		time.sleep(1.2) # time to exit
-		status = os.waitpid(child.pid, os.WNOHANG)
+        if status[0] == 0:
+            error("Child doesn't want to die, KILL signal sent.")
+            os.kill(child.pid, signal.SIGKILL)
+            time.sleep(1.2) # time to exit
+            status = os.waitpid(child.pid, os.WNOHANG)
 
-		if status[0] == 0:
-			error("Child doesn't want to die, KILL signal sent.")
-			os.kill(child.pid, signal.SIGKILL)
-			time.sleep(1.2) # time to exit
-			status = os.waitpid(child.pid, os.WNOHANG)
-
-	stat = 9 # by default assume error
-	if outeof and erreof and (status[0] == child.pid) and os.WIFEXITED(status[1]):
-		stat = os.WEXITSTATUS(status[1])
-	return stat, outdata, errdata
+    stat = 9 # by default assume error
+    if outeof and erreof and (status[0] == child.pid) and os.WIFEXITED(status[1]):
+        stat = os.WEXITSTATUS(status[1])
+    return stat, outdata, errdata
 
 
 def main():
-	global verbose
-	# parse command line options
-	try:
-		opts, args = getopt.getopt(sys.argv[1:], 'c:h:p:u:v', [])
-	except getopt.GetoptError:
-		usage()
-		sys.exit(2)
-	# default values
-	imaphost = None
-	imappass = None
-	imapuser = None
-	nshost   = None
-	# parameter values
-	for o,a in opts:
-		if o == '-c':
-			configfile = a
-		elif o == '-h':
-			imaphost = a
-		elif o == '-p':
-			imappass = a
-		elif o == '-u':
-			imapuser = a
-		elif o == '-v':
-			verbose = True
-		else:
-			usage()
-			sys.exit(2)
-	# read configuration file
-	config = ConfigParser.ConfigParser(
-			{'imaphost':'localhost',
-			 'imappass':'',
-			 'imapuser':'transcripts',
-			 'nshost':'localhost',
-			 'fm_cmd':'filemanager_client',
-			 'procdir':'/usr/libexec/transproc'})
-	config.read(configfile)
-	# set not zone specific configuration values
-	if not imaphost:
-		imaphost = config.get('general', 'imaphost')
-	if not imappass:
-		imappass = config.get('general', 'imappass')
-	if not imapuser:
-		imapuser = config.get('general', 'imapuser')
-	if not nshost:
-		nshost = config.get('general', 'nshost')
-	fm_cmd = config.get('general', 'fm_cmd')
-	procdir = config.get('general', 'procdir')
-	if not config.has_option('general', 'backend'):
-		error('Backend in configuration file must be set')
-		sys.exit(2)
-	backend = config.get('general', 'backend')
-	# iterate over other sections in config
-	processors = []
-	for section in config.sections():
-		if section == 'general':
-			continue
-		proc = Processor(section)
-		if not config.has_option(section, 'fromhead'):
-			error('fromhead directive must be set in %s section' % section)
-			sys.exit(2)
-		proc.fromhead = config.get(section, 'fromhead')
-		if not config.has_option(section, 'processor'):
-			error('processor directive must be set in %s section' % section)
-			sys.exit(2)
-		proc.script = os.path.join(procdir, config.get(section, 'processor'))
-		if not os.path.isfile(proc.script):
-			error('processor script "%s" does not exist' % proc.script)
-			sys.exit(2)
-		if config.has_option(section, 'part'):
-			proc.part = config.getint(section, 'part')
-		processors.append(proc)
-	# end of configuration
-	# action begins now
-	server = imaplib.IMAP4(imaphost)
-	debug('Connected to %s' % imaphost)
-	server.login(imapuser, imappass)
-	debug('Logged in as %s' % imapuser)
-	server.select()
-	error_seen = False
-	for proc in processors:
-		# get unseen messages from a bank
-		r, data = server.search(None, '((UNSEEN) (FROM %s))' % proc.fromhead)
-		msgids = data[0].split(' ')
-		if not msgids[0]:
-			debug('No new messages from %s in mailbox' % proc.name)
-			continue
-		# fetch new messages
-		messages = {}
-		for msgid in msgids:
-			(r, data) = server.fetch(msgid, '(RFC822)')
-			messages[msgid] = data[0][1]
-		debug('%d new messages from %s' % (len(messages), proc.name))
-		# process new messages by processor
-		for msgid in messages:
-			# separate attachment in which we are interested
-			fp = FeedParser()
-			fp.feed(messages[msgid])
-			mail = fp.close()
-			if proc.part > 1 and not mail.is_multipart():
-				debug('%s: skipping message %d, it is not multipart' %
-						(proc.name, msgid))
-				continue
-			# walk goes like this: whole message -> 1th part -> 2nd part
-			i = 1
-			for part in mail.walk():
-				if i == proc.part: break
-				i += 1
-			if i != proc.part:
-				debug('%s: skipping message %d, does not contain %d. part' %
-						(proc.name, msgid, proc.part))
-				sys.exit(2)
-			filename = part.get_filename()
-			mimetype = part.get_content_type()
-			octets = part.get_payload(decode = True)
-			debug('%s: processing message %s' % (proc.name, msgid))
-			# run the processor:
-			#    stdin:  raw email
-			#    stdout: result of processing (XML)
-			#    stderr: errors
-			try:
-				(status, outxml, err) = runCommand(proc.script, octets)
-			except Exception, e:
-				error('%s: execution of processor failed: %s' % (proc.name, e))
-				# restore the UNSEEN flag - something in script failed
-				# we will reprocess the email nexttime
-				server.store(msgid, '-FLAGS', '\\Seen')
-				error_seen = True
-				continue
-			if status == 2:
-				# don't restore the UNSEEN flag - we want to avoid repetitive
-				# processing nexttime
-				debug('%s: message %d rejected: %s' % (proc.name, msgid, err))
-				continue
-			elif status != 0:
-				if status != 1:
-					error('%s: unknown return code (%d): %s' %
-							(proc.name, status, err))
-				else:
-					error('%s: processing of message %s failed: %s' %
-							(proc.name, msgid, err))
-				# restore the UNSEEN flag - something in script failed
-				# we will reprocess the email nexttime
-				server.store(msgid, '-FLAGS', '\\Seen')
-				error_seen = True
-				continue
-			debug('%s: message %s processed by processor' % (proc.name, msgid))
-			# save the email via filemanager client
-			cmd = '%s --label="%s" --mime="%s" --type=4 --nameservice="%s"'\
-					% (fm_cmd, filename, mimetype, nshost)
-			(status, output, err) = runCommand(cmd, octets)
-			if status != 0:
-				error('Error when executing command: %s\n%s' % (cmd, err))
-				# restore the UNSEEN flag - something in script failed
-				# we will reprocess the email nexttime
-				server.store(msgid, '-FLAGS', '\\Seen')
-				error_seen = True
-				continue
-			else:
-				debug(cmd)
-				debug('Filemanager\'s output:')
-				debug(output)
-			# process output XML and update database
-			print '(status, output, err) = runCommand(backend, outxml)'
-			print outxml
-			if status != 0:
-				error('Error when executing command: %s\n%s' % (backend, err))
-				# restore the UNSEEN flag - something in script failed
-				# we will reprocess the email nexttime
-				server.store(msgid, '-FLAGS', '\\Seen')
-				error_seen = True
-				continue
-			else:
-				debug(backend)
-				debug('Backend\'s output:')
-				debug(output)
-	server.close()
-	server.logout()
-	debug('Logged out')
-	if error_seen:
-		sys.exit(1)
+    global verbose
+    global config
+    error_seen = False
+    # parse command line options
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 'c:v', [])
+    except getopt.GetoptError:
+        usage()
+        sys.exit(2)
+    # parameter values
+    for o,a in opts:
+        if o == '-c':
+            configfile = a
+        elif o == '-v':
+            verbose = True
+        else:
+            usage()
+            sys.exit(2)
+    # read configuration file
+    config = ConfigParser.ConfigParser(
+            {'procdir':'/usr/libexec/transproc'}
+              )
+    config.read(configfile)
+
+    if not config.has_option('general', 'backendcmd'):
+        error('Backend command in configuration file must be set')
+        sys.exit(2)
+    
+    # iterate over other sections in config
+    processors = []
+    for section in config.sections():
+        if section == 'general':
+            continue
+        
+        if config.has_option(section, 'type'):
+            if config.get(section, 'type') == 'imap':
+                proc = IMAPProcessor(section)
+            elif config.get(section, 'type') == 'http':
+                proc = HTTPProcessor(section)
+            else:
+                error('type directive must be set in %s section' % section)
+                sys.exit(2)
+        else:
+            error('type directive must be set in %s section' % section)
+            sys.exit(2)
+
+        if config.has_option(section, 'data_type'):
+            data_type = config.get(section, 'data_type')
+            if data_type not in ('statement', 'payments'):
+                error('data_type directive must "statement" or "payments" in section %s' % section)
+                sys.exit(2)
+            proc.data_type = config.get(section, 'data_type')
+        else:
+            error('data_type directive must be set in %s section' % section)
+            sys.exit(2)
+        
+        if not config.has_option(section, 'processor'):
+            error('processor directive must be set in %s section' % section)
+            sys.exit(2)
+        proc.script = os.path.join(config.get('general', 'procdir'), config.get(section, 'processor'))
+        if not os.path.isfile(proc.script):
+            error('processor script "%s" does not exist' % proc.script)
+            sys.exit(2)
+        if config.has_option(section, 'input_encoding'):
+            proc.input_encoding = config.get(section, 'input_encoding')
+        
+        if proc.type == 'imap':
+            if not config.has_option(section, 'imaphost'):
+                error('imaphost directive must be set in %s section' % section)
+                sys.exit(2)
+            proc.imaphost = config.get(section, 'imaphost')
+            if not config.has_option(section, 'imappass'):
+                error('imappass directive must be set in %s section' % section)
+                sys.exit(2)
+            proc.imappass = config.get(section, 'imappass')
+            if not config.has_option(section, 'imapuser'):
+                error('imapuser directive must be set in %s section' % section)
+                sys.exit(2)
+            proc.imapuser = config.get(section, 'imapuser')
+            if not config.has_option(section, 'fromhead'):
+                error('fromhead directive must be set in %s section' % section)
+                sys.exit(2)
+            proc.fromhead = config.get(section, 'fromhead')
+            if config.has_option(section, 'part'):
+                proc.part = config.getint(section, 'part')
+            if config.has_option(section, 'subject_filter'):
+                proc.subject_filter = config.get(section, 'subject_filter')
+        elif proc.type == 'http':
+            if not config.has_option(section, 'processor'):
+                error('processor directive must be set in %s section' % section)
+                sys.exit(2)
+            
+            if config.has_option(section, 'url'):
+                proc.url = config.get(section, 'url')
+            else:
+                error('url directive must be set in %s section' % section)
+                sys.exit(2)
+                
+        processors.append(proc) 
+    # end of configuration
+    # action begins now
+    for proc in processors:
+        proc.init_source()
+        if proc.error_seen:
+            continue
+        statement_files = proc.get_statements()
+        if proc.error_seen:
+            continue
+        for statement_file in statement_files:
+            proc.process_statement_file(statement_file)
+            #if not proc.error_seen and proc.data_type == 'statement':
+            #    proc.save_statement_file(statement_file)
+            if not proc.error_seen:
+                proc.upload_xml(statement_file)
+            if proc.error_seen:
+                error_seen = True
+                
+
+        proc.finalize_source()
+
+    if error_seen:
+        sys.exit(1)
 
 
 if __name__ == '__main__':
-	main()
-
+    main()

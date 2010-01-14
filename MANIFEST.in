@@ -1,7 +1,9 @@
 include backend.xml
-include example_csob.xml
-include example_ebanka.csv
-include example_raiffeisenbank.txt
 include ChangeLog
 include README
-
+include fred_transproc/*.py
+include transproc
+include proc_csob_xml.py
+include proc_ebanka.py
+include proc_ebanka_csv.py
+include transproc.conf

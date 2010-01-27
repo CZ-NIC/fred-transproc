@@ -92,7 +92,7 @@ class Processor(object):
             if self.input_encoding != 'utf8':
                 outxml = outxml.decode(self.input_encoding).encode('utf8')
             
-            
+            #open('/tmp/outxml-%s.xml' % self.name, 'w').write(outxml)
             (status, output, err) = runCommand(cmd, outxml, read_iterations=30) # this needs higher read_iterations as it does a lot of ouput to stdout @UnusedVariable
             if status != 0:
                 error('[%s]: Error when executing command: %s\n%s' % (self.name, cmd, err))
@@ -137,7 +137,7 @@ class IMAPProcessor(Processor):
         debug('[%s]: Connected to IMAP %s' % (self.name, self.imaphost))
         self.server.login(self.imapuser, self.imappass)
         debug('[%s]: IMAP logged in as %s' % (self.name, self.imapuser))
-        self.server.select()
+        self.server.select('Other Users/fred-banka')
         
     def finalize_source(self):
         self.server.close()

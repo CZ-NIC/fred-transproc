@@ -1,0 +1,2429 @@
+<statements>
+  <statement>
+    <account_number>617/5500</account_number>
+    <number></number>
+    <date></date>
+    <balance></balance>
+    <old_date></old_date>
+    <oldBalance></oldBalance>
+    <credit></credit>
+    <debet></debet>
+    <items>
+      <item>
+        <ident>427732887</ident>
+        <account_number>86-1172140207</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>9044.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CESKY SERVER.CZ S.R.O.        KREDIT .CZ DOMENY</memo>
+        <date>2009-10-26</date>
+        <crtime>2009-10-26 08:38:08</crtime>
+        <name>ÈESKÝ SERVER.CZ S.R.</name>
+      </item>
+      <item>
+        <ident>427952204</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-10-27</date>
+        <crtime>2009-10-27 02:16:13</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>430407127</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-11-04</date>
+        <crtime>2009-11-04 02:17:11</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>431085344</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-11-09</date>
+        <crtime>2009-11-09 02:03:28</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>432158611</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-11-13</date>
+        <crtime>2009-11-13 02:28:41</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>433570196</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-11-20</date>
+        <crtime>2009-11-20 02:36:30</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>434388144</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-11-25</date>
+        <crtime>2009-11-25 02:08:32</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>434393518</ident>
+        <account_number>132145762</account_number>
+        <account_bank_code>0300</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>81423</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>95000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>GANDI - kreditprevod mezi ucty</memo>
+        <date>2009-11-25</date>
+        <crtime>2009-11-25 02:13:28</crtime>
+        <name>CZ.NIC, Z.S.P.O.</name>
+      </item>
+      <item>
+        <ident>434604007</ident>
+        <account_number>220220670</account_number>
+        <account_bank_code>0300</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28362951</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>71400.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>zaloha REG-Marketer</memo>
+        <date>2009-11-26</date>
+        <crtime>2009-11-26 02:17:31</crtime>
+        <name>MARKETER, S.R.O.</name>
+      </item>
+      <item>
+        <ident>434604162</ident>
+        <account_number>475800423</account_number>
+        <account_bank_code>0300</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>25797387</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>29750.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>akredit platba zalohy pro CZ NIC</memo>
+        <date>2009-11-26</date>
+        <crtime>2009-11-26 02:16:50</crtime>
+        <name>AKREDIT, SPOL. S R.O</name>
+      </item>
+      <item>
+        <ident>431032912</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-01</date>
+        <crtime>2009-12-01 04:38:47</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>431032913</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-02</date>
+        <crtime>2009-12-02 02:52:57</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>431032914</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-03</date>
+        <crtime>2009-12-03 01:57:07</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>437092616</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-12-03</date>
+        <crtime>2009-12-03 02:18:41</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>437096494</ident>
+        <account_number>86-1172140207</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>3500.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CESKY SERVER.CZ S.R.O.        KREDIT .CZ DOMENY</memo>
+        <date>2009-12-03</date>
+        <crtime>2009-12-03 02:24:05</crtime>
+        <name>ÈESKÝ SERVER.CZ S.R.</name>
+      </item>
+      <item>
+        <ident>431032915</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-04</date>
+        <crtime>2009-12-04 01:55:24</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>437608950</ident>
+        <account_number>285564001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25855441</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>5000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-07</date>
+        <crtime>2009-12-07 09:29:10</crtime>
+        <name>WinSoft Company</name>
+      </item>
+      <item>
+        <ident>437609939</ident>
+        <account_number>582243001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>15000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - kredit</memo>
+        <date>2009-12-07</date>
+        <crtime>2009-12-07 09:36:34</crtime>
+        <name>MITON CZ, s.r.o.</name>
+      </item>
+      <item>
+        <ident>431032916</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-07</date>
+        <crtime>2009-12-07 01:45:05</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>437647667</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>15000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-07</date>
+        <crtime>2009-12-07 13:08:03</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>437639095</ident>
+        <account_number>2136562001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0558</const_symbol>
+        <var_symbol>25503651</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>14280.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-07</date>
+        <crtime>2009-12-07 11:50:07</crtime>
+        <name>ONE.CZ s.r.o.</name>
+      </item>
+      <item>
+        <ident>437615426</ident>
+        <account_number>34175028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25115804</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>400000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>ACTIVE 24 - zaloha na registraci .cz domen</memo>
+        <date>2009-12-07</date>
+        <crtime>2009-12-07 09:56:22</crtime>
+        <name>ACTIVE 24, s.r.o.</name>
+      </item>
+      <item>
+        <ident>437967140</ident>
+        <account_number>1784664028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26867257</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>40000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>NIC.CZ kredit,zaloha</memo>
+        <date>2009-12-08</date>
+        <crtime>2009-12-08 11:07:35</crtime>
+        <name>banan s.r.o.</name>
+      </item>
+      <item>
+        <ident>437958019</ident>
+        <account_number>97111179</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26096960</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>25000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit na domeny soudruha Dimitrova</memo>
+        <date>2009-12-08</date>
+        <crtime>2009-12-08 10:18:06</crtime>
+        <name>TELE3 s.r.o.</name>
+      </item>
+      <item>
+        <ident>437989666</ident>
+        <account_number>810883001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26460335</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>25000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-08</date>
+        <crtime>2009-12-08 13:55:57</crtime>
+        <name>KRAXNET s.r.o.</name>
+      </item>
+      <item>
+        <ident>431032917</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-08</date>
+        <crtime>2009-12-08 01:55:56</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>437969601</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-08</date>
+        <crtime>2009-12-08 11:21:16</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>437979951</ident>
+        <account_number>4017444001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>3392.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Cesky server.cz s.r.o.</memo>
+        <date>2009-12-08</date>
+        <crtime>2009-12-08 12:24:39</crtime>
+        <name>Èeský server.cz</name>
+      </item>
+      <item>
+        <ident>437932516</ident>
+        <account_number>92228001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>49437381</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-08</date>
+        <crtime>2009-12-08 07:26:04</crtime>
+        <name>Zoner software,s.r.o</name>
+      </item>
+      <item>
+        <ident>438247447</ident>
+        <account_number>1328036001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26027267</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>200000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Kredit General Registry</memo>
+        <date>2009-12-09</date>
+        <crtime>2009-12-09 12:40:05</crtime>
+        <name>GENERAL REGISTRY</name>
+      </item>
+      <item>
+        <ident>438194228</ident>
+        <account_number>2779445001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>558</const_symbol>
+        <var_symbol>27522041</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>35000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>platba zaloha NIC.CZ</memo>
+        <date>2009-12-09</date>
+        <crtime>2009-12-09 09:00:44</crtime>
+        <name>Seonet Multimedia</name>
+      </item>
+      <item>
+        <ident>438187492</ident>
+        <account_number>3638513001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28469500</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>3000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CZ.NIC, z.s.p.o.</memo>
+        <date>2009-12-09</date>
+        <crtime>2009-12-09 06:54:15</crtime>
+        <name>Axfone s.r.o.</name>
+      </item>
+      <item>
+        <ident>432597690</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-09</date>
+        <crtime>2009-12-09 02:03:17</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>438249682</ident>
+        <account_number>38301028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26726653</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>15000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-09</date>
+        <crtime>2009-12-09 12:13:15</crtime>
+        <name>EXPLORER a.s.</name>
+      </item>
+      <item>
+        <ident>438339903</ident>
+        <account_number>830809001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26043319</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>500000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Záloha od INTERNET CZ, a.s.</memo>
+        <date>2009-12-09</date>
+        <crtime>2009-12-09 15:47:08</crtime>
+        <name>INTERNET CZ, a.s.</name>
+      </item>
+      <item>
+        <ident>438212282</ident>
+        <account_number>285564001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25855441</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-09</date>
+        <crtime>2009-12-09 10:38:47</crtime>
+        <name>WinSoft Company</name>
+      </item>
+      <item>
+        <ident>438117855</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-12-09</date>
+        <crtime>2009-12-09 02:22:59</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>438615361</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-10</date>
+        <crtime>2009-12-10 17:03:50</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>432597691</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-10</date>
+        <crtime>2009-12-10 02:27:18</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>438506737</ident>
+        <account_number>3245947001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28383028</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>15000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit pro reg domen e-internet.cz s.r.o.</memo>
+        <date>2009-12-10</date>
+        <crtime>2009-12-10 10:53:06</crtime>
+        <name>e-internet.cz s.r.o.</name>
+      </item>
+      <item>
+        <ident>438496805</ident>
+        <account_number>92228001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>49437381</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>50000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-10</date>
+        <crtime>2009-12-10 09:19:06</crtime>
+        <name>Zoner software,s.r.o</name>
+      </item>
+      <item>
+        <ident>438772411</ident>
+        <account_number>3638513001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28469500</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>3000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CZ.NIC, z.s.p.o.</memo>
+        <date>2009-12-11</date>
+        <crtime>2009-12-11 08:51:52</crtime>
+        <name>Axfone s.r.o.</name>
+      </item>
+      <item>
+        <ident>438839800</ident>
+        <account_number>38301028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26726653</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>5000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-11</date>
+        <crtime>2009-12-11 14:51:24</crtime>
+        <name>EXPLORER a.s.</name>
+      </item>
+      <item>
+        <ident>432597692</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-11</date>
+        <crtime>2009-12-11 02:02:23</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>438820314</ident>
+        <account_number>34175028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25115804</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>400000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>ACTIVE 24 - zaloha na registraci .cz domen</memo>
+        <date>2009-12-11</date>
+        <crtime>2009-12-11 12:42:21</crtime>
+        <name>ACTIVE 24, s.r.o.</name>
+      </item>
+      <item>
+        <ident>438919940</ident>
+        <account_number>1351180001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26735903</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>550000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>cznic</memo>
+        <date>2009-12-11</date>
+        <crtime>2009-12-11 23:13:42</crtime>
+        <name>Media4web, s.r.o.</name>
+      </item>
+      <item>
+        <ident>438779262</ident>
+        <account_number>4017444001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>2000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Cesky server.cz s.r.o.</memo>
+        <date>2009-12-11</date>
+        <crtime>2009-12-11 09:26:41</crtime>
+        <name>Èeský server.cz</name>
+      </item>
+      <item>
+        <ident>439030505</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-13</date>
+        <crtime>2009-12-13 22:48:09</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>439152523</ident>
+        <account_number>1328036001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26027267</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>150000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Kredit General Registry</memo>
+        <date>2009-12-14</date>
+        <crtime>2009-12-14 09:53:57</crtime>
+        <name>GENERAL REGISTRY</name>
+      </item>
+      <item>
+        <ident>439390212</ident>
+        <account_number>1303373001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26058774</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>200000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Zaloha registratora Web4U s.r.o.</memo>
+        <date>2009-12-14</date>
+        <crtime>2009-12-14 21:15:01</crtime>
+        <name>Web4U s. r. o.</name>
+      </item>
+      <item>
+        <ident>432597693</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-14</date>
+        <crtime>2009-12-14 03:04:27</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>439243147</ident>
+        <account_number>3245947001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28383028</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>15000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit pro reg domen e-internet.cz s.r.o.</memo>
+        <date>2009-12-14</date>
+        <crtime>2009-12-14 14:07:08</crtime>
+        <name>e-internet.cz s.r.o.</name>
+      </item>
+      <item>
+        <ident>439032902</ident>
+        <account_number>4008385505</account_number>
+        <account_bank_code>4000</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol></var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>100000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>PREPAYMENTKEY-SYSTEMS GMBH</memo>
+        <date>2009-12-14</date>
+        <crtime>2009-12-14 03:07:56</crtime>
+        <name>LANDESBANK SAAR</name>
+      </item>
+      <item>
+        <ident>439123813</ident>
+        <account_number>12044377</account_number>
+        <account_bank_code>6200</account_bank_code>
+        <const_symbol>298</const_symbol>
+        <var_symbol>120918706</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>200000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>REGISTRARID : REG-ASCIO</memo>
+        <date>2009-12-14</date>
+        <crtime>2009-12-14 05:43:27</crtime>
+        <name>AMAGERBANKEN, COP</name>
+      </item>
+      <item>
+        <ident>432597695</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-15</date>
+        <crtime>2009-12-15 02:25:51</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>439608812</ident>
+        <account_number>3638513001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28469500</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>3000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CZ.NIC, z.s.p.o.</memo>
+        <date>2009-12-15</date>
+        <crtime>2009-12-15 12:28:45</crtime>
+        <name>Axfone s.r.o.</name>
+      </item>
+      <item>
+        <ident>439603862</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-15</date>
+        <crtime>2009-12-15 11:53:33</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>439665825</ident>
+        <account_number>2136562001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0558</const_symbol>
+        <var_symbol>25503651</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>11900.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-15</date>
+        <crtime>2009-12-15 14:53:50</crtime>
+        <name>ONE.CZ s.r.o.</name>
+      </item>
+      <item>
+        <ident>439580013</ident>
+        <account_number>830809001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26043319</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>500000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Záloha od INTERNET CZ, a.s.</memo>
+        <date>2009-12-15</date>
+        <crtime>2009-12-15 09:06:23</crtime>
+        <name>INTERNET CZ, a.s.</name>
+      </item>
+      <item>
+        <ident>439609053</ident>
+        <account_number>810883001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26460335</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-15</date>
+        <crtime>2009-12-15 12:30:24</crtime>
+        <name>KRAXNET s.r.o.</name>
+      </item>
+      <item>
+        <ident>439591733</ident>
+        <account_number>285564001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25855441</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-15</date>
+        <crtime>2009-12-15 10:35:03</crtime>
+        <name>WinSoft Company</name>
+      </item>
+      <item>
+        <ident>439489115</ident>
+        <account_number>86-1172140207</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>4522.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CESKY SERVER.CZ S.R.O.        KREDIT .CZ DOMENY</memo>
+        <date>2009-12-15</date>
+        <crtime>2009-12-15 04:09:22</crtime>
+        <name>ÈESKÝ SERVER.CZ S.R.</name>
+      </item>
+      <item>
+        <ident>432597696</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-16</date>
+        <crtime>2009-12-16 03:31:39</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>439931524</ident>
+        <account_number>1784664028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26867257</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>40000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>NIC.CZ kredit,zaloha</memo>
+        <date>2009-12-16</date>
+        <crtime>2009-12-16 10:16:02</crtime>
+        <name>banan s.r.o.</name>
+      </item>
+      <item>
+        <ident>439929312</ident>
+        <account_number>5796001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>25354973</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CZ.NIC (314.010)</memo>
+        <date>2009-12-16</date>
+        <crtime>2009-12-16 09:58:21</crtime>
+        <name>ha-vel internet</name>
+      </item>
+      <item>
+        <ident>439970490</ident>
+        <account_number>3638513001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28469500</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>3000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CZ.NIC, z.s.p.o.</memo>
+        <date>2009-12-16</date>
+        <crtime>2009-12-16 13:58:39</crtime>
+        <name>Axfone s.r.o.</name>
+      </item>
+      <item>
+        <ident>439967959</ident>
+        <account_number>1123030028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>45021295</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-16</date>
+        <crtime>2009-12-16 13:35:25</crtime>
+        <name>IPEX a.s.</name>
+      </item>
+      <item>
+        <ident>439911785</ident>
+        <account_number>582243001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>7000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - kredit</memo>
+        <date>2009-12-16</date>
+        <crtime>2009-12-16 07:51:52</crtime>
+        <name>MITON CZ, s.r.o.</name>
+      </item>
+      <item>
+        <ident>439927093</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-16</date>
+        <crtime>2009-12-16 09:37:29</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>439951703</ident>
+        <account_number>4017444001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>2261.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Cesky server.cz s.r.o.</memo>
+        <date>2009-12-16</date>
+        <crtime>2009-12-16 11:14:27</crtime>
+        <name>Èeský server.cz</name>
+      </item>
+      <item>
+        <ident>439930366</ident>
+        <account_number>3245947001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28383028</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>12000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit pro reg domen e-internet.cz s.r.o.</memo>
+        <date>2009-12-16</date>
+        <crtime>2009-12-16 10:24:14</crtime>
+        <name>e-internet.cz s.r.o.</name>
+      </item>
+      <item>
+        <ident>434195919</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-17</date>
+        <crtime>2009-12-17 02:07:12</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>440175334</ident>
+        <account_number>34175028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25115804</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>400000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>ACTIVE 24 - zaloha na registraci .cz domen</memo>
+        <date>2009-12-17</date>
+        <crtime>2009-12-17 08:49:37</crtime>
+        <name>ACTIVE 24, s.r.o.</name>
+      </item>
+      <item>
+        <ident>440220855</ident>
+        <account_number>810883001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26460335</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-17</date>
+        <crtime>2009-12-17 13:20:01</crtime>
+        <name>KRAXNET s.r.o.</name>
+      </item>
+      <item>
+        <ident>440221597</ident>
+        <account_number>4017444001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>2800.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Cesky server.cz s.r.o.</memo>
+        <date>2009-12-17</date>
+        <crtime>2009-12-17 13:27:13</crtime>
+        <name>Èeský server.cz</name>
+      </item>
+      <item>
+        <ident>440201837</ident>
+        <account_number>38301028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26726653</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>15000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-17</date>
+        <crtime>2009-12-17 11:29:20</crtime>
+        <name>EXPLORER a.s.</name>
+      </item>
+      <item>
+        <ident>440084319</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-12-17</date>
+        <crtime>2009-12-17 02:15:31</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>434195921</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-18</date>
+        <crtime>2009-12-18 02:13:13</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>440511242</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-18</date>
+        <crtime>2009-12-18 10:10:58</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>440614780</ident>
+        <account_number>38301028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26726653</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-18</date>
+        <crtime>2009-12-18 16:16:01</crtime>
+        <name>EXPLORER a.s.</name>
+      </item>
+      <item>
+        <ident>440519880</ident>
+        <account_number>3245947001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28383028</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>15000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit pro reg domen e-internet.cz s.r.o.</memo>
+        <date>2009-12-18</date>
+        <crtime>2009-12-18 11:40:44</crtime>
+        <name>e-internet.cz s.r.o.</name>
+      </item>
+      <item>
+        <ident>440553887</ident>
+        <account_number>285564001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25855441</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-18</date>
+        <crtime>2009-12-18 13:20:51</crtime>
+        <name>WinSoft Company</name>
+      </item>
+      <item>
+        <ident>440567380</ident>
+        <account_number>830809001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26043319</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>500000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Záloha od INTERNET CZ, a.s.</memo>
+        <date>2009-12-18</date>
+        <crtime>2009-12-18 14:47:54</crtime>
+        <name>INTERNET CZ, a.s.</name>
+      </item>
+      <item>
+        <ident>440513078</ident>
+        <account_number>1328036001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26027267</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>200000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Kredit General Registry</memo>
+        <date>2009-12-18</date>
+        <crtime>2009-12-18 10:33:17</crtime>
+        <name>GENERAL REGISTRY</name>
+      </item>
+      <item>
+        <ident>440751947</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-20</date>
+        <crtime>2009-12-20 12:17:47</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>440933132</ident>
+        <account_number>4017444001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>1131.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Cesky server.cz s.r.o.</memo>
+        <date>2009-12-21</date>
+        <crtime>2009-12-21 12:58:14</crtime>
+        <name>Èeský server.cz</name>
+      </item>
+      <item>
+        <ident>434195922</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-21</date>
+        <crtime>2009-12-21 02:22:10</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>440916538</ident>
+        <account_number>1328036001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26027267</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>200000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Kredit General Registry</memo>
+        <date>2009-12-21</date>
+        <crtime>2009-12-21 11:29:19</crtime>
+        <name>GENERAL REGISTRY</name>
+      </item>
+      <item>
+        <ident>440917917</ident>
+        <account_number>1784664028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26867257</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>40000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>NIC.CZ kredit,zaloha</memo>
+        <date>2009-12-21</date>
+        <crtime>2009-12-21 11:13:46</crtime>
+        <name>banan s.r.o.</name>
+      </item>
+      <item>
+        <ident>434195924</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-22</date>
+        <crtime>2009-12-22 02:16:04</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>441333025</ident>
+        <account_number>830809001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26043319</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>500000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Záloha od INTERNET CZ, a.s.</memo>
+        <date>2009-12-22</date>
+        <crtime>2009-12-22 13:18:53</crtime>
+        <name>INTERNET CZ, a.s.</name>
+      </item>
+      <item>
+        <ident>441151971</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-22</date>
+        <crtime>2009-12-22 02:12:53</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>441312686</ident>
+        <account_number>582243001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>4000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - kredit</memo>
+        <date>2009-12-22</date>
+        <crtime>2009-12-22 11:05:54</crtime>
+        <name>MITON CZ, s.r.o.</name>
+      </item>
+      <item>
+        <ident>441553556</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-23</date>
+        <crtime>2009-12-23 04:33:26</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>441704494</ident>
+        <account_number>3638513001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28469500</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>3000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CZ.NIC, z.s.p.o.</memo>
+        <date>2009-12-23</date>
+        <crtime>2009-12-23 14:14:43</crtime>
+        <name>Axfone s.r.o.</name>
+      </item>
+      <item>
+        <ident>441579859</ident>
+        <account_number>34175028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25115804</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>400000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>ACTIVE 24 - zaloha na registraci .cz domen</memo>
+        <date>2009-12-23</date>
+        <crtime>2009-12-23 09:37:54</crtime>
+        <name>ACTIVE 24, s.r.o.</name>
+      </item>
+      <item>
+        <ident>441702426</ident>
+        <account_number>4017444001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>2261.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Cesky server.cz s.r.o.</memo>
+        <date>2009-12-23</date>
+        <crtime>2009-12-23 13:58:35</crtime>
+        <name>Èeský server.cz</name>
+      </item>
+      <item>
+        <ident>441625175</ident>
+        <account_number>38301028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26726653</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-23</date>
+        <crtime>2009-12-23 12:13:05</crtime>
+        <name>EXPLORER a.s.</name>
+      </item>
+      <item>
+        <ident>441583215</ident>
+        <account_number>285564001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25855441</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-23</date>
+        <crtime>2009-12-23 10:07:44</crtime>
+        <name>WinSoft Company</name>
+      </item>
+      <item>
+        <ident>434195925</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-23</date>
+        <crtime>2009-12-23 02:14:26</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>441476794</ident>
+        <account_number>4008385505</account_number>
+        <account_bank_code>4000</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>248636780</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>107000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>/VS/2486367801API YEARLY FEE AND 6 MONTHCREDIT FEE, 1API GmbH</memo>
+        <date>2009-12-23</date>
+        <crtime>2009-12-23 02:17:03</crtime>
+        <name>LANDESBANK SAAR</name>
+      </item>
+      <item>
+        <ident>441494135</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>50000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2009-12-23</date>
+        <crtime>2009-12-23 02:34:26</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>434195926</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-24</date>
+        <crtime>2009-12-24 02:25:20</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>441760773</ident>
+        <account_number>3245947001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28383028</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>12000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit pro reg domen e-internet.cz s.r.o.</memo>
+        <date>2009-12-24</date>
+        <crtime>2009-12-24 12:01:07</crtime>
+        <name>e-internet.cz s.r.o.</name>
+      </item>
+      <item>
+        <ident>436912539</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-25</date>
+        <crtime>2009-12-25 01:46:40</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>441784773</ident>
+        <account_number>97111179</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26096960</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit na domeny soudruha Dimitrova</memo>
+        <date>2009-12-25</date>
+        <crtime>2009-12-25 22:00:55</crtime>
+        <name>TELE3 s.r.o.</name>
+      </item>
+      <item>
+        <ident>441840500</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-26</date>
+        <crtime>2009-12-26 13:03:25</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>442029388</ident>
+        <account_number>810883001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26460335</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-28</date>
+        <crtime>2009-12-28 14:29:28</crtime>
+        <name>KRAXNET s.r.o.</name>
+      </item>
+      <item>
+        <ident>441971660</ident>
+        <account_number>1328036001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26027267</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>100000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Kredit General Registry</memo>
+        <date>2009-12-28</date>
+        <crtime>2009-12-28 10:38:38</crtime>
+        <name>GENERAL REGISTRY</name>
+      </item>
+      <item>
+        <ident>436912540</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-28</date>
+        <crtime>2009-12-28 02:00:59</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>441961851</ident>
+        <account_number>2779445001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>27522041</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>300000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-28</date>
+        <crtime>2009-12-28 09:41:13</crtime>
+        <name>Seonet Multimedia</name>
+      </item>
+      <item>
+        <ident>436912541</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-29</date>
+        <crtime>2009-12-29 02:15:19</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>442452604</ident>
+        <account_number>3638513001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28469500</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>3000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CZ.NIC, z.s.p.o.</memo>
+        <date>2009-12-29</date>
+        <crtime>2009-12-29 17:17:41</crtime>
+        <name>Axfone s.r.o.</name>
+      </item>
+      <item>
+        <ident>442157264</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-29</date>
+        <crtime>2009-12-29 02:54:54</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>442478006</ident>
+        <account_number>4017444001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>3400.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Cesky server.cz s.r.o.</memo>
+        <date>2009-12-29</date>
+        <crtime>2009-12-29 18:16:59</crtime>
+        <name>Èeský server.cz</name>
+      </item>
+      <item>
+        <ident>442192923</ident>
+        <account_number>2136562001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0558</const_symbol>
+        <var_symbol>25503651</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>11900.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-29</date>
+        <crtime>2009-12-29 10:06:17</crtime>
+        <name>ONE.CZ s.r.o.</name>
+      </item>
+      <item>
+        <ident>442228636</ident>
+        <account_number>3245947001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28383028</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>50000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit pro reg domen e-internet.cz s.r.o.</memo>
+        <date>2009-12-29</date>
+        <crtime>2009-12-29 11:03:53</crtime>
+        <name>e-internet.cz s.r.o.</name>
+      </item>
+      <item>
+        <ident>442686154</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>20000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-30</date>
+        <crtime>2009-12-30 23:52:18</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>442670581</ident>
+        <account_number>2631969001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol></var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>120000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CZ.NIC z.s.p.o. 2010</memo>
+        <date>2009-12-30</date>
+        <crtime>2009-12-30 16:16:14</crtime>
+        <name>MASANTA.COM s.r.o.</name>
+      </item>
+      <item>
+        <ident>442580019</ident>
+        <account_number>1784664028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26867257</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>NIC.CZ kredit,zaloha</memo>
+        <date>2009-12-30</date>
+        <crtime>2009-12-30 09:38:15</crtime>
+        <name>banan s.r.o.</name>
+      </item>
+      <item>
+        <ident>436912542</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-30</date>
+        <crtime>2009-12-30 02:05:23</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>442828957</ident>
+        <account_number>3245947001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28383028</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>73000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit pro reg domen e-internet.cz s.r.o.</memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 21:37:34</crtime>
+        <name>e-internet.cz s.r.o.</name>
+      </item>
+      <item>
+        <ident>442819809</ident>
+        <account_number>1351180001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26735903</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>250000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>cznic</memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 13:43:23</crtime>
+        <name>Media4web, s.r.o.</name>
+      </item>
+      <item>
+        <ident>442822800</ident>
+        <account_number>97111179</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26096960</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit na domeny soudruha Dimitrova</memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 15:00:18</crtime>
+        <name>TELE3 s.r.o.</name>
+      </item>
+      <item>
+        <ident>442740496</ident>
+        <account_number>34175028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25115804</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>400000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>ACTIVE 24 - zaloha na registraci .cz domen</memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 07:39:12</crtime>
+        <name>ACTIVE 24, s.r.o.</name>
+      </item>
+      <item>
+        <ident>442826694</ident>
+        <account_number>97111179</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26096960</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>kredit na domeny soudruha Dimitrova</memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 17:47:05</crtime>
+        <name>TELE3 s.r.o.</name>
+      </item>
+      <item>
+        <ident>436912543</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 02:26:04</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>442821794</ident>
+        <account_number>9323172</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>558</const_symbol>
+        <var_symbol></var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>107000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>107000CZK/107000CZK/OUR//704310215905EUR/1/VARIOMEDIA AG/REGISTR</memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 14:29:58</crtime>
+        <name>Clearing. platby ZPS</name>
+      </item>
+      <item>
+        <ident>442759045</ident>
+        <account_number>1784664028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26867257</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>5000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>NIC.CZ kredit,zaloha</memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 11:07:05</crtime>
+        <name>banan s.r.o.</name>
+      </item>
+      <item>
+        <ident>442741510</ident>
+        <account_number>92228001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>49437381</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>103000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 08:38:27</crtime>
+        <name>Zoner software,s.r.o</name>
+      </item>
+      <item>
+        <ident>442829052</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>200000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 21:51:50</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>442822320</ident>
+        <account_number>810883001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26460335</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>250000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 14:42:00</crtime>
+        <name>KRAXNET s.r.o.</name>
+      </item>
+      <item>
+        <ident>442758622</ident>
+        <account_number>4000230103</account_number>
+        <account_bank_code>2600</account_bank_code>
+        <const_symbol>558</const_symbol>
+        <var_symbol></var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>14300.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>INSTRA CORPORATION REGISTRAR ANNUALMEMBERSHIP FEE FOR YEAR 2010</memo>
+        <date>2009-12-31</date>
+        <crtime>2009-12-31 11:06:27</crtime>
+        <name>CITIBANK EUROPE PLC</name>
+      </item>
+      <item>
+        <ident>442822498</ident>
+        <account_number>3771592001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28565673</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>128400.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>REG-ADVIO</memo>
+        <date>2010-01-01</date>
+        <crtime>2010-01-01 12:52:18</crtime>
+        <name>Advio Network s.r.o.</name>
+      </item>
+      <item>
+        <ident>436912544</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2010-01-01</date>
+        <crtime>2010-01-01 11:51:17</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>443548652</ident>
+        <account_number>285564001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25855441</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>25000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2010-01-01</date>
+        <crtime>2010-01-01 11:23:08</crtime>
+        <name>WinSoft Company</name>
+      </item>
+      <item>
+        <ident>444225171</ident>
+        <account_number>1784664028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26867257</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>95000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>NIC.CZ kredit,zaloha</memo>
+        <date>2010-01-03</date>
+        <crtime>2010-01-03 18:07:28</crtime>
+        <name>banan s.r.o.</name>
+      </item>
+      <item>
+        <ident>444284377</ident>
+        <account_number>830809001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26043319</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>500000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Záloha od INTERNET CZ, a.s.</memo>
+        <date>2010-01-04</date>
+        <crtime>2010-01-04 09:05:18</crtime>
+        <name>INTERNET CZ, a.s.</name>
+      </item>
+      <item>
+        <ident>444277520</ident>
+        <account_number>582243001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>7000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - kredit</memo>
+        <date>2010-01-04</date>
+        <crtime>2010-01-04 08:26:48</crtime>
+        <name>MITON CZ, s.r.o.</name>
+      </item>
+      <item>
+        <ident>444427026</ident>
+        <account_number>4017444001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>1674.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Cesky server.cz s.r.o.</memo>
+        <date>2010-01-04</date>
+        <crtime>2010-01-04 17:17:24</crtime>
+        <name>Èeský server.cz</name>
+      </item>
+      <item>
+        <ident>438457793</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2010-01-04</date>
+        <crtime>2010-01-04 02:08:26</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>444618267</ident>
+        <account_number>3638513001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>28469500</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CZ.NIC, z.s.p.o.</memo>
+        <date>2010-01-05</date>
+        <crtime>2010-01-05 14:35:32</crtime>
+        <name>Axfone s.r.o.</name>
+      </item>
+      <item>
+        <ident>444583651</ident>
+        <account_number>285564001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25855441</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>9238.90</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2010-01-05</date>
+        <crtime>2010-01-05 08:47:45</crtime>
+        <name>WinSoft Company</name>
+      </item>
+      <item>
+        <ident>444590389</ident>
+        <account_number>34175028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25115804</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>400000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>ACTIVE 24 - zaloha na registraci .cz domen</memo>
+        <date>2010-01-05</date>
+        <crtime>2010-01-05 09:34:40</crtime>
+        <name>ACTIVE 24, s.r.o.</name>
+      </item>
+      <item>
+        <ident>444527462</ident>
+        <account_number>475800423</account_number>
+        <account_bank_code>0300</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>25797387</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>114000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>akredit platba zalohy pro CZ NIC</memo>
+        <date>2010-01-05</date>
+        <crtime>2010-01-05 02:56:28</crtime>
+        <name>AKREDIT, SPOL. S R.O</name>
+      </item>
+      <item>
+        <ident>444582746</ident>
+        <account_number>8058111623</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>6000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - KREDIT</memo>
+        <date>2010-01-05</date>
+        <crtime>2010-01-05 08:39:50</crtime>
+        <name>Pokl.4 Jab. n. Nisou</name>
+      </item>
+      <item>
+        <ident>444297255</ident>
+        <account_number>9323172</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>558</const_symbol>
+        <var_symbol></var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>95000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>95000CZK/95000CZK/OUR//344924120/InterNetX GmbH/PREPAID INTERNET</memo>
+        <date>2010-01-06</date>
+        <crtime>2010-01-06 02:02:34</crtime>
+        <name>Clearing. platby ZPS</name>
+      </item>
+      <item>
+        <ident>444809668</ident>
+        <account_number>1328036001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>26027267</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>300000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Kredit General Registry</memo>
+        <date>2010-01-06</date>
+        <crtime>2010-01-06 14:01:07</crtime>
+        <name>GENERAL REGISTRY</name>
+      </item>
+      <item>
+        <ident>444701723</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2010-01-06</date>
+        <crtime>2010-01-06 02:12:21</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>444832042</ident>
+        <account_number>2200041009</account_number>
+        <account_bank_code>2010</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>44632142</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>95000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2010-01-06</date>
+        <crtime>2010-01-06 14:49:47</crtime>
+        <name>1X s.r.o.</name>
+      </item>
+      <item>
+        <ident>438457796</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2010-01-07</date>
+        <crtime>2010-01-07 02:05:30</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>444968252</ident>
+        <account_number>285564001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>25855441</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>9290.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2010-01-07</date>
+        <crtime>2010-01-07 09:32:32</crtime>
+        <name>WinSoft Company</name>
+      </item>
+      <item>
+        <ident>444986994</ident>
+        <account_number>55005562</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28087755</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>50000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2010-01-07</date>
+        <crtime>2010-01-07 11:09:22</crtime>
+        <name>Gransy s.r.o.</name>
+      </item>
+      <item>
+        <ident>445072750</ident>
+        <account_number>38301028</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26726653</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>124800.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo></memo>
+        <date>2010-01-07</date>
+        <crtime>2010-01-07 17:53:50</crtime>
+        <name>EXPLORER a.s.</name>
+      </item>
+      <item>
+        <ident>444999775</ident>
+        <account_number>4017444001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Cesky server.cz s.r.o.</memo>
+        <date>2010-01-07</date>
+        <crtime>2010-01-07 12:26:35</crtime>
+        <name>Èeský server.cz</name>
+      </item>
+      <item>
+        <ident>445044534</ident>
+        <account_number>830809001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>0308</const_symbol>
+        <var_symbol>26043319</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>500000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Záloha od INTERNET CZ, a.s.</memo>
+        <date>2010-01-07</date>
+        <crtime>2010-01-07 15:16:44</crtime>
+        <name>INTERNET CZ, a.s.</name>
+      </item>
+      <item>
+        <ident>438457797</ident>
+        <account_number>302205001</account_number>
+        <account_bank_code>5500</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26159708</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>90000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Ignum s.r.o.</memo>
+        <date>2010-01-08</date>
+        <crtime>2010-01-08 02:12:52</crtime>
+        <name>IGNUM s.r.o.</name>
+      </item>
+      <item>
+        <ident>445091455</ident>
+        <account_number>220220670</account_number>
+        <account_bank_code>0300</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>28362951</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>78000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>zaloha REG-Marketer</memo>
+        <date>2010-01-08</date>
+        <crtime>2010-01-08 02:22:19</crtime>
+        <name>MARKETER, S.R.O.</name>
+      </item>
+      <item>
+        <ident>445100691</ident>
+        <account_number>1379880237</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>25417967</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>30000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>MITON CZ - CZ.NIC             MITON CZ - CZ.NIC</memo>
+        <date>2010-01-08</date>
+        <crtime>2010-01-08 02:33:56</crtime>
+        <name>MITON CZ, S.R.O.</name>
+      </item>
+      <item>
+        <ident>445107450</ident>
+        <account_number>132145762</account_number>
+        <account_bank_code>0300</account_bank_code>
+        <const_symbol></const_symbol>
+        <var_symbol>737419710</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>107000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>Safenames - kreditprevod mezi ucty</memo>
+        <date>2010-01-08</date>
+        <crtime>2010-01-08 02:42:14</crtime>
+        <name>CZ.NIC, Z.S.P.O.</name>
+      </item>
+      <item>
+        <ident>445148519</ident>
+        <account_number>86-1172140207</account_number>
+        <account_bank_code>0100</account_bank_code>
+        <const_symbol>308</const_symbol>
+        <var_symbol>26912333</var_symbol>
+        <spec_symbol></spec_symbol>
+        <price>10000.00</price>
+        <type>1</type>
+        <code>2</code>
+        <memo>CESKY SERVER.CZ S.R.O.        KREDIT .CZ DOMENY</memo>
+        <date>2010-01-08</date>
+        <crtime>2010-01-08 05:04:43</crtime>
+        <name>ÈESKÝ SERVER.CZ S.R.</name>
+      </item>
+    </items>
+  </statement>
+</statements>

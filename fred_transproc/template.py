@@ -6,7 +6,7 @@ template_head = '''<?xml version="1.0" encoding="UTF-8"?>
     <date>%s</date>
     <balance>%s</balance>
     <old_date>%s</old_date>
-    <oldBalance>%s</oldBalance>
+    <old_balance>%s</old_balance>
     <credit>%s</credit>
     <debet>%s</debet>
     <items>'''

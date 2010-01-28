@@ -9,7 +9,7 @@ transcript processors. Here are two items, in general there can be 0 .. n items.
     <date>%s</date>
     <balance>%s</balance>
     <old_date>%s</old_date>
-    <oldBalance>%s</oldBalance>
+    <old_balance>%s</old_balance>
     <credit>%s</credit>
     <debet>%s</debet>
     <items>

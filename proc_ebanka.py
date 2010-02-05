@@ -106,8 +106,7 @@ if __name__ == '__main__':
 
             # there is a limit in the database (varchar(64))
             item_memo = item_memo[:63]
-            item_ident = year + '-' + var_number + '-' + item_number + '-' + var_account_id
-            item_ident = item_ident[:19]
+            item_ident = '' # this statement does not contain ident as ebanka_csv source :(
 
             print template_item % (item_ident,
                     item_account_number, item_account_bank_code,

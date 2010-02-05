@@ -137,7 +137,7 @@ class IMAPProcessor(Processor):
         debug('[%s]: Connected to IMAP %s' % (self.name, self.imaphost))
         self.server.login(self.imapuser, self.imappass)
         debug('[%s]: IMAP logged in as %s' % (self.name, self.imapuser))
-        self.server.select('Other Users/fred-banka')
+        self.server.select()
         
     def finalize_source(self):
         self.server.close()

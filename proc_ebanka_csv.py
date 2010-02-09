@@ -39,7 +39,6 @@ if __name__ == '__main__':
             first_time = False
             own_account_number = row[8].strip()
             own_account_bank_code = row[9].strip()
-            own_account = "%s/%s" % (own_account_number, own_account_bank_code)
             number = ""
             date = ""
             balance = ""
@@ -47,7 +46,7 @@ if __name__ == '__main__':
             old_balance = ""
             credit = ""
             debet = ""
-            print template_head % (own_account, number, date, balance,
+            print template_head % (own_account_number, own_account_bank_code, number, date, balance,
                     old_date, old_balance, credit, debet)
         ident = row[15].strip()
         account_number = row[6].strip()

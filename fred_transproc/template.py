@@ -2,6 +2,7 @@ template_head = '''<?xml version="1.0" encoding="UTF-8"?>
 <statements>
   <statement>
     <account_number>%s</account_number>
+    <account_bank_code>%s</account_bank_code>
     <number>%s</number>
     <date>%s</date>
     <balance>%s</balance>

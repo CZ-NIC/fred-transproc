@@ -15,7 +15,7 @@ if __name__ == '__main__':
     top = xml.etree.ElementTree.ElementTree()
     top.parse(sys.stdin)
     finsta03 = top.find("FINSTA03")
-    account_number_our = finsta03.findtext("S25_CISLO_UCTU")
+    account_number_our, account_bank_code_our = finsta03.findtext("S25_CISLO_UCTU").split('/')
     number = finsta03.findtext("S28_CISLO_VYPISU")
 
     old_date = datetime.strptime(finsta03.findtext("S60_DATUM"), "%d.%m.%Y").date().isoformat()
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     credit = credit
     debet = debet
 
-    print unicode(template_head % (account_number_our, number, date, balance, old_date,
+    print unicode(template_head % (account_number_our, account_bank_code_our, number, date, balance, old_date,
             old_balance, credit, debet)).encode('utf8')
 
     finsta05 = finsta03.findall("FINSTA05")

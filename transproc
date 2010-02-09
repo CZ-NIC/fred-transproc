@@ -27,6 +27,7 @@ class Processor(object):
         self.name = name
         self.type = None
         self.data_type = None
+        self.data_mimetype = None
         self.input_encoding = 'utf8'
         self.fromhead = None
         self.script = None
@@ -88,7 +89,10 @@ class Processor(object):
         save_statement = False # temporarily till it will be implemented in fred_admin
         
         try:
-            cmd = '%s --bank_import_xml' % (config.get('general', 'backendcmd')) # --bank_statement_file
+            cmd = '%s --bank_import_xml' % config.get('general', 'backendcmd')
+            
+            if save_statement:
+                cmd +=  ' --bank_statement_file=%s --bank_statement_file_mimetype=%s' % (tmp_filename, self.data_mimetype)
             if self.input_encoding != 'utf8':
                 outxml = outxml.decode(self.input_encoding).encode('utf8')
             
@@ -189,7 +193,7 @@ class IMAPProcessor(Processor):
             statement_file = {}
             statement_file['msgid'] = msgid
             statement_file['filename'] = part.get_filename()
-            statement_file['mimetype'] = part.get_content_type()
+            statement_file['mimetype'] = self.data_mimetype
             statement_file['octets'] = part.get_payload(decode = True)
             statement_files.append(statement_file)
         debug('[%s]: %d new messages' % (self.name, len(statement_files)))
@@ -355,10 +359,13 @@ def main():
             if data_type not in ('statement', 'payments'):
                 error('data_type directive must "statement" or "payments" in section %s' % section)
                 sys.exit(2)
-            proc.data_type = config.get(section, 'data_type')
+            proc.data_type = data_type
         else:
             error('data_type directive must be set in %s section' % section)
             sys.exit(2)
+            
+        if proc.data_type == 'statement':
+            proc.data_mimetype = config.get(section, 'data_mimetype') 
         
         if not config.has_option(section, 'processor'):
             error('processor directive must be set in %s section' % section)

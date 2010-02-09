@@ -83,11 +83,11 @@ if __name__ == '__main__':
         # all transfers in CSV file are deposit from registrars
         code = "1"
         memo = row[12].strip()[:64]
-        date = datetime.strptime(row[0].strip(), "%d.%m.%Y")
-        crtime = datetime.strptime(row[5].strip(), "%d.%m.%Y %H:%M:%S")
+        date = datetime.strptime(row[5].strip(), "%d.%m.%Y %H:%M:%S").date().isoformat()
+        crtime = ""
         name = row[14].strip()
         print template_item % (ident, account_number, bank_code,  const_symbol,
                 var_symbol, spec_symbol, price, type, code, status, memo,
-                date.date().isoformat(), crtime.isoformat(" "), name)
+                date, crtime, name)
     print template_tail
 

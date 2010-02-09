@@ -25,6 +25,15 @@ from fred_transproc.template import template_head
 from fred_transproc.template import template_tail
 from fred_transproc.template import template_item
 
+status_mapping = {
+    0: 3,
+    1: 2,
+    2: 1,
+    3: 4,
+    4: 5,
+    5: 6,
+}
+
 def error(msg):
     sys.stderr.write('Invalid format: ' + msg + '\n')
     sys.exit(1)
@@ -60,15 +69,25 @@ if __name__ == '__main__':
             # transfers which are not in CZK are processed throught
             # raiffeisen TXT reports
             continue
-        code = row[13].strip()
-        # all transfers in CSV file are from registrars
-        type = '1'
+        type = "" # only for output for backend, transproc leaves this blank
+
+        # status
+        #    * 1-Realized (only this should be further processed)
+        #    * 2-Partially realized
+        #    * 3-Not realized
+        #    * 4-Suspended
+        #    * 5-Ended
+        #    * 6-Waiting for clearing 
+        status = status_mapping[int(row[13].strip())]
+
+        # all transfers in CSV file are deposit from registrars
+        code = "1"
         memo = row[12].strip()[:64]
         date = datetime.strptime(row[0].strip(), "%d.%m.%Y")
         crtime = datetime.strptime(row[5].strip(), "%d.%m.%Y %H:%M:%S")
         name = row[14].strip()
         print template_item % (ident, account_number, bank_code,  const_symbol,
-                var_symbol, spec_symbol, price, type, code, memo,
+                var_symbol, spec_symbol, price, type, code, status, memo,
                 date.date().isoformat(), crtime.isoformat(" "), name)
     print template_tail
 

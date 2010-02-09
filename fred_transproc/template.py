@@ -26,6 +26,7 @@ template_item = '''      <item>
         <price>%s</price>
         <type>%s</type>
         <code>%s</code>
+        <status>%s</status>
         <memo>%s</memo>
         <date>%s</date>
         <crtime>%s</crtime>

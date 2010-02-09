@@ -63,27 +63,13 @@ if __name__ == '__main__':
         elif code == "CR":
             code = "4"
 
-        # type can be:
-        #  * 1 - transfer from/to registrar
-        #  * 2 - transfer from/to bank
-        #  * 3 - transfer between our own bank accounts
-        #  * 4 - transfer related to academia
-        #  * 5 - other transfer
-        if name.startswith('CZ.NIC') and code == '1':
-            # deposit transfer and bank account name starts with ``CZ.NIC''
-            type = '3'
-        elif account_number_our == '188208275/0300':
-            # transfer is to our registrar account
-            type = '1'
-        elif account_number_our == '36153615/0300':
-            # transfer is to our academia account
-            type = '4'
-        else:
-            # otherwise it is some unknown transfer
-            type = '5'
+        type = "" # only for output for backend, transproc leaves this blank
+        
+        # all payments in CSOB XML are realized:
+        status = "1" 
         
         print unicode(template_item % (ident, account_number, account_bank_code,
-                const_symbol, var_symbol, spec_symbol, price, type, code, memo,
+                const_symbol, var_symbol, spec_symbol, price, type, code, status, memo,
                 date, crtime, name)).encode('utf8')
 
     print unicode(template_tail).encode('utf8')

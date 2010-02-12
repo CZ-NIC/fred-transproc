@@ -86,7 +86,6 @@ class Processor(object):
             tmp_file, tmp_filename = tempfile.mkstemp(prefix='transproc_source_bankstatement')
             os.write(tmp_file, statement_file['octets'])
             os.close(tmp_file)
-        save_statement = False # temporarily till it will be implemented in fred_admin
         
         try:
             cmd = '%s --bank_import_xml' % config.get('general', 'backendcmd')
@@ -96,7 +95,7 @@ class Processor(object):
             if self.input_encoding != 'utf8':
                 outxml = outxml.decode(self.input_encoding).encode('utf8')
             
-            #open('/tmp/outxml-%s.xml' % self.name, 'w').write(outxml)
+            #open('/tmp/outxml-%s.xml' % (self.name + statement_file.get('msgid', '')) , 'w').write(outxml)
             (status, output, err) = runCommand(cmd, outxml, read_iterations=30) # this needs higher read_iterations as it does a lot of ouput to stdout @UnusedVariable
             if status != 0:
                 error('[%s]: Error when executing command: %s\n%s' % (self.name, cmd, err))

@@ -18,6 +18,13 @@ def getfield(str, i, delim = ' '):
 
 
 if __name__ == '__main__':
+    
+    sys.stderr.write('''proc_ebanka processor is not up to date!!! 
+    There were several changes in format of output XML which are not possible 
+    to do for text source of statement from raifaisen bank (ebanka) 
+    like unique identifier of payment, so this processor is obsolete.''')
+    sys.exit(1)
+    
     input = sys.stdin.read()
     input = input.replace('\r', '').strip() # delete \r characters
     sections = [ section.strip() for section in input.split('\n\n') if section ]

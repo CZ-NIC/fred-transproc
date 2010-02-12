@@ -23,7 +23,6 @@ if __name__ == '__main__':
     old_balance_sign = finsta03.findtext("S60_CD_INDIK").replace("C", "").replace("D", "-")
 
     date = datetime.strptime(finsta03.findtext("S62_DATUM"), "%d.%m.%Y").date().isoformat()
-    year = date[2:4]
     balance = finsta03.findtext("S62_CASTKA").replace(",", ".")
     balance_sign = finsta03.findtext("S62_CD_INDIK").replace("C", "").replace("D", "-")
 
@@ -40,7 +39,7 @@ if __name__ == '__main__':
 
     finsta05 = finsta03.findall("FINSTA05")
     for item in finsta05:
-        ident = year + '-' + item.findtext("S28_POR_CISLO")
+        ident = item.findtext("S28_POR_CISLO")
         account_number = item.findtext("PART_ACCNO", "")
         account_bank_code = item.findtext("PART_BANK_ID", "")
         const_symbol = item.findtext("S86_KONSTSYM", "")
@@ -53,15 +52,13 @@ if __name__ == '__main__':
         memo = item.findtext("PART_ID1_1")[:64]
         crtime = ''
 
-        # code can be D - deposit, C - credit, DR - storno deposit and CR - storno credit
-        if code == "D":
+        # code can be D - debet, C - credit, DR - storno deposit and CR - storno credit
+        # (we already know difference between C and D by sign of price - so to <code> tag
+        #  we save only whether it is normal (1) or storno(2) transaction):
+        if code in ("D", "C"):
             code = "1"
-        elif code == "C":
+        elif code in ("DR", "CR"):
             code = "2"
-        elif code == "DR":
-            code = "3"
-        elif code == "CR":
-            code = "4"
 
         type = "" # only for output for backend, transproc leaves this blank
         

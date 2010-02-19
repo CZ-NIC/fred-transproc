@@ -1,5 +1,31 @@
-2009-02-11 Ales Dolezal
-	
+2010-02-19 Tomas Divis (1.0.0)
+
+	* Support for IMAP + HTTP data sources
+
+	* Support for data source types options
+
+	* Configurable source data recoding from different charset
+
+	* Configurable filter by subject for IMAP source
+
+	* Processed mail marking improved
+
+	* Import command takes parameter for original statement file and its
+	mimetype (defined in configuration)
+
+	* Output xml changes:
+			* xml header added
+			* oldBalance element renamed to old_balance
+			* account_bank_code added to statement xml (account_number
+			splitted)
+			* ident should be same if there is more sources for one account
+			(it was set to empty string in proc_ebanka for now)
+			* status element added
+
+	* proc_ebanka is now not supported because of 'ident' element problem
+
+2009-02-11 Ales Dolezal (1.0.0)
+
 	* Parser for CSOB xml files.
 
 2007-11-07 Jan Kryl (version 1.0.0)

@@ -129,7 +129,7 @@ class IMAPProcessor(Processor):
         self.imaphost = None
         self.imapuser = None
         self.imappass = None
-        self.part = 3
+        self.part = 2
         
         self.subject_filter = ''
         

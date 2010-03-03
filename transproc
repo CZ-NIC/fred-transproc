@@ -309,6 +309,7 @@ def runCommand(cmd, stdin, read_iterations=8):
 def main():
     global verbose
     global config
+    global configfile
     error_seen = False
     # parse command line options
     try:
@@ -327,8 +328,8 @@ def main():
             sys.exit(2)
     # read configuration file
     config = ConfigParser.ConfigParser(
-            {'procdir':'/usr/libexec/transproc'}
-              )
+        {'procdir':'/usr/libexec/transproc'}
+    )
     config.read(configfile)
 
     if not config.has_option('general', 'backendcmd'):

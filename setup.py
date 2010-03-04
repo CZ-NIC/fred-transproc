@@ -74,6 +74,16 @@ class TransprocInstall(install):
         body = re.sub("procdir\s*=\s*(.*)", 
                       "procdir=%s" % os.path.join(self.getDir('LIBEXECDIR'), PROJECT_NAME), body)
         open(dest, 'w').write(body)
+
+    def update_transproc_path_to_config(self, src, dest):
+        'Update transproc script path variable.'
+        # filepath always with root (if is defined)
+        body = open(src).read()
+        body = re.sub("configfile\s*=\s*(.*)", 
+                      "configfile=%s" % os.path.join(self.getDir('APPCONFDIR'), 'transproc.conf'), body)
+        open(dest, 'w').write(body)
+    
+    
     
         
 def main():
@@ -102,7 +112,10 @@ def main():
         ),
         
         modify_files = {
-            'install_data': (('install.update_config', ['transproc.conf']), ),
+            'install_data': (('install.update_config', ['transproc.conf']), 
+                             ('install.update_transproc_path_to_config', ['transproc']), 
+                            ),
+            
         },
         
         cmdclass = {

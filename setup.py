@@ -57,12 +57,10 @@ class TransprocInstall(install):
     user_options.extend(install.user_options)
     user_options.extend([
         ('backendcmd=', None, 'Command for backend CLI admin tool.'),
-        ('procdir=', None, 'Directory containing scripts for parsing bank statements.'),
     ])
     def initialize_options(self):
         install.initialize_options(self)
         self.backendcmd = ''
-        self.procdir = ''
         
     def update_config(self, src, dest):
         'Update config path variable.'
@@ -71,12 +69,10 @@ class TransprocInstall(install):
         if self.backendcmd:
             body = re.sub("backendcmd\s*=\s*(.*)", 
                           "backendcmd=%s" % self.backendcmd, body)
-        if self.procdir:
-            procdir = self.procdir
-        else:
-            procdir = self.getDir('BINDIR')
+
+
         body = re.sub("procdir\s*=\s*(.*)", 
-                      "procdir=%s" % procdir, body)
+                      "procdir=%s" % os.path.join(self.getDir('LIBEXECDIR'), PROJECT_NAME), body)
         open(dest, 'w').write(body)
     
         
@@ -101,7 +97,8 @@ def main():
         data_files = (
             ('APPCONFDIR', ['transproc.conf']), 
             ('DOCDIR', ['backend.xml', 'ChangeLog', 'README']),
-            ('BINDIR', ['transproc', 'proc_csob_xml.py', 'proc_ebanka_csv.py', 'proc_ebanka.py']),
+            ('BINDIR', ['transproc']),
+            (os.path.join('LIBEXECDIR', PROJECT_NAME), ['proc_csob_xml.py', 'proc_ebanka_csv.py', 'proc_ebanka.py']),
         ),
         
         modify_files = {

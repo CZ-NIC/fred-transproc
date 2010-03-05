@@ -210,12 +210,12 @@ class HTTPProcessor(Processor):
         self.url = None
         
     def init_source(self):
-        debug('[%s]: Openning HTTP source' % self.name)
+        debug('[%s]: Opening HTTP source' % self.name)
         opener = urllib2.build_opener()
         page = opener.open(self.url)
         if page.code == 200:
             self.input_file = page.read()
-            debug('[%s]: HTTP source sucessfully obtained' % self.name)
+            debug('[%s]: HTTP source successfully obtained' % self.name)
         else:
             self.error_seen = True
             error('[%s]: HTTP source returned code %s' % (self.name, page.code))

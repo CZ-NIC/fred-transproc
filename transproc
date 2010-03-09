@@ -212,13 +212,17 @@ class HTTPProcessor(Processor):
     def init_source(self):
         debug('[%s]: Opening HTTP source' % self.name)
         opener = urllib2.build_opener()
-        page = opener.open(self.url)
-        if page.code == 200:
-            self.input_file = page.read()
-            debug('[%s]: HTTP source successfully obtained' % self.name)
-        else:
+        try:
+            page = opener.open(self.url)
+            if page.code == 200:
+                self.input_file = page.read()
+                debug('[%s]: HTTP source successfully obtained' % self.name)
+            else:
+                self.error_seen = True
+                error('[%s]: HTTP source returned code %s' % (self.name, page.code))
+        except (IOError, urllib2.URLError), e:
             self.error_seen = True
-            error('[%s]: HTTP source returned code %s' % (self.name, page.code))
+            error('[%s]: Failed to connect to HTTP source:\n%s' % (self.name, e))
         
     def get_statements(self):
         statement_file = {}

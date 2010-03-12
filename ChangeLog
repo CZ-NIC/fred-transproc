@@ -1,3 +1,9 @@
+2010-03-12 Tomas Divis (1.0.2)
+    
+    * Setup.py enhanced
+    
+    * Some minor bugfixes like exception handling while connecting to HTTP, typos...
+
 2010-02-19 Tomas Divis (1.0.0)
 
 	* Support for IMAP + HTTP data sources

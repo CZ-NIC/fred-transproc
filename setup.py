@@ -80,7 +80,8 @@ class TransprocInstall(install):
         # filepath always with root (if is defined)
         body = open(src).read()
         body = re.sub("configfile\s*=\s*(.*)", 
-                      "configfile=%s" % os.path.join(self.getDir('APPCONFDIR'), 'transproc.conf'), body)
+                      "configfile = '%s'" % os.path.join(self.getDir('APPCONFDIR'), 'transproc.conf'), 
+                      body, count=1)
         open(dest, 'w').write(body)
     
     

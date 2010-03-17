@@ -4,7 +4,7 @@ import sys, getopt, imaplib, tempfile, signal
 import urllib2
 import traceback
 import os, os.path, time, popen2, select, ConfigParser, fcntl
-from email.FeedParser import FeedParser
+from email.Parser import Parser
 
 verbose = True
 config = None
@@ -164,7 +164,7 @@ class IMAPProcessor(Processor):
         messages = {}
         statement_files = []
         for msgid in msgids:
-            (r, data) = self.server.fetch(msgid, '(RFC822.PEEK)') # ".PEEK" means that FLAG \Seen is not set! @UnusedVariable
+            (r, data) = self.server.fetch(msgid, '(BODY.PEEK[])') # ".PEEK" means that FLAG \Seen is not set! @UnusedVariable
 
             messages[msgid] = data[0][1]
         
@@ -172,9 +172,9 @@ class IMAPProcessor(Processor):
         
         for msgid in messages:
             # separate attachment in which we are interested
-            fp = FeedParser()
-            fp.feed(messages[msgid])
-            mail = fp.close()
+            parser = Parser()
+            mail = parser.parsestr(messages[msgid])
+            
             
             if self.part > 1 and not mail.is_multipart():
                 debug('[%s]: skipping message %d, it is not multipart' %

@@ -4,22 +4,27 @@ import sys, getopt, imaplib, tempfile, signal
 import urllib2
 import traceback
 import os, os.path, time, popen2, select, ConfigParser, fcntl
+import logging
 from email.Parser import Parser
 
-verbose = True
+verbose = False
 config = None
 configfile = "/usr/etc/fred/transproc.conf"
 
+logfile = None
+
 def usage():
-    print '%s [-c config] [-H imaphost] [-p imappassword] [-u imapuser] [-v]' % sys.argv[0]
+    print '%s [-c config] [-v]' % sys.argv[0]
 
 def debug(msg):
-    global verbose
-    if verbose:
-        sys.stderr.write(msg + '\n')
+    logging.debug(msg)
+    #global verbose
+    #if verbose:
+    #    sys.stdout.write(msg + '\n')
 
 def error(msg):
-    sys.stderr.write(msg + '\n')
+    logging.error(msg)
+    #sys.stderr.write(msg + '\n')
 
 class Processor(object):
     '''Class representing a processor of transcript.'''
@@ -76,6 +81,9 @@ class Processor(object):
     def upload_xml(self, statement_file):
         # update database
         outxml = statement_file.get('outxml')
+        if outxml == '':
+            debug('[%s]: Statement file have empty outxml (propably no payments in input source).' % self.name)
+            return
         if outxml is None:
             error('[%s]: Statement file have no outxml, you must first procoss it!' % self.name)
             return
@@ -332,7 +340,8 @@ def main():
             sys.exit(2)
     # read configuration file
     config = ConfigParser.ConfigParser(
-        {'procdir':'/usr/libexec/transproc'}
+        {'procdir':'/usr/libexec/transproc',
+         'logfile':'/var/log/transproc.log'}
     )
     config.read(configfile)
 
@@ -340,6 +349,30 @@ def main():
         error('Backend command in configuration file must be set')
         sys.exit(2)
     
+    if not config.has_option('general', 'logfile'):
+        error('logfile must be set')
+        sys.exit(2)
+
+    if not config.has_option('general', 'loglevel'):
+        error('loglevel must be set')
+        sys.exit(2)
+    
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(logging.Formatter('%(levelname)s %(message)s'))
+    if verbose:
+        console_handler.setLevel(logging.DEBUG)
+    else:
+        console_handler.setLevel(logging.INFO)
+    logger.addHandler(console_handler)
+    
+    loglevel = getattr(logging, config.get('general', 'loglevel').upper(), logging.DEBUG) 
+    file_handler = logging.FileHandler(config.get('general', 'logfile'), 'a')
+    file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+    file_handler.setLevel(loglevel)
+    logger.addHandler(file_handler)
+
+    
+            
     # iterate over other sections in config
     processors = []
     for section in config.sections():
@@ -419,9 +452,11 @@ def main():
     for proc in processors:
         proc.init_source()
         if proc.error_seen:
+            error_seen = True
             continue
         statement_files = proc.get_statements()
         if proc.error_seen:
+            error_seen = True
             continue
         for statement_file in statement_files:
             proc.process_statement_file(statement_file)
@@ -429,9 +464,8 @@ def main():
             #    proc.save_statement_file(statement_file)
             if not proc.error_seen:
                 proc.upload_xml(statement_file)
-            if proc.error_seen:
+            else:
                 error_seen = True
-                
 
         proc.finalize_source()
 

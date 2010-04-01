@@ -89,5 +89,6 @@ if __name__ == '__main__':
         print template_item % (ident, account_number, bank_code,  const_symbol,
                 var_symbol, spec_symbol, price, type, code, status, memo,
                 date, crtime, name)
-    print template_tail
+    if first_time == False: # there was at least one row in input csv
+        print template_tail
 

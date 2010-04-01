@@ -1,3 +1,11 @@
+2010-04-01 Tomas Divis (1.0.5)
+
+    * Added support for logging
+    
+    * BugFix: When emtpy csv comes to proc_csob_xml processor, it will not generate invalid XML but rather empty string
+    
+    * Transproc now don't send empty output XML from processor to backend (due to bugfix above)
+
 2010-03-12 Tomas Divis (1.0.2)
     
     * Setup.py enhanced

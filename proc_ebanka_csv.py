@@ -39,11 +39,16 @@ def error(msg):
     sys.exit(1)
 
 if __name__ == '__main__':
-    reader = csv.reader(sys.stdin, delimiter=";")
+    source_lines = sys.stdin.readlines()
+    reader = csv.reader(source_lines, delimiter=";")
     first_time = True
     for row in reader:
+        if row == [' ']:
+            # if no bank transaction, raifaisen bank returns file with one space :-(
+            # we don't want to see this as error so just quit silently
+            sys.exit(0)
         if len(row) != 16:
-            error("Bad number of columns")
+            error('Bad number of columns, text in source is:\n' + ''.join(source_lines))
         if first_time:
             first_time = False
             own_account_number = row[8].strip()

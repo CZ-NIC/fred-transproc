@@ -64,10 +64,10 @@ class Processor(object):
             return
         if status == 2:
             # we will avoid processing nexttime ($not true right now$)
-            error('[%s]: message %d rejected: %s' % (self.name, statement_file['msgid'], err))
+            error('[%s]: message %s rejected: %s' % (self.name, statement_file['msgid'], err))
         elif status != 0:
             if status != 1:
-                error('[%s]: unknown return code (%d): %s' %
+                error('[%s]: unknown return code (%s): %s' %
                         (self.name, status, err))
             else:
                 error('[%s]: processing of data failed: %s' %
@@ -185,14 +185,14 @@ class IMAPProcessor(Processor):
             
             
             if self.part > 1 and not mail.is_multipart():
-                debug('[%s]: skipping message %d, it is not multipart' %
+                debug('[%s]: skipping message %s, it is not multipart' %
                         (self.name, msgid))
                 self.mark_as_processed(msgid)
                 continue
             try:
                 part = mail.get_payload(self.part - 1) # parts are counted from 0
             except IndexError:
-                debug('[%s]: skipping message %s, it has not %d parts as needed' %
+                debug('[%s]: skipping message %s, it has not %s parts as needed' %
                         (self.name, msgid, self.part))
                 self.mark_as_processed(msgid)
                 continue
@@ -259,7 +259,7 @@ def runCommand(cmd, stdin, read_iterations=8):
             child.tochild.write(stdin)
         child.tochild.close()
     except IOError, e:
-        error('Writing/closing stdin of child process coused IOERRor number %d' % e.errno)
+        error('Writing/closing stdin of child process coused IOERRor number %s' % e.errno)
         # try to read stdin & stderr
         debug('stdout of child:')
         debug(child.fromchild.read())

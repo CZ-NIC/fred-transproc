@@ -74,7 +74,7 @@ class TransprocInstall(install):
         body = re.sub("procdir\s*=\s*(.*)", 
                       "procdir=%s" % os.path.join(self.getDir('LIBEXECDIR'), PROJECT_NAME), body)
         body = re.sub("logfile\s*=\s*(.*)",
-                      "logfile=%s" % os.path.join(self.getDir('localstatedir'), PROJECT_NAME + ".log"), body)
+                      "logfile=%s" % os.path.join(self.getDir('localstatedir'), "log", PROJECT_NAME + ".log"), body)
         open(dest, 'w').write(body)
 
     def update_transproc_path_to_config(self, src, dest):

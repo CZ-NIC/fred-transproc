@@ -1,3 +1,9 @@
+2010-06-22 Jiri Sadek (1.0.9)
+
+    * imapfolder config option for IMAP data source
+
+    * default log path using installation prefix now
+
 2010-04-01 Tomas Divis (1.0.5)
 
     * Added support for logging

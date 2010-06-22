@@ -137,6 +137,7 @@ class IMAPProcessor(Processor):
         self.imaphost = None
         self.imapuser = None
         self.imappass = None
+        self.imapfolder = None
         self.part = 2
         
         self.subject_filter = ''
@@ -148,7 +149,7 @@ class IMAPProcessor(Processor):
         debug('[%s]: Connected to IMAP %s' % (self.name, self.imaphost))
         self.server.login(self.imapuser, self.imappass)
         debug('[%s]: IMAP logged in as %s' % (self.name, self.imapuser))
-        self.server.select()
+        self.server.select(self.imapfolder)
         
     def finalize_source(self):
         self.server.close()
@@ -430,6 +431,10 @@ def main():
                 error('imapuser directive must be set in %s section' % section)
                 sys.exit(2)
             proc.imapuser = config.get(section, 'imapuser')
+            if not config.has_option(section, 'imapfolder'):
+                error('imapuser directive must be set in %s section' % section)
+                sys.exit(2)
+            proc.imapfolder = config.get(section, 'imapfolder')
             if not config.has_option(section, 'fromhead'):
                 error('fromhead directive must be set in %s section' % section)
                 sys.exit(2)

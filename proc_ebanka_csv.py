@@ -80,7 +80,10 @@ if __name__ == '__main__':
         if currency != 'CZK':
             # transfers which are not in CZK are processed throught
             # raiffeisen TXT reports
-            continue
+            # we set price to zero here in order to import the payment
+            # and be sure that it will not be processed by backend
+            # till correct price in CZK is known
+            price = 0
         type = "" # only for output for backend, transproc leaves this blank
 
         # status

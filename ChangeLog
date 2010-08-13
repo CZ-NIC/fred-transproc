@@ -1,3 +1,8 @@
+2010-08-13 Jiri Sadek (1.0.10)
+
+    * payments in foreign currency are now included in output
+	  xml (with price set to 0)
+
 2010-06-22 Jiri Sadek (1.0.9)
 
     * imapfolder config option for IMAP data source
@@ -8,15 +13,18 @@
 
     * Added support for logging
     
-    * BugFix: When emtpy csv comes to proc_csob_xml processor, it will not generate invalid XML but rather empty string
+    * BugFix: When emtpy csv comes to proc_csob_xml processor,
+	  it will not generate invalid XML but rather empty string
     
-    * Transproc now don't send empty output XML from processor to backend (due to bugfix above)
+    * Transproc now don't send empty output XML from processor to backend
+	  (due to bugfix above)
 
 2010-03-12 Tomas Divis (1.0.2)
     
     * Setup.py enhanced
     
-    * Some minor bugfixes like exception handling while connecting to HTTP, typos...
+    * Some minor bugfixes like exception handling while connecting to HTTP,
+	  typos...
 
 2010-02-19 Tomas Divis (1.0.0)
 

@@ -149,7 +149,10 @@ class IMAPProcessor(Processor):
         debug('[%s]: Connected to IMAP %s' % (self.name, self.imaphost))
         self.server.login(self.imapuser, self.imappass)
         debug('[%s]: IMAP logged in as %s' % (self.name, self.imapuser))
-        self.server.select(self.imapfolder)
+        if self.imapfolder:
+            self.server.select(self.imapfolder)
+        else:
+            self.server.select() # preserve default argument "mailbox" of select() method
         
     def finalize_source(self):
         self.server.close()

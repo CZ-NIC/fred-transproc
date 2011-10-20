@@ -1,6 +1,7 @@
 include backend.xml
 include ChangeLog
 include README
+include MANIFEST.in
 include fred_transproc/*.py
 include transproc
 include proc_csob_xml.py

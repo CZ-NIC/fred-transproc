@@ -94,6 +94,9 @@ if __name__ == '__main__':
         #    * 5-Ended
         #    * 6-Waiting for clearing 
         status = status_mapping[int(row[13].strip())]
+        # import only realized payments
+        if status != 1:
+            continue
 
         # all transfers in CSV file are deposit from registrars
         code = "1"

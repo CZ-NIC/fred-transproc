@@ -1,3 +1,10 @@
+2012-03-15 Jiri Sadek (1.0.12)
+
+    * config option for change of maximal input read iterations of backend
+      processing command
+
+    * ebanka csv processor now picks only realized payments for further processing
+
 2010-09-11 Tomas Divis, Jiri Sadek (1.0.11)
 
     * config fix - imapfolder parameter - preserve default value

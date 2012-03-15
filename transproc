@@ -104,7 +104,7 @@ class Processor(object):
                 outxml = outxml.decode(self.input_encoding).encode('utf8')
             
             #open('/tmp/outxml-%s.xml' % (self.name + statement_file.get('msgid', '')) , 'w').write(outxml)
-            (status, output, err) = runCommand(cmd, outxml, read_iterations=30) # this needs higher read_iterations as it does a lot of ouput to stdout @UnusedVariable
+            (status, output, err) = runCommand(cmd, outxml, read_iterations=config.getint('general', 'backendcmd_max_read_iterations')) # this needs higher read_iterations as it does a lot of ouput to stdout @UnusedVariable
             if status != 0:
                 error('[%s]: Error when executing command: %s\n%s' % (self.name, cmd, err))
                 # restore the UNSEEN flag - something in script failed
@@ -345,7 +345,8 @@ def main():
     # read configuration file
     config = ConfigParser.ConfigParser(
         {'procdir':'/usr/libexec/transproc',
-         'logfile':'/var/log/transproc.log'}
+         'logfile':'/var/log/transproc.log',
+         'backendcmd_max_read_iterations': '30'}
     )
     config.read(configfile)
 

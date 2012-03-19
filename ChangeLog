@@ -1,3 +1,7 @@
+2012-03-19 Jiri Sadek (1.0.13)
+
+    * setup.py fix - config file path
+
 2012-03-15 Jiri Sadek (1.0.12)
 
     * config option for change of maximal input read iterations of backend

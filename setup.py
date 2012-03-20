@@ -82,7 +82,7 @@ class TransprocInstall(install):
         # filepath always with root (if is defined)
         body = open(src).read()
         body = re.sub("configfile\s*=\s*(.*)", 
-                      "configfile = '%s'" % os.path.join(self.getDir('SYSCONFDIR'), 'fred/transproc.conf'), 
+                      "configfile = '%s'" % os.path.join(self.getDir('SYSCONFDIR'), 'fred', 'transproc.conf'), 
                       body, count=1)
         open(dest, 'w').write(body)
     
@@ -108,7 +108,7 @@ def main():
         packages = [PACKAGE_NAME], 
         
         data_files = (
-            ('SYSCONFDIR/fred', ['transproc.conf']), 
+            (os.path.join('SYSCONFDIR', 'fred'), ['transproc.conf']), 
             ('DOCDIR', ['backend.xml', 'ChangeLog', 'README']),
             ('BINDIR', ['transproc']),
             (os.path.join('LIBEXECDIR', PROJECT_NAME), ['proc_csob_xml.py', 'proc_ebanka_csv.py', 'proc_ebanka.py']),

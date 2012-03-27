@@ -37,16 +37,16 @@ class Processor(object):
         self.fromhead = None
         self.script = None
         self.error_seen = False
-        
+
     def init_source(self):
         pass
-        
+
     def finalize_source(self):
         pass
-    
+
     def get_statements(self):
         pass
-        
+
     def process_statement_file(self, statement_file):
         self.error_seen = False
 
@@ -77,7 +77,7 @@ class Processor(object):
         else:
             debug('[%s]: message processed by processor' % (self.name))
             statement_file['outxml'] = outxml
-    
+
     def upload_xml(self, statement_file):
         # update database
         outxml = statement_file.get('outxml')
@@ -87,22 +87,22 @@ class Processor(object):
         if outxml is None:
             error('[%s]: Statement file have no outxml, you must first procoss it!' % self.name)
             return
-        
-        save_statement = (self.data_type == 'statement' 
-                          and statement_file.get('octets')) 
+
+        save_statement = (self.data_type == 'statement'
+                          and statement_file.get('octets'))
         if save_statement:
             tmp_file, tmp_filename = tempfile.mkstemp(prefix='transproc_source_bankstatement')
             os.write(tmp_file, statement_file['octets'])
             os.close(tmp_file)
-        
+
         try:
             cmd = '%s --bank_import_xml' % config.get('general', 'backendcmd')
-            
+
             if save_statement:
-                cmd +=  ' --bank_statement_file=%s --bank_statement_file_mimetype=%s' % (tmp_filename, self.data_mimetype)
+                cmd += ' --bank_statement_file=%s --bank_statement_file_mimetype=%s' % (tmp_filename, self.data_mimetype)
             if self.input_encoding != 'utf8':
                 outxml = outxml.decode(self.input_encoding).encode('utf8')
-            
+
             #open('/tmp/outxml-%s.xml' % (self.name + statement_file.get('msgid', '')) , 'w').write(outxml)
             (status, output, err) = runCommand(cmd, outxml, read_iterations=config.getint('general', 'backendcmd_max_read_iterations')) # this needs higher read_iterations as it does a lot of ouput to stdout @UnusedVariable
             if status != 0:
@@ -122,14 +122,14 @@ class Processor(object):
         finally:
             if save_statement:
                 os.remove(tmp_filename)
-        
+
     def mark_as_processed(self, ident):
         ''' Mappes processed data source (e.g. particular email) (if possible),
             so that it will not be processed again.
         '''
         pass
-      
-            
+
+
 class IMAPProcessor(Processor):
     def __init__(self, name):
         super(IMAPProcessor, self).__init__(name)
@@ -138,14 +138,18 @@ class IMAPProcessor(Processor):
         self.imapuser = None
         self.imappass = None
         self.imapfolder = None
+        self.imapssl = None
         self.part = 2
-        
+
         self.subject_filter = ''
-        
+
         self.server = None
-        
+
     def init_source(self):
-        self.server = imaplib.IMAP4(self.imaphost)
+        if self.imapssl:
+            self.server = imaplib.IMAP4_SSL(self.imaphost)
+        else:
+            self.server = imaplib.IMAP4(self.imaphost)
         debug('[%s]: Connected to IMAP %s' % (self.name, self.imaphost))
         self.server.login(self.imapuser, self.imappass)
         debug('[%s]: IMAP logged in as %s' % (self.name, self.imapuser))
@@ -153,20 +157,20 @@ class IMAPProcessor(Processor):
             self.server.select(self.imapfolder)
         else:
             self.server.select() # preserve default argument "mailbox" of select() method
-        
+
     def finalize_source(self):
         self.server.close()
         self.server.logout()
         debug('[%s]: IMAP logged out' % self.name)
-    
+
     def get_statements(self):
         # get unseen messages from a bank
         filters = ['(UNSEEN)', '(FROM %s)' % self.fromhead]
         if self.subject_filter:
             filters.append('(SUBJECT "%s")' % self.subject_filter)
-        query = '(%s)' % ' '.join(filters)        
-        
-        
+        query = '(%s)' % ' '.join(filters)
+
+
         r, data = self.server.search(None, query) #@UnusedVariable
         msgids = data[0].split(' ')
         if not msgids[0]:
@@ -179,15 +183,15 @@ class IMAPProcessor(Processor):
             (r, data) = self.server.fetch(msgid, '(BODY.PEEK[])') # ".PEEK" means that FLAG \Seen is not set! @UnusedVariable
 
             messages[msgid] = data[0][1]
-        
+
         # process new messages by processor
-        
+
         for msgid in messages:
             # separate attachment in which we are interested
             parser = Parser()
             mail = parser.parsestr(messages[msgid])
-            
-            
+
+
             if self.part > 1 and not mail.is_multipart():
                 debug('[%s]: skipping message %s, it is not multipart' %
                         (self.name, msgid))
@@ -200,19 +204,19 @@ class IMAPProcessor(Processor):
                         (self.name, msgid, self.part))
                 self.mark_as_processed(msgid)
                 continue
-                
+
             statement_file = {}
             statement_file['msgid'] = msgid
             statement_file['filename'] = part.get_filename()
             statement_file['mimetype'] = self.data_mimetype
-            statement_file['octets'] = part.get_payload(decode = True)
+            statement_file['octets'] = part.get_payload(decode=True)
             statement_files.append(statement_file)
         debug('[%s]: %d new messages' % (self.name, len(statement_files)))
         return statement_files
 
     def mark_as_processed(self, ident):
         self.server.store(ident, '+FLAGS', '\\Seen')
-    
+
 
 class HTTPProcessor(Processor):
     def __init__(self, name):
@@ -220,7 +224,7 @@ class HTTPProcessor(Processor):
         self.type = 'http'
         self.input_file = None
         self.url = None
-        
+
     def init_source(self):
         debug('[%s]: Opening HTTP source' % self.name)
         opener = urllib2.build_opener()
@@ -235,7 +239,7 @@ class HTTPProcessor(Processor):
         except (IOError, urllib2.URLError), e:
             self.error_seen = True
             error('[%s]: Failed to connect to HTTP source:\n%s' % (self.name, e))
-        
+
     def get_statements(self):
         statement_file = {}
         statement_file['octets'] = self.input_file
@@ -270,8 +274,8 @@ def runCommand(cmd, stdin, read_iterations=8):
         debug('stderr of child:')
         debug(child.childerr.read())
         raise
-        
-        
+
+
     outfile = child.fromchild
     outfd = outfile.fileno()
     errfile = child.childerr
@@ -282,7 +286,7 @@ def runCommand(cmd, stdin, read_iterations=8):
     outeof = erreof = 0
     for round in range(int(read_iterations)):
         # wait for input at most 1 second
-        ready = select.select([outfd,errfd], [], [], 1.0)
+        ready = select.select([outfd, errfd], [], [], 1.0)
         if outfd in ready[0]:
             outchunk = outfile.read()
             if outchunk == '':
@@ -297,7 +301,7 @@ def runCommand(cmd, stdin, read_iterations=8):
                 errdata += errchunk
         if outeof and erreof: break
         time.sleep(0.3) # give a little time for buffers to fill
-    
+
     child.fromchild.close()
     child.childerr.close()
 
@@ -334,7 +338,7 @@ def main():
         usage()
         sys.exit(2)
     # parameter values
-    for o,a in opts:
+    for o, a in opts:
         if o == '-c':
             configfile = a
         elif o == '-v':
@@ -353,7 +357,7 @@ def main():
     if not config.has_option('general', 'backendcmd'):
         error('Backend command in configuration file must be set')
         sys.exit(2)
-    
+
     if not config.has_option('general', 'logfile'):
         error('logfile must be set')
         sys.exit(2)
@@ -361,7 +365,7 @@ def main():
     if not config.has_option('general', 'loglevel'):
         error('loglevel must be set')
         sys.exit(2)
-    
+
     logger = logging.getLogger('')
     logger.setLevel(logging.DEBUG)
 
@@ -372,21 +376,21 @@ def main():
     else:
         console_handler.setLevel(logging.INFO)
     logger.addHandler(console_handler)
-    
-    loglevel = getattr(logging, config.get('general', 'loglevel').upper(), logging.DEBUG) 
+
+    loglevel = getattr(logging, config.get('general', 'loglevel').upper(), logging.DEBUG)
     file_handler = logging.FileHandler(config.get('general', 'logfile'), 'a')
     file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
     file_handler.setLevel(loglevel)
     logger.addHandler(file_handler)
 
-    
-            
+
+
     # iterate over other sections in config
     processors = []
     for section in config.sections():
         if section == 'general':
             continue
-        
+
         if config.has_option(section, 'type'):
             if config.get(section, 'type') == 'imap':
                 proc = IMAPProcessor(section)
@@ -408,10 +412,10 @@ def main():
         else:
             error('data_type directive must be set in %s section' % section)
             sys.exit(2)
-            
+
         if proc.data_type == 'statement':
-            proc.data_mimetype = config.get(section, 'data_mimetype') 
-        
+            proc.data_mimetype = config.get(section, 'data_mimetype')
+
         if not config.has_option(section, 'processor'):
             error('processor directive must be set in %s section' % section)
             sys.exit(2)
@@ -421,7 +425,7 @@ def main():
             sys.exit(2)
         if config.has_option(section, 'input_encoding'):
             proc.input_encoding = config.get(section, 'input_encoding')
-        
+
         if proc.type == 'imap':
             if not config.has_option(section, 'imaphost'):
                 error('imaphost directive must be set in %s section' % section)
@@ -436,9 +440,13 @@ def main():
                 sys.exit(2)
             proc.imapuser = config.get(section, 'imapuser')
             if not config.has_option(section, 'imapfolder'):
-                error('imapuser directive must be set in %s section' % section)
+                error('imapfolder directive must be set in %s section' % section)
                 sys.exit(2)
             proc.imapfolder = config.get(section, 'imapfolder')
+            if not config.has_option(section, 'imapssl'):
+                error('imapssl directive must be set in %s section' % section)
+                sys.exit(2)
+            proc.imapssl = config.getboolean(section, 'imapssl')
             if not config.has_option(section, 'fromhead'):
                 error('fromhead directive must be set in %s section' % section)
                 sys.exit(2)
@@ -451,14 +459,14 @@ def main():
             if not config.has_option(section, 'processor'):
                 error('processor directive must be set in %s section' % section)
                 sys.exit(2)
-            
+
             if config.has_option(section, 'url'):
                 proc.url = config.get(section, 'url')
             else:
                 error('url directive must be set in %s section' % section)
                 sys.exit(2)
-                
-        processors.append(proc) 
+
+        processors.append(proc)
     # end of configuration
     # action begins now
     for proc in processors:

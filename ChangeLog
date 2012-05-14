@@ -1,3 +1,7 @@
+2012-05-14 Tomas Divis (1.0.14)
+
+    * add support for IMAP SSL
+
 2012-03-19 Jiri Sadek (1.0.13)
 
     * setup.py fix - config file path

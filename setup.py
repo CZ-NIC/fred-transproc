@@ -48,7 +48,7 @@ if setup is None:
 from freddist.command.install import install
 from freddist import file_util
 
-PACKAGE_VERSION = '1.0.13'
+PACKAGE_VERSION = '1.0.14'
 PROJECT_NAME = 'fred-transproc'
 PACKAGE_NAME = 'fred_transproc'
 

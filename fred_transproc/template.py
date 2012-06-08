@@ -1,4 +1,6 @@
-template_head = '''<?xml version="1.0" encoding="UTF-8"?>
+from xml.sax.saxutils import escape
+
+_template_head = '''<?xml version="1.0" encoding="UTF-8"?>
 <statements>
   <statement>
     <account_number>%s</account_number>
@@ -12,11 +14,11 @@ template_head = '''<?xml version="1.0" encoding="UTF-8"?>
     <debet>%s</debet>
     <items>'''
 
-template_tail = '''    </items>
+_template_tail = '''    </items>
   </statement>
 </statements>'''
 
-template_item = '''      <item>
+_template_item = '''      <item>
         <ident>%s</ident>
         <account_number>%s</account_number>
         <account_bank_code>%s</account_bank_code>
@@ -32,3 +34,17 @@ template_item = '''      <item>
         <crtime>%s</crtime>
         <name>%s</name>
       </item>'''
+
+
+def _escape_data_list(data_list):
+    return tuple(escape(str(item)) for item in data_list)
+
+
+def render_template_head(data_list):
+    return _template_head % _escape_data_list(data_list)
+
+def render_template_tail():
+    return _template_tail
+
+def render_template_item(data_list):
+    return _template_item % _escape_data_list(data_list)

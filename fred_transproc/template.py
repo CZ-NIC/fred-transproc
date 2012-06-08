@@ -1,4 +1,5 @@
 from xml.sax.saxutils import escape
+import types
 
 _template_head = '''<?xml version="1.0" encoding="UTF-8"?>
 <statements>
@@ -37,7 +38,7 @@ _template_item = '''      <item>
 
 
 def _escape_data_list(data_list):
-    return tuple(escape(str(item)) for item in data_list)
+    return tuple(escape(item if isinstance(item, types.StringTypes) else str(item)) for item in data_list)
 
 
 def render_template_head(data_list):

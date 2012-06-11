@@ -1,3 +1,7 @@
+2012-06-09 Tomas Divis, Jiri Sadek (1.1.1)
+
+    * fix - escape function for output xml data (xml entities issue)
+
 2012-05-14 Tomas Divis (1.1.0)
 
     * add support for IMAP SSL

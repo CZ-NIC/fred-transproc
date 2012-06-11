@@ -28,9 +28,7 @@ import sys
 import csv
 from datetime import datetime
 
-from fred_transproc.template import template_head
-from fred_transproc.template import template_tail
-from fred_transproc.template import template_item
+from fred_transproc.template import render_template_head, render_template_tail, render_template_item
 
 status_mapping = {
     0: 3,
@@ -67,8 +65,8 @@ if __name__ == '__main__':
             old_balance = ""
             credit = ""
             debet = ""
-            print template_head % (own_account_number, own_account_bank_code, number, date, balance,
-                    old_date, old_balance, credit, debet)
+            print render_template_head([own_account_number, own_account_bank_code, number, date, balance,
+                                        old_date, old_balance, credit, debet])
         ident = row[15].strip()
         account_number = row[6].strip()
         bank_code = row[7].strip()
@@ -104,9 +102,9 @@ if __name__ == '__main__':
         date = datetime.strptime(row[5].strip(), "%d.%m.%Y %H:%M:%S").date().isoformat()
         crtime = ""
         name = row[14].strip()
-        print template_item % (ident, account_number, bank_code,  const_symbol,
-                var_symbol, spec_symbol, price, type, code, status, memo,
-                date, crtime, name)
+        print render_template_item([ident, account_number, bank_code, const_symbol,
+                                    var_symbol, spec_symbol, price, type, code, status, memo,
+                                    date, crtime, name])
     if first_time == False: # there was at least one row in input csv
-        print template_tail
+        print render_template_tail()
 

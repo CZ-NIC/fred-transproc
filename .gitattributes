@@ -1,0 +1,2 @@
+*.xml -crlf -diff
+*.csv -crlf -diff

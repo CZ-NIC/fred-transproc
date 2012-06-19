@@ -48,7 +48,6 @@ if setup is None:
 from freddist.command.install import install
 from freddist import file_util
 
-PACKAGE_VERSION = '1.1.1'
 PROJECT_NAME = 'fred-transproc'
 PACKAGE_NAME = 'fred_transproc'
 
@@ -97,7 +96,6 @@ def main():
         author = 'Jan Kryl',
         author_email = 'developers@nic.cz',
         url = 'http://fred.nic.cz/',
-        version = PACKAGE_VERSION,
         license = 'GNU GPL',
         platforms = ['posix'],
         description = 'FRED TransProc',

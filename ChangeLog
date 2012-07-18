@@ -25,7 +25,7 @@
 2010-08-13 Jiri Sadek (1.0.10)
 
     * payments in foreign currency are now included in output
-	  xml (with price set to 0)
+      xml (with price set to 0)
 
 2010-06-22 Jiri Sadek (1.0.9)
 
@@ -36,54 +36,54 @@
 2010-04-01 Tomas Divis (1.0.5)
 
     * Added support for logging
-    
+
     * BugFix: When emtpy csv comes to proc_csob_xml processor,
-	  it will not generate invalid XML but rather empty string
-    
+      it will not generate invalid XML but rather empty string
+
     * Transproc now don't send empty output XML from processor to backend
-	  (due to bugfix above)
+      (due to bugfix above)
 
 2010-03-12 Tomas Divis (1.0.2)
-    
+
     * Setup.py enhanced
-    
+
     * Some minor bugfixes like exception handling while connecting to HTTP,
-	  typos...
+      typos...
 
 2010-02-19 Tomas Divis (1.0.0)
 
-	* Support for IMAP + HTTP data sources
+    * Support for IMAP + HTTP data sources
 
-	* Support for data source types options
+    * Support for data source types options
 
-	* Configurable source data recoding from different charset
+    * Configurable source data recoding from different charset
 
-	* Configurable filter by subject for IMAP source
+    * Configurable filter by subject for IMAP source
 
-	* Processed mail marking improved
+    * Processed mail marking improved
 
-	* Import command takes parameter for original statement file and its
-	mimetype (defined in configuration)
+    * Import command takes parameter for original statement file and its
+    mimetype (defined in configuration)
 
-	* Output xml changes:
-			* xml header added
-			* oldBalance element renamed to old_balance
-			* account_bank_code added to statement xml (account_number
-			splitted)
-			* ident should be same if there is more sources for one account
-			(it was set to empty string in proc_ebanka for now)
-			* status element added
+    * Output xml changes:
+            * xml header added
+            * oldBalance element renamed to old_balance
+            * account_bank_code added to statement xml (account_number
+            splitted)
+            * ident should be same if there is more sources for one account
+            (it was set to empty string in proc_ebanka for now)
+            * status element added
 
-	* proc_ebanka is now not supported because of 'ident' element problem
+    * proc_ebanka is now not supported because of 'ident' element problem
 
 2009-02-11 Ales Dolezal (1.0.0)
 
-	* Parser for CSOB xml files.
+    * Parser for CSOB xml files.
 
 2007-11-07 Jan Kryl (version 1.0.0)
 
-	* Old get_transcripts.py script imported and renamed to transproc.
+    * Old get_transcripts.py script imported and renamed to transproc.
 
-	* Parser for ebanka transcript completed.
+    * Parser for ebanka transcript completed.
 
-	* New setup.py installer.
+    * New setup.py installer.

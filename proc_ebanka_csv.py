@@ -5,7 +5,7 @@
 # 0, 1 - datumy
 # 2    - predepsana castka
 # 3    - mena
-# 4    - prevedena castka, ta se muze zmenit, napr. pri zmene stavu z Nerealizovano na Zrealizovano 
+# 4    - prevedena castka, ta se muze zmenit, napr. pri zmene stavu z Nerealizovano na Zrealizovano
 # 5    - timestamp (datum je shodne s datumem ze sloupce 0
 # 6    - cislo uctu z nejz prisla platba
 # 7    - kod banky z nejz prisla platba
@@ -14,7 +14,7 @@
 # 10   - variabilni symbol
 # 11   - konstantni symbol
 # 12   - poznamka
-# 13   - stav 
+# 13   - stav
 #         0 - Nezrealizovano
 #         1 - Castecne realizovano
 #         2 - Zrealizovano
@@ -90,7 +90,7 @@ if __name__ == '__main__':
         #    * 3-Not realized
         #    * 4-Suspended
         #    * 5-Ended
-        #    * 6-Waiting for clearing 
+        #    * 6-Waiting for clearing
         status = status_mapping[int(row[13].strip())]
         # import only realized payments
         if status != 1:
@@ -107,4 +107,3 @@ if __name__ == '__main__':
                                     date, crtime, name])
     if first_time == False: # there was at least one row in input csv
         print render_template_tail()
-

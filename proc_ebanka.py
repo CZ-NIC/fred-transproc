@@ -10,7 +10,7 @@ def error(msg):
     sys.stderr.write('Invalid format: ' + msg + '\n')
     sys.exit(1)
 
-def getfield(str, i, delim = ' '):
+def getfield(str, i, delim=' '):
     list = [ field for field in str.split(delim) if field ]
     if len(list) < i:
         error('Required field %d is not present in string "%s"' % (i, str))
@@ -18,13 +18,13 @@ def getfield(str, i, delim = ' '):
 
 
 if __name__ == '__main__':
-    
-    sys.stderr.write('''proc_ebanka processor is not up to date!!! 
-    There were several changes in format of output XML which are not possible 
-    to do for text source of statement from raifaisen bank (ebanka) 
+
+    sys.stderr.write('''proc_ebanka processor is not up to date!!!
+    There were several changes in format of output XML which are not possible
+    to do for text source of statement from raifaisen bank (ebanka)
     like unique identifier of payment, so this processor is obsolete.''')
     sys.exit(1)
-    
+
     input = sys.stdin.read()
     input = input.replace('\r', '').strip() # delete \r characters
     sections = [ section.strip() for section in input.split('\n\n') if section ]
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     else:
         tmp_date = getfield(lines[2], 2).split('.')
         var_date_new = tmp_date[2] + '-' + tmp_date[1] + '-' + tmp_date[0]
-        var_date_old  = var_date_new
+        var_date_old = var_date_new
     year = var_date_new.split('-')[0][2:]
     # header 2
     lines = [ line.strip() for line in sections[1].split('\n') ]
@@ -59,9 +59,9 @@ if __name__ == '__main__':
         # header 3
     lines = [ line.strip() for line in subsections[1].split('\n') ]
     var_oldBalance = getfield(lines[0], 2, '  ').replace(' ', '')
-    var_credit     = getfield(lines[1], 3, '  ').replace(' ', '')
-    var_debet      = getfield(lines[2], 3, '  ').replace(' ', '')
-    var_balance    = getfield(lines[4], 2, '  ').replace(' ', '')
+    var_credit = getfield(lines[1], 3, '  ').replace(' ', '')
+    var_debet = getfield(lines[2], 3, '  ').replace(' ', '')
+    var_balance = getfield(lines[4], 2, '  ').replace(' ', '')
     # print what we have so far
     print template_head % (var_account_id, var_number, var_date_new, var_balance,
             var_date_old, var_oldBalance, var_credit, var_debet)
@@ -74,12 +74,12 @@ if __name__ == '__main__':
                 error('Bad number of lines of transaction item')
             item_spec_symbol = lines[0][44:55].strip()
             item_number = lines[0][:5].strip()
-            item_price = lines[0][55:76].strip().replace(' ','')
+            item_price = lines[0][55:76].strip().replace(' ', '')
             if item_price == '':
                 item_price = lines[0][79:86].strip().replace(' ', '')
             item_date_tmp = lines[0][5:11].strip().strip('.').split('.')
             item_date = '20' + year + '-' + item_date_tmp[1] + '-' + item_date_tmp[0]
-            item_time= lines[1][5:11].strip()
+            item_time = lines[1][5:11].strip()
             item_name = lines[1][11:33].strip()
             item_currency = lines[1][34:36].strip()
             item_var_symbol = lines[1][44:55].strip()

@@ -60,17 +60,17 @@ class TransprocInstall(install):
     def initialize_options(self):
         install.initialize_options(self)
         self.backendcmd = ''
-        
+
     def update_config(self, src, dest):
         'Update config path variable.'
         # filepath always with root (if is defined)
         body = open(src).read()
         if self.backendcmd:
-            body = re.sub("backendcmd\s*=\s*(.*)", 
+            body = re.sub("backendcmd\s*=\s*(.*)",
                           "backendcmd=%s" % self.backendcmd, body)
 
 
-        body = re.sub("procdir\s*=\s*(.*)", 
+        body = re.sub("procdir\s*=\s*(.*)",
                       "procdir=%s" % os.path.join(self.getDir('LIBEXECDIR'), PROJECT_NAME), body)
         body = re.sub("logfile\s*=\s*(.*)",
                       "logfile=%s" % os.path.join(self.getDir('localstatedir'), "log", PROJECT_NAME + ".log"), body)
@@ -80,47 +80,47 @@ class TransprocInstall(install):
         'Update transproc script path variable.'
         # filepath always with root (if is defined)
         body = open(src).read()
-        body = re.sub("configfile\s*=\s*(.*)", 
-                      "configfile = '%s'" % os.path.join(self.getDir('SYSCONFDIR'), 'fred', 'transproc.conf'), 
+        body = re.sub("configfile\s*=\s*(.*)",
+                      "configfile = '%s'" % os.path.join(self.getDir('SYSCONFDIR'), 'fred', 'transproc.conf'),
                       body, count=1)
         open(dest, 'w').write(body)
-    
-    
-    
-        
+
+
+
+
 def main():
     "Run freddist setup"
     setup(
         # Distribution meta-data
-        name = PROJECT_NAME,
-        author = 'Jan Kryl',
-        author_email = 'developers@nic.cz',
-        url = 'http://fred.nic.cz/',
-        license = 'GNU GPL',
-        platforms = ['posix'],
-        description = 'FRED TransProc',
-        long_description = 'Component of FRED (Fast Registry for Enum and '
+        name=PROJECT_NAME,
+        author='Jan Kryl',
+        author_email='developers@nic.cz',
+        url='http://fred.nic.cz/',
+        license='GNU GPL',
+        platforms=['posix'],
+        description='FRED TransProc',
+        long_description='Component of FRED (Fast Registry for Enum and '
                            'Domains)',
-    
-        #scripts = ['transproc'], 
-        packages = [PACKAGE_NAME], 
-        
-        data_files = (
-            (os.path.join('SYSCONFDIR', 'fred'), ['transproc.conf']), 
+
+        #scripts = ['transproc'],
+        packages=[PACKAGE_NAME],
+
+        data_files=(
+            (os.path.join('SYSCONFDIR', 'fred'), ['transproc.conf']),
             ('DOCDIR', ['backend.xml', 'ChangeLog', 'README']),
             ('BINDIR', ['transproc']),
             (os.path.join('LIBEXECDIR', PROJECT_NAME), ['proc_csob_xml.py', 'proc_ebanka_csv.py', 'proc_ebanka.py']),
         ),
-        
-        modify_files = {
-            'install_data': (('install.update_config', ['transproc.conf']), 
-                             ('install.update_transproc_path_to_config', ['transproc']), 
+
+        modify_files={
+            'install_data': (('install.update_config', ['transproc.conf']),
+                             ('install.update_transproc_path_to_config', ['transproc']),
                             ),
-            
+
         },
-        
-        cmdclass = {
-            'install': TransprocInstall, 
+
+        cmdclass={
+            'install': TransprocInstall,
         },
     )
 

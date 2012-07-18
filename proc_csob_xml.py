@@ -60,14 +60,12 @@ if __name__ == '__main__':
             code = "2"
 
         type = "" # only for output for backend, transproc leaves this blank
-        
+
         # all payments in CSOB XML are realized:
-        status = "1" 
-        
+        status = "1"
+
         print unicode(render_template_item([ident, account_number, account_bank_code,
                 const_symbol, var_symbol, spec_symbol, price, type, code, status, memo,
                 date, crtime, name])).encode('utf8')
 
     print unicode(render_template_tail()).encode('utf8')
-
-

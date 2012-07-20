@@ -1,2 +1,3 @@
-*.xml -crlf -diff
-*.csv -crlf -diff
+*.xml -whitespace
+*.csv -whitespace
+example_raiffeisenbank.txt -whitespace

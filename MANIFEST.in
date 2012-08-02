@@ -1,7 +1,5 @@
 include backend.xml
 include ChangeLog
-include README
-include RELEASE-VERSION
 include MANIFEST.in
 include fred_transproc/*.py
 include transproc

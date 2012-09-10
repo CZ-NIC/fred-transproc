@@ -1,3 +1,9 @@
+2012-09-10 Tomas Divis, Vlastimil Zima (1.1.2)
+
+    * Whitespace normalization and PEP8-ification
+
+    * Update due to distutils changes (setup.cfg)
+
 2012-06-09 Tomas Divis, Jiri Sadek (1.1.1)
 
     * fix - escape function for output xml data (xml entities issue)

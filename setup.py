@@ -4,89 +4,74 @@
 Installation fred transproc.
 """
 import re
-import os
-import sys
 
-from freddist import file_util
 from freddist.command.install import install
 from freddist.core import setup
 
 
 PROJECT_NAME = 'fred-transproc'
-PACKAGE_NAME = 'fred_transproc'
+
 
 class TransprocInstall(install):
-    user_options = []
-    user_options.extend(install.user_options)
-    user_options.extend([
+    user_options = install.user_options + [
         ('backendcmd=', None, 'Command for backend CLI admin tool.'),
-    ])
+    ]
+
     def initialize_options(self):
         install.initialize_options(self)
-        self.backendcmd = ''
+        self.backendcmd = None
 
-    def update_config(self, src, dest):
-        'Update config path variable.'
-        # filepath always with root (if is defined)
-        body = open(src).read()
+    def update_config(self, filename):
+        """
+        Update config path variable.
+        """
+        content = open(filename).read()
         if self.backendcmd:
-            body = re.sub("backendcmd\s*=\s*(.*)",
-                          "backendcmd=%s" % self.backendcmd, body)
+            pattern = re.compile(r'^backendcmd.*$', re.MULTILINE)
+            content = pattern.sub("backendcmd = %s" % self.backendcmd, content)
 
+        pattern = re.compile(r'^procdir.*$', re.MULTILINE)
+        content = pattern.sub("procdir = %s" % self.expand_filename('$libexec/%s' % PROJECT_NAME), content)
 
-        body = re.sub("procdir\s*=\s*(.*)",
-                      "procdir=%s" % os.path.join(self.getDir('LIBEXECDIR'), PROJECT_NAME), body)
-        body = re.sub("logfile\s*=\s*(.*)",
-                      "logfile=%s" % os.path.join(self.getDir('localstatedir'), "log", PROJECT_NAME + ".log"), body)
-        open(dest, 'w').write(body)
+        pattern = re.compile(r'^logfile.*$', re.MULTILINE)
+        content = pattern.sub("logfile = %s" % self.expand_filename('$localstate/log/%s.log' % PROJECT_NAME), content)
 
-    def update_transproc_path_to_config(self, src, dest):
-        'Update transproc script path variable.'
-        # filepath always with root (if is defined)
-        body = open(src).read()
-        body = re.sub("configfile\s*=\s*(.*)",
-                      "configfile = '%s'" % os.path.join(self.getDir('SYSCONFDIR'), 'fred', 'transproc.conf'),
-                      body, count=1)
-        open(dest, 'w').write(body)
+        open(filename, 'w').write(content)
+        self.announce("File '%s' was updated" % filename)
 
+    def update_transproc_path_to_config(self, filename):
+        """
+        Update transproc script path variable.
+        """
+        content = open(filename).read()
+        pattern = re.compile(r'^configfile.*$', re.MULTILINE)
+        content = pattern.sub("configfile = '%s'" % self.expand_filename('$sysconf/fred/transproc.conf'), content)
 
+        open(filename, 'w').write(content)
+        self.announce("File '%s' was updated" % filename)
 
 
 def main():
-    "Run freddist setup"
-    setup(
-        # Distribution meta-data
-        name=PROJECT_NAME,
-        author='Jan Kryl',
-        author_email='developers@nic.cz',
-        url='http://fred.nic.cz/',
-        license='GNU GPL',
-        platforms=['posix'],
-        description='FRED TransProc',
-        long_description='Component of FRED (Fast Registry for Enum and '
-                           'Domains)',
+    data_files = [
+        ('$sysconf/fred', ['transproc.conf']),
+        ('$doc', ['backend.xml', 'ChangeLog', 'README']),
+        ('$libexec/%s' % PROJECT_NAME, ['proc_csob_xml.py', 'proc_ebanka_csv.py', 'proc_ebanka.py']),
+    ]
+    setup(name=PROJECT_NAME,
+          author='Jan Kryl',
+          author_email='developers@nic.cz',
+          url='http://fred.nic.cz/',
+          license='GNU GPL',
+          platforms=['posix'],
+          description='FRED TransProc',
+          long_description='Component of FRED (Fast Registry for Enum and Domains)',
+          packages=['fred_transproc'],
+          scripts=['transproc'],
+          data_files=data_files,
+          modify_files={'$sysconf/fred/transproc.conf': 'update_config',
+                        '$scripts/transproc': 'update_transproc_path_to_config'},
+          cmdclass={'install': TransprocInstall})
 
-        #scripts = ['transproc'],
-        packages=[PACKAGE_NAME],
-
-        data_files=(
-            (os.path.join('SYSCONFDIR', 'fred'), ['transproc.conf']),
-            ('DOCDIR', ['backend.xml', 'ChangeLog', 'README']),
-            ('BINDIR', ['transproc']),
-            (os.path.join('LIBEXECDIR', PROJECT_NAME), ['proc_csob_xml.py', 'proc_ebanka_csv.py', 'proc_ebanka.py']),
-        ),
-
-        modify_files={
-            'install_data': (('install.update_config', ['transproc.conf']),
-                             ('install.update_transproc_path_to_config', ['transproc']),
-                            ),
-
-        },
-
-        cmdclass={
-            'install': TransprocInstall,
-        },
-    )
 
 if __name__ == '__main__':
     main()

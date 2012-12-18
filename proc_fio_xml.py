@@ -55,7 +55,11 @@ if __name__ == '__main__':
             const_symbol = item.findtext("column_4", "")
             var_symbol = item.findtext("column_5", "")
             spec_symbol = item.findtext("column_6", "")
-            price = item.findtext("column_1").replace("+", "").replace(",", ".")
+            currency = item.findtext("column_14", "")
+            if currency.lower()=="czk":
+                price = item.findtext("column_1").replace("+", "").replace(",", ".")
+            else:
+                price = "0"
             name = item.findtext("column_10", "")
             date = get_isoformat_date(item.findtext("column_0"))
             code = "1" # 1-normal transaction; 2-storno transaction

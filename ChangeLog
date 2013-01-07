@@ -1,3 +1,7 @@
+2013-01-07 Michal Strnad (1.2.0)
+
+    * Parser for FIO xml data files
+
 2012-09-10 Tomas Divis, Vlastimil Zima (1.1.2)
 
     * Whitespace normalization and PEP8-ification

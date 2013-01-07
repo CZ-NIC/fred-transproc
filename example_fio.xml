@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AccountStatement xmlns="http://www.fio.cz/xsd/IBSchema">
+  <Info>
+    <accountId>2700342289</accountId>
+    <bankId>2010</bankId>
+    <currency>CZK</currency>
+    <iban>CZ6820100000002700342289</iban>
+    <bic>FIOBCZPPXXX</bic>
+    <openingBalance>0.00</openingBalance>
+    <closingBalance>6000.00</closingBalance>
+    <dateStart>2012-12-01+01:00</dateStart>
+    <dateEnd>2012-12-31+01:00</dateEnd>
+    <idFrom>1169064015</idFrom>
+    <idTo>1169064218</idTo>
+  </Info>
+  <TransactionList>
+    <Transaction>
+      <column_22 id="22" name="ID pohybu">1169064015</column_22>
+      <column_0 id="0" name="Datum">2012-12-20+01:00</column_0>
+      <column_1 id="1" name="Objem">1000.00</column_1>
+      <column_14 id="14" name="Měna">CZK</column_14>
+      <column_2 id="2" name="Protiúčet">2200342290</column_2>
+      <column_10 id="10" name="Název protiúčtu">CZ.NIC, z.s.p.o.</column_10>
+      <column_3 id="3" name="Kód banky">2010</column_3>
+      <column_12 id="12" name="Název banky">Fio banka, a.s.</column_12>
+      <column_4 id="4" name="KS">0558</column_4>
+      <column_5 id="5" name="VS">11111111</column_5>
+      <column_16 id="16" name="Zpráva pro příjemce">Vesele vanoce</column_16>
+      <column_8 id="8" name="Typ">Příjem převodem uvnitř banky</column_8>
+      <column_17 id="17" name="ID pokynu">2203902893</column_17>
+    </Transaction>
+    <Transaction>
+      <column_22 id="22" name="ID pohybu">1169064094</column_22>
+      <column_0 id="0" name="Datum">2012-12-20+01:00</column_0>
+      <column_1 id="1" name="Objem">2000.00</column_1>
+      <column_14 id="14" name="Měna">CZK</column_14>
+      <column_2 id="2" name="Protiúčet">2200342290</column_2>
+      <column_10 id="10" name="Název protiúčtu">CZ.NIC, z.s.p.o.</column_10>
+      <column_3 id="3" name="Kód banky">2010</column_3>
+      <column_12 id="12" name="Název banky">Fio banka, a.s.</column_12>
+      <column_4 id="4" name="KS">0558</column_4>
+      <column_8 id="8" name="Typ">Příjem převodem uvnitř banky</column_8>
+      <column_17 id="17" name="ID pokynu">2203903519</column_17>
+    </Transaction>
+    <Transaction>
+      <column_22 id="22" name="ID pohybu">1169064218</column_22>
+      <column_0 id="0" name="Datum">2012-12-20+01:00</column_0>
+      <column_1 id="1" name="Objem">3000.00</column_1>
+      <column_14 id="14" name="Měna">CZK</column_14>
+      <column_2 id="2" name="Protiúčet">2200342290</column_2>
+      <column_10 id="10" name="Název protiúčtu">CZ.NIC, z.s.p.o.</column_10>
+      <column_3 id="3" name="Kód banky">2010</column_3>
+      <column_12 id="12" name="Název banky">Fio banka, a.s.</column_12>
+      <column_4 id="4" name="KS">0558</column_4>
+      <column_5 id="5" name="VS">333333</column_5>
+      <column_6 id="6" name="SS">444444</column_6>
+      <column_16 id="16" name="Zpráva pro příjemce">Vesele vanoce &lt;&gt; &amp; Novy rok</column_16>
+      <column_8 id="8" name="Typ">Příjem převodem uvnitř banky</column_8>
+      <column_17 id="17" name="ID pokynu">2203904222</column_17>
+    </Transaction>
+  </TransactionList>
+</AccountStatement>

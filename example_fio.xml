@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<AccountStatement xmlns="http://www.fio.cz/xsd/IBSchema">
+<AccountStatement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.fio.cz/schema/exportIB.xsd"> 
   <Info>
     <accountId>2700342289</accountId>
     <bankId>2010</bankId>

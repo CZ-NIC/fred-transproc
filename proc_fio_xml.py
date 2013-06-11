@@ -44,6 +44,8 @@ if __name__ == '__main__':
     if tag['tag']!="AccountStatement":
         sys.exit(1)
     nsFio = tag['ns']
+    if nsFio is None:
+        nsFio = ""
     info = root.find(nsFio+"Info")
     if info is None:
         sys.exit(1)

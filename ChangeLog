@@ -1,3 +1,7 @@
+2013-06-12 Michal Strnad (1.2.1)
+
+    * Parser for FIO updated to new format
+
 2013-01-07 Michal Strnad (1.2.0)
 
     * Parser for FIO xml data files

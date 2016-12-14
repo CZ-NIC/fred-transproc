@@ -1,1 +1,2 @@
+include fred-transproc.spec
 include MANIFEST.in

@@ -3,14 +3,15 @@
 import sys, getopt, imaplib, tempfile, signal
 import urllib2
 import traceback
-import os, os.path, time, popen2, select, ConfigParser, fcntl
+import os, os.path, time, datetime, popen2, select, ConfigParser, fcntl
 import logging
 from email.Parser import Parser
+from dateutil.relativedelta import relativedelta
 
 verbose = False
 config = None
 configfile = "/usr/etc/fred/transproc.conf"
-
+iso_format = '%Y-%m-%d'
 logfile = None
 
 def usage():
@@ -330,6 +331,8 @@ def main():
     global verbose
     global config
     global configfile
+    global iso_format
+
     error_seen = False
     # parse command line options
     try:
@@ -459,9 +462,45 @@ def main():
             if not config.has_option(section, 'processor'):
                 error('processor directive must be set in %s section' % section)
                 sys.exit(2)
-
+            if not config.has_option(section, 'start_date_format'):
+                error('start_date_format directive must be set in %s section' % section)
+                sys.exit(2)
+            start_date_format=config.get(section, 'start_date_format')
+            if not config.has_option(section, 'end_date_format'):
+                error('end_date_format directive must be set in %s section' % section)
+                sys.exit(2)
+            end_date_format=config.get(section, 'end_date_format')
+            if not config.has_option(section, 'end_date'):
+                error('end_date directive must be set in %s section' % section)
+                sys.exit(2)
+            else:
+                end_date = config.get(section, 'end_date')
+                if end_date == 'TODAY':
+                    end_date = datetime.datetime.today()
+                else:
+                    try:
+                        end_date = datetime.datetime.strptime(end_date, iso_format)
+                    except ValueError:
+                        error('end_date directive must be date in ISO format %%Y-%%m-%%d in %s section' % section)
+                        sys.exit(2)
+            if not config.has_option(section, 'interval'):
+                error('interval directive must be set in %s section' % section)
+                sys.exit(2)
+            try:
+                interval = int(config.get(section,'interval'))
+            except ValueError:
+                error('interval directive must be integer in %s section' % section)
+                sys.exit(2)
+            if not interval in range(25):
+                error('interval directive must be from interval (0-25) in %s section' % section)
+                sys.exit(2)
+            interval=relativedelta(months=interval)
             if config.has_option(section, 'url'):
-                proc.url = config.get(section, 'url')
+                url = config.get(section, 'url')
+                start_date = end_date - interval
+                proc.url = url.replace('{START_DATE}', start_date.strftime(start_date_format))
+                if end_date_format:
+                    proc.url = proc.url.replace('{END_DATE}', end_date.strftime(end_date_format))
             else:
                 error('url directive must be set in %s section' % section)
                 sys.exit(2)
@@ -470,6 +509,9 @@ def main():
     # end of configuration
     # action begins now
     for proc in processors:
+        if __debug__:
+            print(proc.url)
+
         proc.init_source()
         if proc.error_seen:
             error_seen = True

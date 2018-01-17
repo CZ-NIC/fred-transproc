@@ -11,21 +11,25 @@ from dateutil.relativedelta import relativedelta
 verbose = False
 config = None
 configfile = "/usr/etc/fred/transproc.conf"
-iso_format = '%Y-%m-%d'
+iso3339_date_format = '%Y-%m-%d'
 logfile = None
 
+
 def usage():
-    print '%s [-c config] [-v]' % sys.argv[0]
+    print('%s [-c config] [-v]' % sys.argv[0])
+
 
 def debug(msg):
     logging.debug(msg)
-    #global verbose
-    #if verbose:
-    #    sys.stdout.write(msg + '\n')
+    # global verbose
+    # if verbose:
+    #     sys.stdout.write(msg + '\n')
+
 
 def error(msg):
     logging.error(msg)
-    #sys.stderr.write(msg + '\n')
+    # sys.stderr.write(msg + '\n')
+
 
 class Processor(object):
     '''Class representing a processor of transcript.'''
@@ -51,7 +55,7 @@ class Processor(object):
     def process_statement_file(self, statement_file):
         self.error_seen = False
 
-        #debug('[%s]: processing message %s' % (self.name, msgid))
+        # debug('[%s]: processing message %s' % (self.name, msgid))
         # run the processor:
         #    stdin:  raw source data
         #    stdout: result of processing (XML)
@@ -68,11 +72,9 @@ class Processor(object):
             error('[%s]: message %s rejected: %s' % (self.name, statement_file['msgid'], err))
         elif status != 0:
             if status != 1:
-                error('[%s]: unknown return code (%s): %s' %
-                        (self.name, status, err))
+                error('[%s]: unknown return code (%s): %s' % (self.name, status, err))
             else:
-                error('[%s]: processing of data failed: %s' %
-                        (self.name, err))
+                error('[%s]: processing of data failed: %s' % (self.name, err))
             # we will reprocess the email nexttime
             self.error_seen = True
         else:
@@ -89,8 +91,7 @@ class Processor(object):
             error('[%s]: Statement file have no outxml, you must first procoss it!' % self.name)
             return
 
-        save_statement = (self.data_type == 'statement'
-                          and statement_file.get('octets'))
+        save_statement = (self.data_type == 'statement' and statement_file.get('octets'))
         if save_statement:
             tmp_file, tmp_filename = tempfile.mkstemp(prefix='transproc_source_bankstatement')
             os.write(tmp_file, statement_file['octets'])
@@ -104,16 +105,17 @@ class Processor(object):
             if self.input_encoding != 'utf8':
                 outxml = outxml.decode(self.input_encoding).encode('utf8')
 
-            #open('/tmp/outxml-%s.xml' % (self.name + statement_file.get('msgid', '')) , 'w').write(outxml)
-            (status, output, err) = runCommand(cmd, outxml, read_iterations=config.getint('general', 'backendcmd_max_read_iterations')) # this needs higher read_iterations as it does a lot of ouput to stdout @UnusedVariable
+            # open('/tmp/outxml-%s.xml' % (self.name + statement_file.get('msgid', '')) , 'w').write(outxml)
+            # this needs higher read_iterations as it does a lot of ouput to stdout @UnusedVariable
+            (status, output, err) = runCommand(cmd, outxml, read_iterations=config.getint('general', 'backendcmd_max_read_iterations'))
             if status != 0:
                 error('[%s]: Error when executing command: %s\n%s' % (self.name, cmd, err))
                 # restore the UNSEEN flag - something in script failed
                 # we will reprocess the email nexttime
                 self.error_seen = True
             else:
-                #debug('[%s]: Backend\'s output:' % self.name)
-                #debug(output)
+                # debug('[%s]: Backend\'s output:' % self.name)
+                # debug(output)
                 if err:
                     error('[%s]: Error from backend:\n' % self.name)
                     error(err)
@@ -157,7 +159,7 @@ class IMAPProcessor(Processor):
         if self.imapfolder:
             self.server.select(self.imapfolder)
         else:
-            self.server.select() # preserve default argument "mailbox" of select() method
+            self.server.select()  # preserve default argument "mailbox" of select() method
 
     def finalize_source(self):
         self.server.close()
@@ -171,8 +173,7 @@ class IMAPProcessor(Processor):
             filters.append('(SUBJECT "%s")' % self.subject_filter)
         query = '(%s)' % ' '.join(filters)
 
-
-        r, data = self.server.search(None, query) #@UnusedVariable
+        r, data = self.server.search(None, query)  # @UnusedVariable
         msgids = data[0].split(' ')
         if not msgids[0]:
             debug('[%s]: No new messages in mailbox' % self.name)
@@ -181,7 +182,7 @@ class IMAPProcessor(Processor):
         messages = {}
         statement_files = []
         for msgid in msgids:
-            (r, data) = self.server.fetch(msgid, '(BODY.PEEK[])') # ".PEEK" means that FLAG \Seen is not set! @UnusedVariable
+            (r, data) = self.server.fetch(msgid, '(BODY.PEEK[])')  # ".PEEK" means that FLAG \Seen is not set! @UnusedVariable
 
             messages[msgid] = data[0][1]
 
@@ -192,17 +193,14 @@ class IMAPProcessor(Processor):
             parser = Parser()
             mail = parser.parsestr(messages[msgid])
 
-
             if self.part > 1 and not mail.is_multipart():
-                debug('[%s]: skipping message %s, it is not multipart' %
-                        (self.name, msgid))
+                debug('[%s]: skipping message %s, it is not multipart' % (self.name, msgid))
                 self.mark_as_processed(msgid)
                 continue
             try:
-                part = mail.get_payload(self.part - 1) # parts are counted from 0
+                part = mail.get_payload(self.part - 1)  # parts are counted from 0
             except IndexError:
-                debug('[%s]: skipping message %s, it has not %s parts as needed' %
-                        (self.name, msgid, self.part))
+                debug('[%s]: skipping message %s, it has not %s parts as needed' % (self.name, msgid, self.part))
                 self.mark_as_processed(msgid)
                 continue
 
@@ -246,6 +244,7 @@ class HTTPProcessor(Processor):
         statement_file['octets'] = self.input_file
         return [statement_file]
 
+
 def makeNonBlocking(fd):
     """
     Set non-blocking attribute on file.
@@ -254,7 +253,8 @@ def makeNonBlocking(fd):
     try:
         fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NDELAY)
     except AttributeError:
-        fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.FNDELAY) #@UndefinedVariable
+        fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.FNDELAY)  # @UndefinedVariable
+
 
 def runCommand(cmd, stdin, read_iterations=8):
     """
@@ -275,7 +275,6 @@ def runCommand(cmd, stdin, read_iterations=8):
         debug('stderr of child:')
         debug(child.childerr.read())
         raise
-
 
     outfile = child.fromchild
     outfd = outfile.fileno()
@@ -300,8 +299,9 @@ def runCommand(cmd, stdin, read_iterations=8):
                 erreof = 1
             else:
                 errdata += errchunk
-        if outeof and erreof: break
-        time.sleep(0.3) # give a little time for buffers to fill
+        if outeof and erreof:
+            break
+        time.sleep(0.3)  # give a little time for buffers to fill
 
     child.fromchild.close()
     child.childerr.close()
@@ -312,16 +312,16 @@ def runCommand(cmd, stdin, read_iterations=8):
         time.sleep(1)
         error("Child doesn't want to exit, TERM signal sent.")
         os.kill(child.pid, signal.SIGTERM)
-        time.sleep(1.2) # time to exit
+        time.sleep(1.2)  # time to exit
         status = os.waitpid(child.pid, os.WNOHANG)
 
         if status[0] == 0:
             error("Child doesn't want to die, KILL signal sent.")
             os.kill(child.pid, signal.SIGKILL)
-            time.sleep(1.2) # time to exit
+            time.sleep(1.2)  # time to exit
             status = os.waitpid(child.pid, os.WNOHANG)
 
-    stat = 9 # by default assume error
+    stat = 9  # by default assume error
     if outeof and erreof and (status[0] == child.pid) and os.WIFEXITED(status[1]):
         stat = os.WEXITSTATUS(status[1])
     return stat, outdata, errdata
@@ -331,12 +331,12 @@ def main():
     global verbose
     global config
     global configfile
-    global iso_format
+    global iso3339_date_format
 
     error_seen = False
     # parse command line options
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'c:v', []) #@UnusedVariable
+        opts, args = getopt.getopt(sys.argv[1:], 'c:v', [])  # @UnusedVariable
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -351,8 +351,8 @@ def main():
             sys.exit(2)
     # read configuration file
     config = ConfigParser.ConfigParser(
-        {'procdir':'/usr/libexec/transproc',
-         'logfile':'/var/log/transproc.log',
+        {'procdir': '/usr/libexec/transproc',
+         'logfile': '/var/log/transproc.log',
          'backendcmd_max_read_iterations': '30'}
     )
     config.read(configfile)
@@ -385,8 +385,6 @@ def main():
     file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
     file_handler.setLevel(loglevel)
     logger.addHandler(file_handler)
-
-
 
     # iterate over other sections in config
     processors = []
@@ -465,11 +463,11 @@ def main():
             if not config.has_option(section, 'start_date_format'):
                 error('start_date_format directive must be set in %s section' % section)
                 sys.exit(2)
-            start_date_format=config.get(section, 'start_date_format')
+            start_date_format = config.get(section, 'start_date_format')
             if not config.has_option(section, 'end_date_format'):
                 error('end_date_format directive must be set in %s section' % section)
                 sys.exit(2)
-            end_date_format=config.get(section, 'end_date_format')
+            end_date_format = config.get(section, 'end_date_format')
             if not config.has_option(section, 'end_date'):
                 error('end_date directive must be set in %s section' % section)
                 sys.exit(2)
@@ -479,26 +477,26 @@ def main():
                     end_date = datetime.datetime.today()
                 else:
                     try:
-                        end_date = datetime.datetime.strptime(end_date, iso_format)
+                        end_date = datetime.datetime.strptime(end_date, iso3339_date_format)
                     except ValueError:
-                        error('end_date directive must be date in ISO format %%Y-%%m-%%d in %s section' % section)
+                        error('end_date directive must be date in ISO format %s in %s section' % iso3339_date_format, section)
                         sys.exit(2)
             if not config.has_option(section, 'interval'):
                 error('interval directive must be set in %s section' % section)
                 sys.exit(2)
             try:
-                interval = int(config.get(section,'interval'))
+                interval = int(config.get(section, 'interval'))
             except ValueError:
                 error('interval directive must be integer in %s section' % section)
                 sys.exit(2)
-            if not interval in range(25):
+            if interval not in range(25):
                 error('interval directive must be from interval (0-25) in %s section' % section)
                 sys.exit(2)
-            interval=relativedelta(months=interval)
+            interval = relativedelta(months=interval)
             if config.has_option(section, 'url'):
-                url = config.get(section, 'url')
+                proc.url = config.get(section, 'url')
                 start_date = end_date - interval
-                proc.url = url.replace('{START_DATE}', start_date.strftime(start_date_format))
+                proc.url = proc.url.replace('{START_DATE}', start_date.strftime(start_date_format))
                 if end_date_format:
                     proc.url = proc.url.replace('{END_DATE}', end_date.strftime(end_date_format))
             else:
@@ -522,7 +520,7 @@ def main():
             continue
         for statement_file in statement_files:
             proc.process_statement_file(statement_file)
-            #if not proc.error_seen and proc.data_type == 'statement':
+            # if not proc.error_seen and proc.data_type == 'statement':
             #    proc.save_statement_file(statement_file)
             if not proc.error_seen:
                 proc.upload_xml(statement_file)

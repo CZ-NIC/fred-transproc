@@ -514,9 +514,6 @@ def main():
     # end of configuration
     # action begins now
     for proc in processors:
-        if __debug__:
-            print(proc.url)
-
         proc.init_source()
         if proc.error_seen:
             error_seen = True

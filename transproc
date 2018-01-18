@@ -62,7 +62,7 @@ class Processor(object):
         #    stderr: errors
         try:
             (status, outxml, err) = runCommand(self.script, statement_file['octets'])
-        except Exception, e:
+        except Exception as e:
             error('[%s]: execution of processor failed: %s' % (self.name, e))
             error(traceback.format_exc())
             self.error_seen = True
@@ -235,7 +235,7 @@ class HTTPProcessor(Processor):
             else:
                 self.error_seen = True
                 error('[%s]: HTTP source returned code %s' % (self.name, page.code))
-        except (IOError, urllib2.URLError), e:
+        except (IOError, urllib2.URLError) as e:
             self.error_seen = True
             error('[%s]: Failed to connect to HTTP source:\n%s' % (self.name, e))
 
@@ -267,7 +267,7 @@ def runCommand(cmd, stdin, read_iterations=8):
         if (stdin):
             child.tochild.write(stdin)
         child.tochild.close()
-    except IOError, e:
+    except IOError as e:
         error('Writing/closing stdin of child process coused IOERRor number %s' % e.errno)
         # try to read stdin & stderr
         debug('stdout of child:')

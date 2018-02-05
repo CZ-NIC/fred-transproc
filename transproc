@@ -11,7 +11,7 @@ from dateutil.relativedelta import relativedelta
 verbose = False
 config = None
 configfile = "/usr/etc/fred/transproc.conf"
-iso3339_date_format = '%Y-%m-%d'
+iso_date_format = '%Y-%m-%d'
 logfile = None
 
 
@@ -331,7 +331,7 @@ def main():
     global verbose
     global config
     global configfile
-    global iso3339_date_format
+    global iso_date_format
 
     error_seen = False
     # parse command line options
@@ -477,9 +477,9 @@ def main():
                     end_date = datetime.datetime.today()
                 else:
                     try:
-                        end_date = datetime.datetime.strptime(end_date, iso3339_date_format)
+                        end_date = datetime.datetime.strptime(end_date, iso_date_format)
                     except ValueError:
-                        error('end_date directive must be date in ISO format %s in %s section' % iso3339_date_format, section)
+                        error('end_date directive must be date in ISO format %s in %s section' % iso_date_format, section)
                         sys.exit(2)
             if not config.has_option(section, 'interval'):
                 error('interval directive must be set in %s section' % section)

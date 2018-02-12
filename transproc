@@ -460,20 +460,14 @@ def main():
             if not config.has_option(section, 'processor'):
                 error('processor directive must be set in %s section' % section)
                 sys.exit(2)
-            if not config.has_option(section, 'start_date_format'):
-                error('start_date_format directive must be set in %s section' % section)
-                sys.exit(2)
-            start_date_format = config.get(section, 'start_date_format')
-            if not config.has_option(section, 'end_date_format'):
-                error('end_date_format directive must be set in %s section' % section)
-                sys.exit(2)
-            end_date_format = config.get(section, 'end_date_format')
-            if not config.has_option(section, 'end_date'):
-                error('end_date directive must be set in %s section' % section)
-                sys.exit(2)
-            else:
+            today = 'TODAY'
+            if config.has_option(section, 'end_date'):
                 end_date = config.get(section, 'end_date')
-                if end_date == 'TODAY':
+            else:
+                end_date = today
+            if config.has_option(section, 'url'):
+                proc.url = config.get(section, 'url')
+                if end_date == today:
                     end_date = datetime.datetime.today()
                 else:
                     try:
@@ -481,31 +475,42 @@ def main():
                     except ValueError:
                         error('end_date directive must be date in ISO format %s in %s section' % iso_date_format, section)
                         sys.exit(2)
-            if not config.has_option(section, 'interval'):
-                error('interval directive must be set in %s section' % section)
-                sys.exit(2)
-            try:
-                interval = int(config.get(section, 'interval'))
-            except ValueError:
-                error('interval directive must be integer in %s section' % section)
-                sys.exit(2)
-            if interval not in range(25):
-                error('interval directive must be from interval (0-25) in %s section' % section)
-                sys.exit(2)
-            interval = relativedelta(months=interval)
-            if config.has_option(section, 'url'):
-                proc.url = config.get(section, 'url')
-                start_date = end_date - interval
-                start_date_string = start_date.strftime(start_date_format)
-                if start_date_string == start_date_format:
-                    error('value of start_date_format could not be used for setting of date in %s section' % section)
-                    sys.exit(2)
-                end_date_string = end_date.strftime(end_date_format)
-                if end_date_string == end_date_format:
-                    error('value of end_date_format could not be used for setting of date in %s section' % section)
-                    sys.exit(2)
-                proc.url = proc.url.replace('{START_DATE}', start_date_string)
-                proc.url = proc.url.replace('{END_DATE}', end_date_string)
+                start_date_placeholder = '{START_DATE}'
+                if start_date_placeholder in proc.url:
+                    if not config.has_option(section, 'start_date_format'):
+                        error('start_date_format directive must be set for url with placeholder in %s section' % section)
+                        sys.exit(2)
+                    start_date_format = config.get(section, 'start_date_format')
+                    if not config.has_option(section, 'interval'):
+                                error('interval directive must be set for url with placeholder in %s section' % section)
+                                sys.exit(2)
+                    else:
+                        try:
+                            interval = int(config.get(section, 'interval'))
+                        except ValueError:
+                            error('interval directive must be integer in %s section' % section)
+                            sys.exit(2)
+                        if interval not in range(25):
+                            error('interval directive must be from interval (0-25) in %s section' % section)
+                            sys.exit(2)
+                        interval = relativedelta(months=interval)
+                    start_date = end_date - interval
+                    start_date_string = start_date.strftime(start_date_format)
+                    if start_date_string == start_date_format:
+                        error('value of start_date_format could not be used for setting of date in %s section' % section)
+                        sys.exit(2)
+                    proc.url = proc.url.replace(start_date_placeholder, start_date_string)
+                end_date_placeholder = '{END_DATE}'
+                if end_date_placeholder in proc.url:
+                    if not config.has_option(section, 'end_date_format'):
+                        error('end_date_format directive must be set for url with placeholder in %s section' % section)
+                        sys.exit(2)
+                    end_date_format = config.get(section, 'end_date_format')
+                    end_date_string = end_date.strftime(end_date_format)
+                    if end_date_string == end_date_format:
+                        error('value of end_date_format could not be used for setting of date in %s section' % section)
+                        sys.exit(2)
+                    proc.url = proc.url.replace(end_date_placeholder, end_date_string)
             else:
                 error('url directive must be set in %s section' % section)
                 sys.exit(2)

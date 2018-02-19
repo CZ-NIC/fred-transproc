@@ -449,7 +449,7 @@ def parse_config_section(config, section):
         else:
             error('url directive must be set in %s section' % section)
             sys.exit(2)
-        return proc
+    return proc
 
 def main():
     global verbose

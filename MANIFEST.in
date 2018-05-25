@@ -1,2 +1,4 @@
 include fred-transproc.spec
-include MANIFEST.in
+graft examples
+graft doc
+include ChangeLog

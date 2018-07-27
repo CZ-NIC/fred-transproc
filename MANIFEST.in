@@ -1,4 +1,4 @@
-include fred-transproc.spec
+include contrib/fedora/fred-transproc.spec
 graft examples
 graft doc
 include ChangeLog

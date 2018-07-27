@@ -15,7 +15,7 @@ Prefix: %{_prefix}
 BuildArch: noarch
 Vendor: CZ.NIC <fred@nic.cz>
 Url: https://fred.nic.cz/
-BuildRequires: fred-distutils
+BuildRequires: python-setuptools
 Requires: python fred-server
 
 %description
@@ -24,16 +24,15 @@ Component of FRED (Fast Registry for Enum and Domains)
 %prep
 %setup -n %{name}-%{unmangled_version}
 
-%build
-python setup.py build
-
-
 %install
-python setup.py install -cO2 --force --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES --prefix=/usr --install-sysconf=/etc --install-localstate=/var --no-check-deps
+python setup.py install -cO2 --force --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES --prefix=/usr
 
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/fred/
+install examples/transproc.conf $RPM_BUILD_ROOT/%{_sysconfdir}/fred/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files -f INSTALLED_FILES
 %defattr(-,root,root)
+%config %{_sysconfdir}/fred/transproc.conf

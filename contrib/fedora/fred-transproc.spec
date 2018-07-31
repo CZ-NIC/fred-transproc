@@ -30,9 +30,16 @@ python setup.py install -cO2 --force --root=$RPM_BUILD_ROOT --record=INSTALLED_F
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/fred/
 install examples/transproc.conf $RPM_BUILD_ROOT/%{_sysconfdir}/fred/
 
+mkdir -p $RPM_BUILD_ROOT/%{_docdir}/fred-transproc/
+install ChangeLog $RPM_BUILD_ROOT/%{_docdir}/fred-transproc/
+install README $RPM_BUILD_ROOT/%{_docdir}/fred-transproc/
+install doc/backend.xml $RPM_BUILD_ROOT/%{_docdir}/fred-transproc/
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files -f INSTALLED_FILES
 %defattr(-,root,root)
 %config %{_sysconfdir}/fred/transproc.conf
+%docdir %{_docdir}/fred-transproc/
+%{_docdir}/fred-transproc/

@@ -1,2 +1,4 @@
-include fred-transproc.spec
-include MANIFEST.in
+include contrib/fedora/fred-transproc.spec
+graft examples
+graft doc
+include ChangeLog

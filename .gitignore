@@ -1,2 +1,6 @@
 *.pyc
-RELEASE-VERSION
+# Packaging
+/build
+/fred_transproc.egg-info
+/fred-transproc-*/
+/dist

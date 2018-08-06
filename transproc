@@ -81,8 +81,7 @@ class Processor(object):
             debug('[%s]: message processed by processor' % (self.name))
             statement_file['outxml'] = outxml
 
-    def upload_xml(self, statement_file):
-        # update database
+    def run_backend_command_on_output_xml(self, statement_file):
         outxml = statement_file.get('outxml')
         if outxml == '':
             debug('[%s]: Statement file have empty outxml (propably no payments in input source).' % self.name)
@@ -540,7 +539,7 @@ def main():
             # if not proc.error_seen and proc.data_type == 'statement':
             #    proc.save_statement_file(statement_file)
             if not proc.error_seen:
-                proc.upload_xml(statement_file)
+                proc.run_backend_command_on_output_xml(statement_file)
             else:
                 error_seen = True
 

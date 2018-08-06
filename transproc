@@ -98,10 +98,17 @@ class Processor(object):
             os.close(tmp_file)
 
         try:
-            cmd = '%s --bank_import_xml' % config.get('general', 'backendcmd')
-
+            cmd = config.get('general', 'backend_payments_cmd')
             if save_statement:
-                cmd += ' --bank_statement_file=%s --bank_statement_file_mimetype=%s' % (tmp_filename, self.data_mimetype)
+                try:
+                    cmd = config.get('general', 'backend_statement_cmd')
+                except ConfigParser.NoOptionError:
+                    cmd = config.get('general', 'backend_payments_cmd')
+                try:
+                    cmd = cmd.format(STATEMENT_FILE=tmp_filename, STATEMENT_FILE_MIMETYPE=self.data_mimetype)
+                except KeyError:
+                    error('[%s] Error when composing backend command arguments (%s)' % (self.name, str(e)))
+                    return
             if self.input_encoding != 'utf8':
                 outxml = outxml.decode(self.input_encoding).encode('utf8')
 
@@ -481,8 +488,8 @@ def main():
     )
     config.read(configfile)
 
-    if not config.has_option('general', 'backendcmd'):
-        error('Backend command in configuration file must be set')
+    if not config.has_option('general', 'backend_payments_cmd'):
+        error('Backend payments processing command in configuration file must be set')
         sys.exit(2)
 
     if not config.has_option('general', 'logfile'):

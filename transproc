@@ -332,7 +332,8 @@ def runCommand(cmd, stdin, read_iterations=8):
         stat = os.WEXITSTATUS(status[1])
     return stat, outdata, errdata
 
-def parse_config_section(config, section):
+
+def configure_processor_common_parameters(config, section):
     if config.has_option(section, 'type'):
         if config.get(section, 'type') == 'imap':
             proc = IMAPProcessor(section)
@@ -368,46 +369,53 @@ def parse_config_section(config, section):
     if config.has_option(section, 'input_encoding'):
         proc.input_encoding = config.get(section, 'input_encoding')
 
-    if proc.type == 'imap':
+    return proc
+
+
+def configure_processor_imap_parameters(processor, config, section):
+    if processor.type == 'imap':
         if not config.has_option(section, 'imaphost'):
             error('imaphost directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imaphost = config.get(section, 'imaphost')
+        processor.imaphost = config.get(section, 'imaphost')
         if not config.has_option(section, 'imappass'):
             error('imappass directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imappass = config.get(section, 'imappass')
+        processor.imappass = config.get(section, 'imappass')
         if not config.has_option(section, 'imapuser'):
             error('imapuser directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imapuser = config.get(section, 'imapuser')
+        processor.imapuser = config.get(section, 'imapuser')
         if not config.has_option(section, 'imapfolder'):
             error('imapfolder directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imapfolder = config.get(section, 'imapfolder')
+        processor.imapfolder = config.get(section, 'imapfolder')
         if not config.has_option(section, 'imapssl'):
             error('imapssl directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imapssl = config.getboolean(section, 'imapssl')
+        processor.imapssl = config.getboolean(section, 'imapssl')
         if not config.has_option(section, 'fromhead'):
             error('fromhead directive must be set in %s section' % section)
             sys.exit(2)
-        proc.fromhead = config.get(section, 'fromhead')
+        processor.fromhead = config.get(section, 'fromhead')
         if config.has_option(section, 'part'):
-            proc.part = config.getint(section, 'part')
+            processor.part = config.getint(section, 'part')
         if config.has_option(section, 'subject_filter'):
-            proc.subject_filter = config.get(section, 'subject_filter')
-    elif proc.type == 'http':
-        if not config.has_option(section, 'processor'):
-            error('processor directive must be set in %s section' % section)
-            sys.exit(2)
+            processor.subject_filter = config.get(section, 'subject_filter')
+    else:
+        error('wrong processor type')
+        sys.exit(2)
+
+
+def configure_processor_http_parameters(processor, config, section):
+    if processor.type == 'http':
         today = 'TODAY'
         if config.has_option(section, 'end_date'):
             end_date = config.get(section, 'end_date')
         else:
             end_date = today
         if config.has_option(section, 'url'):
-            proc.url = config.get(section, 'url')
+            processor.url = config.get(section, 'url')
             if end_date == today:
                 end_date = datetime.datetime.today()
             else:
@@ -417,7 +425,7 @@ def parse_config_section(config, section):
                     error('end_date directive must be date in ISO format %s in %s section' % iso_date_format, section)
                     sys.exit(2)
             start_date_placeholder = '{START_DATE}'
-            if start_date_placeholder in proc.url:
+            if start_date_placeholder in processor.url:
                 if not config.has_option(section, 'start_date_format'):
                     error('start_date_format directive must be set for url with placeholder in %s section' % section)
                     sys.exit(2)
@@ -440,9 +448,9 @@ def parse_config_section(config, section):
                 if start_date_string == start_date_format:
                     error('value of start_date_format could not be used for setting of date in %s section' % section)
                     sys.exit(2)
-                proc.url = proc.url.replace(start_date_placeholder, start_date_string)
+                processor.url = processor.url.replace(start_date_placeholder, start_date_string)
             end_date_placeholder = '{END_DATE}'
-            if end_date_placeholder in proc.url:
+            if end_date_placeholder in processor.url:
                 if not config.has_option(section, 'end_date_format'):
                     error('end_date_format directive must be set for url with placeholder in %s section' % section)
                     sys.exit(2)
@@ -451,10 +459,18 @@ def parse_config_section(config, section):
                 if end_date_string == end_date_format:
                     error('value of end_date_format could not be used for setting of date in %s section' % section)
                     sys.exit(2)
-                proc.url = proc.url.replace(end_date_placeholder, end_date_string)
+                processor.url = processor.url.replace(end_date_placeholder, end_date_string)
         else:
             error('url directive must be set in %s section' % section)
             sys.exit(2)
+
+
+def parse_config_section(config, section):
+    proc = configure_processor_common_parameters(config, section)
+    if proc.type == 'imap':
+        configure_processor_imap_parameters(proc, config, section)
+    elif proc.type == 'http':
+        configure_processor_http_parameters(proc, config, section)
     return proc
 
 def main():

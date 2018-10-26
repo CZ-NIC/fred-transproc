@@ -1,3 +1,13 @@
+2018-10-26 (1.5.0)
+
+    * Generalize backend command configuration
+        * backend_payment_cmd
+        * backend_statement_cmd (see command placeholders in example configuration)
+
+    * Use setuptools for packaging
+
+    * COPR build
+
 2018-02-14 (1.4.0)
 
     * Add support for dynamic date interval in url for http sources

@@ -14,7 +14,7 @@ BuildArch: noarch
 Vendor: CZ.NIC <fred@nic.cz>
 Url: https://fred.nic.cz/
 BuildRequires: python-setuptools
-Requires: python fred-server python-dateutil
+Requires: python python-dateutil
 
 %description
 Component of FRED (Fast Registry for Enum and Domains)

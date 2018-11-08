@@ -11,7 +11,7 @@ DATA_FILES = [
 ]
 
 setup(name=PROJECT_NAME,
-      version='1.4.0',
+      version='1.5.0',
       author='Jan Kryl',
       author_email='developers@nic.cz',
       url='http://fred.nic.cz/',

@@ -105,7 +105,7 @@ if __name__ == '__main__':
             memo = tr.findtext(tag_memo, "")[:64]
             crtime = '' # time when we inserted it to our database (transproc don't fill it)
 
-            type = "" # only for output for backend, transproc leaves this blank
+            type = "1"  # not decided (not processed)
 
             # all payments in FIO XML are realized:
             status = "1" # 1-Realized (only this should be further processed)

@@ -7,7 +7,7 @@ from setuptools import setup
 
 PROJECT_NAME = 'fred-transproc'
 DATA_FILES = [
-    ('libexec/%s' % PROJECT_NAME, ['proc_csob_xml.py', 'proc_ebanka_csv.py', 'proc_ebanka.py', 'proc_fio_xml.py']),
+    ('libexec/%s' % PROJECT_NAME, ['proc_csob_xml.py', 'proc_ebanka_csv.py', 'proc_fio_xml.py']),
 ]
 
 setup(name=PROJECT_NAME,

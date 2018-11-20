@@ -82,7 +82,7 @@ if __name__ == '__main__':
             # and be sure that it will not be processed by backend
             # till correct price in CZK is known
             price = 0
-        type = "" # only for output for backend, transproc leaves this blank
+        type = "1"  # not decided (not processed)
 
         # status
         #    * 1-Realized (only this should be further processed)

@@ -59,7 +59,7 @@ if __name__ == '__main__':
         elif code in ("DR", "CR"):
             code = "2"
 
-        type = "" # only for output for backend, transproc leaves this blank
+        type = "1"  # not decided (not processed)
 
         # all payments in CSOB XML are realized:
         status = "1"

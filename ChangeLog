@@ -8,6 +8,8 @@
 
     * COPR build
 
+    * Removed obsolete processor proc_ebanka.py
+
 2018-02-14 (1.4.0)
 
     * Add support for dynamic date interval in url for http sources

@@ -7,6 +7,8 @@ import os, os.path, time, datetime, popen2, select, ConfigParser, fcntl
 import logging
 from email.Parser import Parser
 from dateutil.relativedelta import relativedelta
+import zeep
+import requests
 
 verbose = False
 config = None
@@ -251,6 +253,59 @@ class HTTPProcessor(Processor):
         return [statement_file]
 
 
+class CSOBCEBProcessor(Processor):
+
+    def __init__(self, name):
+        super(CSOBCEBProcessor, self).__init__(name)
+        self.type = 'csob_ceb'
+        self.api_endpoint = 'https://ceb-bc.csob.cz/cebbc/api'
+        self.wsdl_file = None
+        self.cert_file = None
+        self.key_file = None
+        self.contract_number = None
+        self.client = None
+        self.client_history = None
+        self.service = None
+
+    def init_source(self):
+        self.client_history = zeep.plugins.HistoryPlugin()
+        session = requests.Session()
+        session.cert = (self.cert_file, self.key_file)
+        transport = zeep.transports.Transport(session=session)
+        self.client = zeep.Client(self.wsdl_file, transport=transport, plugins=[self.client_history])
+        self.service = self.client.create_service('{http://ceb-bc.csob.cz/CEBBCWS}CEBBCWSBinding', self.api_endpoint)
+
+    def get_statements(self):
+        statement_files = []
+
+        # XXX: Hardcoded interval
+        from_date = datetime.datetime.today() - datetime.timedelta(days=3)
+        files = self.service.GetDownloadFileList_v2(self.contract_number, from_date)
+        for file_info in files['FileList']['FileDetail']:
+            f_url = file_info['Url']
+            f_name = file_info['Filename']
+            f_size = file_info['Size']
+            f_type = file_info['Type']
+            f_status = file_info['Status']
+
+            if f_type.lower() == 'vypis' and f_name.lower().endswith('.xml'):
+                debug('[{}]: file to download: filename={} size={} status={} url={}'.format(
+                    self.name, f_name, f_size, f_status, f_url
+                ))
+                rsp = requests.get(f_url, cert=(self.cert_file, self.key_file))
+                if rsp.ok:
+                    debug('[{}]: {}: download ok'.format(self.name, f_name))
+                    statement_file = {}
+                    statement_file['filename'] = f_name
+                    statement_file['mimetype'] = self.data_mimetype
+                    statement_file['octets'] = rsp.content
+                    statement_files.append(statement_file)
+
+        debug('[{}]: {} new files'.format(self.name, len(statement_files)))
+        return statement_files
+
+
+
 def makeNonBlocking(fd):
     """
     Set non-blocking attribute on file.
@@ -339,6 +394,8 @@ def configure_processor_common_parameters(config, section):
             proc = IMAPProcessor(section)
         elif config.get(section, 'type') == 'http':
             proc = HTTPProcessor(section)
+        elif config.get(section, 'type') == 'csob_ceb':
+            proc = CSOBCEBProcessor(section)
         else:
             error('type directive must be set in %s section' % section)
             sys.exit(2)
@@ -468,12 +525,50 @@ def configure_processor_http_parameters(processor, config, section):
         sys.exit(2)
 
 
+def configure_processor_csob_ceb_parameters(processor, config, section):
+
+    class ConfigWrapper:
+        def __init__(self, config, section, error_handler=None):
+            self.config = config
+            self.section = section
+            self.error_handler = error_handler
+
+        def get_mandatory(self, option_name):
+            try:
+                return self.config.get(section, option_name)
+            except ConfigParser.NoOptionError:
+                self.error_handler(section_name, option_name)
+
+        def get_optional(self, option_name, default=None):
+            try:
+                return self.config.get(section, option_name)
+            except ConfigParser.NoOptionError:
+                return default
+
+    def log_and_exit_on_error_handler(section_name, option_name):
+        error('{} option must be set in {} section'.format(option_name, section_name))
+        sys.exit(2)
+
+    if processor.type == 'csob_ceb':
+        config_wrapper = ConfigWrapper(config, section, error_handler=log_and_exit_on_error_handler)
+        processor.api_endpoint = config_wrapper.get_optional('api_endpoint')
+        processor.wsdl_file = config_wrapper.get_mandatory('wsdl_file')
+        processor.cert_file = config_wrapper.get_mandatory('cert_file')
+        processor.key_file = config_wrapper.get_mandatory('key_file')
+        processor.contract_number = int(config_wrapper.get_mandatory('contract_number'))
+    else:
+        error('wrong processor type')
+        sys.exit(2)
+
+
 def parse_config_section(config, section):
     proc = configure_processor_common_parameters(config, section)
     if proc.type == 'imap':
         configure_processor_imap_parameters(proc, config, section)
     elif proc.type == 'http':
         configure_processor_http_parameters(proc, config, section)
+    elif proc.type == 'csob_ceb':
+        configure_processor_csob_ceb_parameters(proc, config, section)
     return proc
 
 def main():

@@ -463,6 +463,9 @@ def configure_processor_http_parameters(processor, config, section):
         else:
             error('url directive must be set in %s section' % section)
             sys.exit(2)
+    else:
+        error('wrong processor type')
+        sys.exit(2)
 
 
 def parse_config_section(config, section):

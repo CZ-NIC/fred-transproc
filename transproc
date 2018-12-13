@@ -551,7 +551,7 @@ def configure_processor_csob_ceb_parameters(processor, config, section):
 
     if processor.type == 'csob_ceb':
         config_wrapper = ConfigWrapper(config, section, error_handler=log_and_exit_on_error_handler)
-        processor.api_endpoint = config_wrapper.get_optional('api_endpoint')
+        processor.api_endpoint = config_wrapper.get_optional('api_endpoint', default=processor.api_endpoint)
         processor.wsdl_file = config_wrapper.get_mandatory('wsdl_file')
         processor.cert_file = config_wrapper.get_mandatory('cert_file')
         processor.key_file = config_wrapper.get_mandatory('key_file')

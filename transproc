@@ -259,6 +259,7 @@ class CSOBCEBProcessor(Processor):
         super(CSOBCEBProcessor, self).__init__(name)
         self.type = 'csob_ceb'
         self.api_endpoint = 'https://ceb-bc.csob.cz/cebbc/api'
+        self.interval = 30
         self.wsdl_file = None
         self.cert_file = None
         self.key_file = None
@@ -278,8 +279,7 @@ class CSOBCEBProcessor(Processor):
     def get_statements(self):
         statement_files = []
 
-        # XXX: Hardcoded interval
-        from_date = datetime.datetime.today() - datetime.timedelta(days=3)
+        from_date = datetime.datetime.today() - datetime.timedelta(days=self.interval)
         files = self.service.GetDownloadFileList_v2(self.contract_number, from_date)
         for file_info in files['FileList']['FileDetail']:
             f_url = file_info['Url']
@@ -552,6 +552,7 @@ def configure_processor_csob_ceb_parameters(processor, config, section):
     if processor.type == 'csob_ceb':
         config_wrapper = ConfigWrapper(config, section, error_handler=log_and_exit_on_error_handler)
         processor.api_endpoint = config_wrapper.get_optional('api_endpoint', default=processor.api_endpoint)
+        processor.interval = config_wrapper.get_optional('interval', default=processor.interval)
         processor.wsdl_file = config_wrapper.get_mandatory('wsdl_file')
         processor.cert_file = config_wrapper.get_mandatory('cert_file')
         processor.key_file = config_wrapper.get_mandatory('key_file')

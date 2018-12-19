@@ -259,7 +259,7 @@ class CSOBCEBProcessor(Processor):
         super(CSOBCEBProcessor, self).__init__(name)
         self.type = 'csob_ceb'
         self.api_endpoint = 'https://ceb-bc.csob.cz/cebbc/api'
-        self.interval = 30
+        self.interval = 45
         self.wsdl_file = None
         self.cert_file = None
         self.key_file = None

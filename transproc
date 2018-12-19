@@ -283,21 +283,14 @@ class CSOBCEBProcessor(Processor):
         files = self.service.GetDownloadFileList_v2(self.contract_number, from_date)
         files_details = files.FileList.FileDetail if files.FileList else []
         for file_info in files_details:
-            f_url = file_info['Url']
-            f_name = file_info['Filename']
-            f_size = file_info['Size']
-            f_type = file_info['Type']
-            f_status = file_info['Status']
-
-            if f_type.lower() == 'vypis' and f_name.lower().endswith('.xml'):
-                debug('[{}]: file to download: filename={} size={} status={} url={}'.format(
-                    self.name, f_name, f_size, f_status, f_url
-                ))
-                rsp = requests.get(f_url, cert=(self.cert_file, self.key_file))
+            if file_info.Type.lower() == 'vypis' and file_info.Filename.lower().endswith('.xml'):
+                debug('[{}]: file to download: filename={f.Filename} size={f.Size} status={f.Status} url={f.Url}'
+                    .format(self.name, f=file_info))
+                rsp = requests.get(file_info.Url, cert=(self.cert_file, self.key_file))
                 if rsp.ok:
-                    debug('[{}]: {}: download ok'.format(self.name, f_name))
+                    debug('[{}]: {}: download ok'.format(self.name, file_info.Filename))
                     statement_file = {}
-                    statement_file['filename'] = f_name
+                    statement_file['filename'] = file_info.Filename
                     statement_file['mimetype'] = self.data_mimetype
                     statement_file['octets'] = rsp.content
                     statement_files.append(statement_file)

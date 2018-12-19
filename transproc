@@ -521,21 +521,25 @@ def configure_processor_http_parameters(processor, config, section):
 
 def configure_processor_csob_ceb_parameters(processor, config, section):
 
-    class ConfigWrapper:
-        def __init__(self, config, section, error_handler=None):
+    class ConfigWrapper(object):
+
+        def __init__(self, config, section_name, error_handler=None):
             self.config = config
-            self.section = section
+            self.section_name = section_name
             self.error_handler = error_handler
 
         def get_mandatory(self, option_name):
             try:
-                return self.config.get(section, option_name)
+                return self.config.get(self.section_name, option_name)
             except ConfigParser.NoOptionError:
-                self.error_handler(section_name, option_name)
+                if self.error_handler:
+                    self.error_handler(self.section_name, option_name)
+                else:
+                    raise
 
         def get_optional(self, option_name, default=None):
             try:
-                return self.config.get(section, option_name)
+                return self.config.get(self.section_name, option_name)
             except ConfigParser.NoOptionError:
                 return default
 

@@ -9,6 +9,7 @@ from email.Parser import Parser
 from dateutil.relativedelta import relativedelta
 import zeep
 import requests
+from enum import Enum
 
 verbose = False
 config = None
@@ -255,6 +256,11 @@ class HTTPProcessor(Processor):
 
 class CSOBCEBProcessor(Processor):
 
+    class FileStatus(str, Enum):
+        not_ready = 'R'
+        ready = 'D'
+        error = 'F'
+
     def __init__(self, name):
         super(CSOBCEBProcessor, self).__init__(name)
         self.type = 'csob_ceb'
@@ -284,16 +290,19 @@ class CSOBCEBProcessor(Processor):
         files_details = files.FileList.FileDetail if files.FileList else []
         for file_info in files_details:
             if file_info.Type.lower() == 'vypis' and file_info.Filename.lower().endswith('.xml'):
-                debug('[{}]: file to download: filename={f.Filename} size={f.Size} status={f.Status} url={f.Url}'
+                debug('[{}]: file to download: filename={f.Filename} crdate={f.CreationDateTime} size={f.Size} status={f.Status} url={f.Url}'
                     .format(self.name, f=file_info))
-                rsp = requests.get(file_info.Url, cert=(self.cert_file, self.key_file))
-                if rsp.ok:
-                    debug('[{}]: {}: download ok'.format(self.name, file_info.Filename))
-                    statement_file = {}
-                    statement_file['filename'] = file_info.Filename
-                    statement_file['mimetype'] = self.data_mimetype
-                    statement_file['octets'] = rsp.content
-                    statement_files.append(statement_file)
+                if file_info.Status == CSOBCEBProcessor.FileStatus.ready:
+                    rsp = requests.get(file_info.Url, cert=(self.cert_file, self.key_file))
+                    if rsp.ok:
+                        debug('[{}]: {}: download ok'.format(self.name, file_info.Filename))
+                        statement_file = {}
+                        statement_file['filename'] = file_info.Filename
+                        statement_file['mimetype'] = self.data_mimetype
+                        statement_file['octets'] = rsp.content
+                        statement_files.append(statement_file)
+                elif file_info.Status == CSOBCEBProcessor.FileStatus.error:
+                    error('[{}] file preparation error on csob side'.format(self.name))
 
         debug('[{}]: {} new files'.format(self.name, len(statement_files)))
         return statement_files

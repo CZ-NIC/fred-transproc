@@ -301,6 +301,8 @@ class CSOBCEBProcessor(Processor):
                         statement_file['mimetype'] = self.data_mimetype
                         statement_file['octets'] = rsp.content
                         statement_files.append(statement_file)
+                    else:
+                        error('[{}] file ({f.Filename}) download error (http-status={})'.format(self.name, rsp.status_code, f=file_info))
                 elif file_info.Status == CSOBCEBProcessor.FileStatus.error:
                     error('[{}] file preparation error on csob side'.format(self.name))
 

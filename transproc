@@ -7,6 +7,9 @@ import os, os.path, time, datetime, popen2, select, ConfigParser, fcntl
 import logging
 from email.Parser import Parser
 from dateutil.relativedelta import relativedelta
+import zeep
+import requests
+from enum import Enum
 
 verbose = False
 config = None
@@ -251,6 +254,65 @@ class HTTPProcessor(Processor):
         return [statement_file]
 
 
+class CSOBCEBProcessor(Processor):
+
+    class FileStatus(str, Enum):
+        not_ready = 'R'
+        ready = 'D'
+        error = 'F'
+
+    def __init__(self, name):
+        super(CSOBCEBProcessor, self).__init__(name)
+        self.type = 'csob_ceb'
+        self.api_endpoint = 'https://ceb-bc.csob.cz/cebbc/api'
+        self.interval = None
+        self.wsdl_file = None
+        self.cert_file = None
+        self.key_file = None
+        self.contract_number = None
+        self.client = None
+        self.client_history = None
+        self.service = None
+
+    def init_source(self):
+        self.client_history = zeep.plugins.HistoryPlugin()
+        session = requests.Session()
+        session.cert = (self.cert_file, self.key_file)
+        transport = zeep.transports.Transport(session=session)
+        self.client = zeep.Client(self.wsdl_file, transport=transport, plugins=[self.client_history])
+        self.service = self.client.create_service('{http://ceb-bc.csob.cz/CEBBCWS}CEBBCWSBinding', self.api_endpoint)
+
+    def get_statements(self):
+        statement_files = []
+
+        from_date = None
+        if self.interval:
+            from_date = datetime.datetime.today() - datetime.timedelta(days=int(self.interval))
+        files = self.service.GetDownloadFileList_v2(self.contract_number, from_date)
+        files_details = files.FileList.FileDetail if files.FileList else []
+        for file_info in files_details:
+            if file_info.Type.lower() == 'vypis' and file_info.Filename.lower().endswith('.xml'):
+                debug('[{}]: file to download: filename={f.Filename} crdate={f.CreationDateTime} size={f.Size} status={f.Status} url={f.Url}'
+                    .format(self.name, f=file_info))
+                if file_info.Status == CSOBCEBProcessor.FileStatus.ready:
+                    rsp = requests.get(file_info.Url, cert=(self.cert_file, self.key_file))
+                    if rsp.ok:
+                        debug('[{}]: {}: download ok'.format(self.name, file_info.Filename))
+                        statement_file = {}
+                        statement_file['filename'] = file_info.Filename
+                        statement_file['mimetype'] = self.data_mimetype
+                        statement_file['octets'] = rsp.content
+                        statement_files.append(statement_file)
+                    else:
+                        error('[{}] file ({f.Filename}) download error (http-status={})'.format(self.name, rsp.status_code, f=file_info))
+                elif file_info.Status == CSOBCEBProcessor.FileStatus.error:
+                    error('[{}] file preparation error on csob side'.format(self.name))
+
+        debug('[{}]: {} new files'.format(self.name, len(statement_files)))
+        return statement_files
+
+
+
 def makeNonBlocking(fd):
     """
     Set non-blocking attribute on file.
@@ -332,12 +394,15 @@ def runCommand(cmd, stdin, read_iterations=8):
         stat = os.WEXITSTATUS(status[1])
     return stat, outdata, errdata
 
-def parse_config_section(config, section):
+
+def configure_processor_common_parameters(config, section):
     if config.has_option(section, 'type'):
         if config.get(section, 'type') == 'imap':
             proc = IMAPProcessor(section)
         elif config.get(section, 'type') == 'http':
             proc = HTTPProcessor(section)
+        elif config.get(section, 'type') == 'csob_ceb':
+            proc = CSOBCEBProcessor(section)
         else:
             error('type directive must be set in %s section' % section)
             sys.exit(2)
@@ -368,46 +433,53 @@ def parse_config_section(config, section):
     if config.has_option(section, 'input_encoding'):
         proc.input_encoding = config.get(section, 'input_encoding')
 
-    if proc.type == 'imap':
+    return proc
+
+
+def configure_processor_imap_parameters(processor, config, section):
+    if processor.type == 'imap':
         if not config.has_option(section, 'imaphost'):
             error('imaphost directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imaphost = config.get(section, 'imaphost')
+        processor.imaphost = config.get(section, 'imaphost')
         if not config.has_option(section, 'imappass'):
             error('imappass directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imappass = config.get(section, 'imappass')
+        processor.imappass = config.get(section, 'imappass')
         if not config.has_option(section, 'imapuser'):
             error('imapuser directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imapuser = config.get(section, 'imapuser')
+        processor.imapuser = config.get(section, 'imapuser')
         if not config.has_option(section, 'imapfolder'):
             error('imapfolder directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imapfolder = config.get(section, 'imapfolder')
+        processor.imapfolder = config.get(section, 'imapfolder')
         if not config.has_option(section, 'imapssl'):
             error('imapssl directive must be set in %s section' % section)
             sys.exit(2)
-        proc.imapssl = config.getboolean(section, 'imapssl')
+        processor.imapssl = config.getboolean(section, 'imapssl')
         if not config.has_option(section, 'fromhead'):
             error('fromhead directive must be set in %s section' % section)
             sys.exit(2)
-        proc.fromhead = config.get(section, 'fromhead')
+        processor.fromhead = config.get(section, 'fromhead')
         if config.has_option(section, 'part'):
-            proc.part = config.getint(section, 'part')
+            processor.part = config.getint(section, 'part')
         if config.has_option(section, 'subject_filter'):
-            proc.subject_filter = config.get(section, 'subject_filter')
-    elif proc.type == 'http':
-        if not config.has_option(section, 'processor'):
-            error('processor directive must be set in %s section' % section)
-            sys.exit(2)
+            processor.subject_filter = config.get(section, 'subject_filter')
+    else:
+        error('wrong processor type')
+        sys.exit(2)
+
+
+def configure_processor_http_parameters(processor, config, section):
+    if processor.type == 'http':
         today = 'TODAY'
         if config.has_option(section, 'end_date'):
             end_date = config.get(section, 'end_date')
         else:
             end_date = today
         if config.has_option(section, 'url'):
-            proc.url = config.get(section, 'url')
+            processor.url = config.get(section, 'url')
             if end_date == today:
                 end_date = datetime.datetime.today()
             else:
@@ -417,7 +489,7 @@ def parse_config_section(config, section):
                     error('end_date directive must be date in ISO format %s in %s section' % iso_date_format, section)
                     sys.exit(2)
             start_date_placeholder = '{START_DATE}'
-            if start_date_placeholder in proc.url:
+            if start_date_placeholder in processor.url:
                 if not config.has_option(section, 'start_date_format'):
                     error('start_date_format directive must be set for url with placeholder in %s section' % section)
                     sys.exit(2)
@@ -440,9 +512,9 @@ def parse_config_section(config, section):
                 if start_date_string == start_date_format:
                     error('value of start_date_format could not be used for setting of date in %s section' % section)
                     sys.exit(2)
-                proc.url = proc.url.replace(start_date_placeholder, start_date_string)
+                processor.url = processor.url.replace(start_date_placeholder, start_date_string)
             end_date_placeholder = '{END_DATE}'
-            if end_date_placeholder in proc.url:
+            if end_date_placeholder in processor.url:
                 if not config.has_option(section, 'end_date_format'):
                     error('end_date_format directive must be set for url with placeholder in %s section' % section)
                     sys.exit(2)
@@ -451,10 +523,64 @@ def parse_config_section(config, section):
                 if end_date_string == end_date_format:
                     error('value of end_date_format could not be used for setting of date in %s section' % section)
                     sys.exit(2)
-                proc.url = proc.url.replace(end_date_placeholder, end_date_string)
+                processor.url = processor.url.replace(end_date_placeholder, end_date_string)
         else:
             error('url directive must be set in %s section' % section)
             sys.exit(2)
+    else:
+        error('wrong processor type')
+        sys.exit(2)
+
+
+def configure_processor_csob_ceb_parameters(processor, config, section):
+
+    class ConfigWrapper(object):
+
+        def __init__(self, config, section_name, error_handler=None):
+            self.config = config
+            self.section_name = section_name
+            self.error_handler = error_handler
+
+        def get_mandatory(self, option_name):
+            try:
+                return self.config.get(self.section_name, option_name)
+            except ConfigParser.NoOptionError:
+                if self.error_handler:
+                    self.error_handler(self.section_name, option_name)
+                else:
+                    raise
+
+        def get_optional(self, option_name, default=None):
+            try:
+                return self.config.get(self.section_name, option_name)
+            except ConfigParser.NoOptionError:
+                return default
+
+    def log_and_exit_on_error_handler(section_name, option_name):
+        error('{} option must be set in {} section'.format(option_name, section_name))
+        sys.exit(2)
+
+    if processor.type == 'csob_ceb':
+        config_wrapper = ConfigWrapper(config, section, error_handler=log_and_exit_on_error_handler)
+        processor.api_endpoint = config_wrapper.get_optional('api_endpoint', default=processor.api_endpoint)
+        processor.interval = config_wrapper.get_optional('interval', default=processor.interval)
+        processor.wsdl_file = config_wrapper.get_mandatory('wsdl_file')
+        processor.cert_file = config_wrapper.get_mandatory('cert_file')
+        processor.key_file = config_wrapper.get_mandatory('key_file')
+        processor.contract_number = int(config_wrapper.get_mandatory('contract_number'))
+    else:
+        error('wrong processor type')
+        sys.exit(2)
+
+
+def parse_config_section(config, section):
+    proc = configure_processor_common_parameters(config, section)
+    if proc.type == 'imap':
+        configure_processor_imap_parameters(proc, config, section)
+    elif proc.type == 'http':
+        configure_processor_http_parameters(proc, config, section)
+    elif proc.type == 'csob_ceb':
+        configure_processor_csob_ceb_parameters(proc, config, section)
     return proc
 
 def main():

@@ -287,7 +287,7 @@ class CSOBCEBProcessor(Processor):
 
         from_date = None
         if self.interval:
-            from_date = datetime.datetime.today() - datetime.timedelta(days=self.interval)
+            from_date = datetime.datetime.today() - datetime.timedelta(days=int(self.interval))
         files = self.service.GetDownloadFileList_v2(self.contract_number, from_date)
         files_details = files.FileList.FileDetail if files.FileList else []
         for file_info in files_details:

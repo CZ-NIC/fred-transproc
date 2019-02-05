@@ -633,7 +633,7 @@ def main():
     if verbose:
         console_handler.setLevel(logging.DEBUG)
     else:
-        console_handler.setLevel(logging.INFO)
+        console_handler.setLevel(logging.ERROR)
     logger.addHandler(console_handler)
 
     loglevel = getattr(logging, config.get('general', 'loglevel').upper(), logging.DEBUG)

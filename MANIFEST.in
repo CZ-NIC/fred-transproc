@@ -1,4 +1,6 @@
 include contrib/fedora/fred-transproc.spec
+include COPYING
+include LICENSE
 graft examples
 graft doc
 include ChangeLog

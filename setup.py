@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2007-2018  CZ.NIC, z. s. p. o.
+# Copyright (C) 2007-2019  CZ.NIC, z. s. p. o.
 #
 # This file is part of FRED.
 #
@@ -29,7 +29,7 @@ DATA_FILES = [
 ]
 
 setup(name=PROJECT_NAME,
-      version='1.5.0',
+      version='1.7.0',
       author='Jan Kryl',
       author_email='developers@nic.cz',
       url='http://fred.nic.cz/',

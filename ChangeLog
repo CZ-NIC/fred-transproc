@@ -2,6 +2,8 @@
 
     * License GNU GPLv3+
 
+    * Fix rpm build
+
 2019-02-05 (1.6.1)
 
     * Change severity of console logger (INFO -> ERROR)

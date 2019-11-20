@@ -13,8 +13,8 @@ Prefix: %{_prefix}
 BuildArch: noarch
 Vendor: CZ.NIC <fred@nic.cz>
 Url: https://fred.nic.cz/
-BuildRequires: python-setuptools
-Requires: python python-dateutil python2-zeep
+BuildRequires: python2-setuptools
+Requires: python2 python2-dateutil python2-zeep
 
 %description
 Component of FRED (Fast Registry for Enum and Domains)

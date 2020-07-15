@@ -1,5 +1,8 @@
+======
+README
+======
 
-This is README file for transproc python script and other related scripts.
+This is a README file for transproc python script and other related scripts.
 The purpose of this script is to connect to data source (IMAP, HTTP...), download
 new data and process them. Processing is done by dedicated scripts,
 where each script handles one transcript format. It is possible to specify
@@ -9,4 +12,4 @@ appropriate processor.
 
 There is a configuration file for transproc, see example transproc.conf
 in repository. The configuration file is searched in /etc/fred directory
-by default. It is possible to specify its location on command line.
+by default. It is possible to specify its location in command line.
